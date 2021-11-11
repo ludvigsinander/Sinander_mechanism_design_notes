@@ -1,0 +1,375 @@
+% Copyright (c) 2020 Carl Martin Ludvig Sinander.
+
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+This chapter concerns repeated allocation problems.
+In each period, the principal has one good, which she can either allocate to the agent or keep.
+The agent has a privately-known valuation $t$ for the good.
+The principal wishes to allocate only to high types of the agent.
+Every type of the agent wants the good, but high types want it more.
+
+Here's an example: the principal is the `dean' of a university, and the agent is a department head. In each year, the department has one (best) job candidate, who may be either decent or excellent.
+The dean only wants to hire excellent researchers.
+The department (which does not internalise the cost to the university of hiring) always wants to hire, but is more keen when its candidate is excellent.
+
+If the agent gets the good, then the agent and principal earn payoffs of $t$ and $t-c$, respectively; otherwise they both get zero.%
+	\footnote{One interpretation is that the principal shares the agent's preferences, except that she also cares about the cost $c$ of producing/allocating the good.}
+Both parties are expected-utility-maximisers who discount their future payoffs with discount factor $\delta \in (0,1)$.
+Monetary transfers are unavailable.
+
+Since there are a lot of periods, let's simplify by having only two types $t \in \{\ell,h\}$.
+We assume that $0 < \ell < c < h$,
+so that the principal wishes to allocate only to high types,
+while all types of the agent want the good (though high types want it more).
+
+Time will be indexed by $n \in \{0,1,\dots\}$.
+The agent's random type process $( T_n )_{n=0}^\infty$ is a stationary Markov chain;
+that just means that there are two fixed `transition probabilities' $u,d \in (0,1)$ (`up' and `down') such that
+%
+\begin{align*}
+	\PP\left( T_{n+1} = h \middle|
+	T_n = t_n, \dots,
+	T_0 = t_0 \right)
+	&= \PP\left( T_{n+1} = h \middle|
+	T_n = t_n \right)
+	\\
+	&=
+	\begin{cases}
+		u		& \text{if $t_n = \ell$} \\
+		1-d		& \text{if $t_n = h$.} 
+	\end{cases}
+\end{align*}
+%
+The initial type $T_0$ is drawn from the stationary distribution of the Markov chain: this is the distribution assigning probability $p \coloneqq u / (u+d)$ to $t=h$.
+We write $\mu$ for its mean: $\mu = (1-p) \ell + p h$.
+
+An important special case is when types are iid over time: $u=1-d$.
+More generally, $u \leq 1-d$ means that the agent's type is persistent (non-negatively auto-correlated).
+\emph{(In §\ref{sec:ch3:guohorner}, we shall assume persistence; in §\ref{sec:ch3:nocommitment} we shall assume iid.)}
+
+In principle, $\mu$ can be on either side of $c$.
+We shall focus on the more interesting case in which $\mu < c$, so that the principal wishes to allocate only if she manages to screen the agent.%
+	\footnote{However, §\ref{sec:ch3:token} does not require this assumption.}
+
+We shall also assume that patience $\delta$ is `high enough' to make screening possible: $\delta > \ell/\mu$.%
+	\footnote{This assumption is also unnecessary in §\ref{sec:ch3:token}.}
+This condition is easily interpreted in the iid case ($u=1-d$):
+it ensures that a low type is willing to forego consumption today if promised that she'll be allowed to consume tomorrow no matter what ($\ell < \delta \mu$).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quota mechanisms}
+\label{sec:ch3:token}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Here's a mechanism:
+the agent freely chooses in each period $n$
+the probability $q_n \in [0,1]$ with which she will consume the good,
+subject to the lifetime budget constraint
+%
+\begin{equation*}
+	(1-\delta) \sum_{n=0}^\infty \delta^n q_n 
+	\leq K ,
+\end{equation*}
+%
+where $K \in [0,1]$ is a constant.
+We could call this a \emph{discounted quota:}
+it caps the discounted total quantity that the agent may consume.
+
+We could just as well replace this lifetime budget constraint with a dynamic budget constraint: the agent starts out with $M_0$ `tokens',
+which may be spent to obtain the good and which accrue interest at rate $\delta^{-1}-1$ if saved:
+%
+\begin{equation*}
+	q_n + M_{n+1}
+	\leq \delta^{-1} M_n 
+	\quad \text{in each period $n$.}
+\end{equation*}
+%
+We impose the no-Ponzi-scheme condition
+%
+\begin{equation*}
+	\lim_{n \to \infty} \delta^n M_n = 0 .
+\end{equation*}
+%
+Then we have
+%
+\begin{align*}
+	M_0
+	&\geq \delta M_1 + \delta q_0
+	\\
+	&\geq \delta ( \delta M_2 + \delta q_1 )
+	+ \delta q_0
+	= \delta^2 M_2
+	+ \delta ( q_0 + \delta q_1 )
+	\\
+	&\geq \delta^2 ( \delta M_3 + \delta q_2 )
+	+ \delta ( q_0 + \delta q_1 )
+	= \delta^3 M_3
+	+ \delta \left( q_0 + \delta q_1 + \delta^2 q_2 \right)
+	\\
+	&\;\; \vdots
+	\\
+	&\geq \lim_{n \to \infty} \delta^n M_n
+	+ \delta \sum_{n=0}^\infty \delta^n q_n 
+	= \delta \sum_{n=0}^\infty \delta^n q_n ,
+\end{align*}
+%
+or
+%
+\begin{equation*}
+	(1-\delta) \sum_{n=0}^\infty \delta^n q_n
+	\leq (1-\delta) \delta^{-1} M_0
+	\eqqcolon K.
+\end{equation*}
+
+The principal's first-best allocation
+is the one in which the agent consumes when and only when her type is high.
+The first-best discounted total quantity is therefore
+%
+\begin{equation*}
+	Q_\delta \coloneqq (1-\delta) \sum_{n=0}^\infty \delta^n \1_{\{h\}}(T_n) .
+\end{equation*}
+%
+Its expected value is
+%
+\begin{equation*}
+	\E( Q_\delta )
+	= (1-\delta) \sum_{n=0}^\infty \delta^n \E\left( \1_{\{h\}}(T_n) \right)
+	= (1-\delta) \sum_{n=0}^\infty \delta^n p
+	= p .
+\end{equation*}
+%
+Given this, a natural choice of $K$ is $K = p$.%
+	\footnote{I am \emph{not} claiming that among discounted-quota mechanisms, the one with $K=p$ gives the principal the highest payoff. That's not true in general.}
+
+The incentive properties of discounted quotas are simple:
+the mechanism leaves the agent no scope to obtain a larger discounted total quantity.
+The only question is thus in \emph{which} periods the agent consumes,
+and this is a dimension along which incentives are aligned:
+both parties prefer for the agent to consume when her type is high.
+
+The mechanism isn't perfect, however, since the principal's first-best discounted total quantity
+%
+\begin{equation*}
+	Q_\delta = (1-\delta) \sum_{n=0}^\infty \delta^n \1_{\{h\}}(T_n)
+\end{equation*}
+%
+is random, not always equal to its expectation $p$.
+If the agent's type is high for several period in a row early on, then the first-best discounted total quantity is greater than $p$,
+but the agent lacks the tokens needed to consume more than $p$.
+Conversely, if her type is initially low for several periods, then she accrues enough saved tokens to be able to purchase the good in some periods in which her type is low.
+
+This problematic variability of $Q_\delta$ is less severe the greater is the discount factor $\delta$.
+To see why,
+assume for simplicity that the agent's type is iid over time ($u=1-d$),
+and calculate
+%
+\begin{align*}
+	\Var( Q_\delta )
+	&= (1-\delta)^2 \sum_{n=0}^\infty
+	\delta^{2n} \Var\left( \1_{\{h\}}(T_n) \right)
+	\\
+	&= (1-\delta)^2 \sum_{n=0}^\infty
+	\delta^{2n} p (1-p)
+	\\
+	&= \frac{ (1-\delta)^2 }{ 1 - \delta^2 } p (1-p)
+	= \frac{ (1-\delta)^2 }{ (1-\delta) (1+\delta) } p (1-p)
+	= \frac{ 1-\delta }{ 1+\delta } p (1-p) .
+\end{align*}
+%
+By inspection, $\Var( Q_\delta )$ vanishes as $\delta$ approaches $1$.
+This suggests that we may expect $Q_\delta$ to be close to $p$
+with high probability if $\delta$ is large.
+That is indeed the case: by invoking Chebyshev's inequality, we obtain
+%
+\begin{equation*}
+	\PP\left( \abs*{ Q_\delta - p } \geq \eps \right)
+	\leq \frac{ \Var( Q_\delta ) }{ \eps^2 } 
+	\quad \text{for any $\eps>0$,}
+\end{equation*}
+%
+so that
+%
+\begin{equation*}
+	\lim_{\delta \uparrow 1 } \PP( \abs*{ Q_\delta - p } \geq \eps )
+	= 0
+	\quad \text{for any $\eps>0$.}
+\end{equation*}
+%
+(In other words, $Q_\delta$ \emph{converges in probability} to $p$ as $\delta \uparrow 1$.
+Such a result is called a \emph{(weak) law of large numbers.})
+
+The discounted-quota mechanism with quota $K=p$
+therefore provides close to the first-best discounted total quantity
+with high probability when $\delta$ is high.
+This suggests, correctly, that if $\delta$ is large, then this discounted-quota mechanism gives the principal a payoff close to her first-best payoff (which is $(h-c) Q_\delta$, by the way---why?).
+In other words, this mechanism is \emph{approximately optimal} (for large $\delta$).
+Note that we haven't quite proved approximate optimality---some extra steps are needed to accomplish that.
+
+
+\begin{remark}
+	%
+	\label{remark:het}
+	%
+	Zooming out, the model is one in which several decisions must be taken;
+	we may re-interpret these as distinct, simultaneously-chosen actions.
+	The principal and agent are still assumed to have payoffs additive across decisions, but the weights assigned to different decisions need not have the geometric form $1, \delta, \delta^2, \dots$.
+	As above, the result is that `linking' many different decisions via a weighted quota can yield good outcome.
+	%
+\end{remark}
+
+
+\paragraph{The literature.}
+\textcite{JacksonSonnenschein2007} showed that the principal's first-best can be approximated by `linking' the allocations across different periods via something like a discounted quota.
+\textcite{Frankel2016jet} is a clear-eyed and general formulation of this idea, with good references references to related work.
+(Neither of these papers considers precisely the model above,
+and the mechanism in Jackson--Sonnenschein is not quite a discounted-quota mechanisms.)
+\textcite{Frankel2016aej} provides a similarly insightful and general treatment of the idea in \Cref{remark:het}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Optimal mechanisms with commitment}
+\label{sec:ch3:guohorner}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we'll assume that the agent's valuation is persistent ($u \leq 1-d$).
+
+Discounted quota mechanisms ensure IC
+precisely by capping the discounted total quantity.
+This inflexibility causes inefficiency, since the first-best discounted total quantity $Q_\delta$ is random.
+Is it possible to improve by supplying a greater discounted total quantity when the agent's type turns out to be high in several early periods, while preserving IC?
+
+Consider the case of two periods, $n \in \{0,1\}$, 
+with iid types ($u = 1-d$),
+and let's neglect discounting ($\delta=1$).
+In the mechanism with quota $K=1$,
+the agent consumes in period $n=0$ if her type is high ($T_0=h$),
+and otherwise waits and consumes in period $n=1$. (Why?)
+The principal's payoff is therefore
+%
+\begin{equation*}
+	p h + (1-p) \mu - c.
+\end{equation*}
+%
+(We're interested in parameters for which this is the best quota mechanism.%
+	\footnote{By $\mu<c$, the principal strictly prefers $K=0$ to $K=2$.
+	She strictly prefers $K=1$ to $K=0$ iff $p h + (1-p) \mu > c$.}%
+)
+Phrased differently, the $n=0$ allocation is efficient,
+while at $n=1$ an agent who was high at $n=0$ gets nothing
+and an agent who was low at $n=0$ gets the good for sure.
+The principal doesn't like handing out the good in period $1$ without screening (since $\mu < c$).
+So let's lower the probability $e$ with which this occurs
+as much as possible, subject to preserving the period-$0$ low type's incentive to forego consumption; this yields $e = \ell / \mu$.
+This mechanism does not cap the total quantity supplied; rather, it provides a smaller total quantity when the agent's period-$0$ type is low.
+
+
+To extend this idea to the full infinite-horizon model with discounting,
+we introduce \emph{entitlement mechanisms:}
+the agent has an \emph{entitlement} to claim the good for a certain number of consecutive periods `no questions asked'.
+Whenever she foregoes the opportunity to obtain the good, her entitlement is augmented.
+
+A little more fully, the agent begins each period with some entitlement $E \in [0,\infty]$.
+If $E>0$, then she may claim the good, in which case her entitlement drops to $E-1$.
+(If $E \in (0,1)$, then she gets the good with probability $E$, and her entitlement drops to zero.)
+If she does not claim the good, then her entitlement rises by some history-dependent amount, possibly to $\infty$.%
+	\footnote{In a period in which the entitlement rises to $\infty$, the agent may in fact also receive the good with positive probability.}
+
+By appropriately choosing the amount by which the agent's entitlement is augmented when she does not claim the good, it is possible to ensure that as long as $E \in (0,\infty)$, the agent is (only just) willing to forego consumption when her type is low. (This clearly implies that she will claim the good when her type is high.)
+In other words, allocation is exactly efficient until $E$ hits $0$ or $\infty$.
+(So inefficiencies are back-loaded.)
+
+The agent's entitlement will eventually hit either $0$ or $\infty$.%
+	\footnote{In finite time, almost surely; this follows from the Borel--Cantelli lemma.}
+We might call the former `termination'
+and the latter `tenure'.
+The discounted total quantity supplied is evidently not constant (by contrast with discounted-quota mechanisms).
+
+
+\paragraph{The literature.}
+\textcite{GuoHorner2020} study this problem, and prove that entitlement mechanisms are optimal.%
+	\footnote{They prove this under an additional `enough-patience' assumption: $\delta > 1/2$.}
+You'll learn a lot by reading it.
+The technique they use to solve for an optimal mechanism is that of \textcite{SpearSrivastava1987}, which is well-worth learning if you're interested in dynamic mechanism design with full commitment and no transfers.
+It offers a general recursive way of formulating dynamic contracting problems (with the agent's promised utility as the state variable).
+(It's a standard enough topic that you can find lecture notes on it; I don't know of a textbook treatment, however. It is most commonly applied to dynamic models of \emph{moral hazard,} rather than adverse selection.)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Optimal mechanisms without commitment}
+\label{sec:ch3:nocommitment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we'll assume that the agent's valuation is iid over time ($u = 1-d$).
+We'll also add an extra `enough patience' assumption:
+%
+\begin{equation*}
+	(1-\delta) (c-\mu)
+	\leq \delta \left( 1 - \frac{c}{\ell} \right) \left( \mu - \ell \right) .
+\end{equation*}
+
+Suppose that the principal lacks the ability to commit over time.
+She can take certain actions (or `commitments', if you prefer) within a given period, but cannot bind her future self.
+What can she achieve?
+
+This is analytically a very different sort of question. The reason is that the principal now also has IC constraints: in each period, the principal must (given her belief) find it optimal to take the action specified by the mechanism.
+
+A different way of thinking about limited commitment is that absent commitment, the agent and principal simply play a game: in particular, a repeated game of incomplete information, with the private information on one side only.
+Each equilibrium of this game induces some allocation,%
+	\footnote{Note that equilibria can differ off the path of play, but still induce the same allocation.}
+and optimal incentive-provision from the principal's perspective
+amounts to playing a principal-preferred equilibrium.
+
+It remains to specify what the principal can commit to (within a period).
+We'll assume that she may commit to a within-period delegation mechanism:
+she either offers the good to the agent or not,
+and if she offers it then the agent may accept or refuse.
+This gives the principal the ability to commit not to allocate (within a given period), which is potentially valuable.
+
+
+The first thing to check is whether relaxing commitment matters:
+if the entitlement mechanism that was optimal under full commitment is an equilibrium outcome, then we'd be done!
+But it's not an equilibrium outcome.
+To see why, consider a history at which the agent's entitlement $E$ has hit $\infty$. (This occurs with positive probability.)
+The agent is now permitted to consume the good in every subsequent period, despite the fact that the principal prefers \emph{not} to allocate absent screening ($\mu < c$).
+Clearly the principal strictly prefers to deviate to never allocate again.
+
+So what \emph{are} equilibrium outcomes?
+And which is the principal's favourite?
+
+
+\paragraph{The literature.} \textcite{LipnowskiRamos2020} characterise principal-optimal equilibria (and more generally, Pareto-optimal equilibria).%
+	\footnote{In their model, the agent learns her type only after being offered the good. This does not make a difference, I believe.
+	In particular, suppose the principal-preferred equilibrium featured the agent conditioning her behaviour in period $n+1$
+	on what her valuation was in period $n$ if she was not offered the good in period $n$.
+	Since her period-$n$ valuation has no statistical effect on her period-$(t+1)$ valuation (that's our iid assumption),
+	this just amounts to the agent randomising in period $n+1$ (when the principal did not offer the good in period $n$);
+	so we can replicate this behaviour by having the agent mix (i.e. she can use her own set of dice to randomise, instead of conditioning her behaviour on the `natural dice' of her previous period's type).}
+Their analysis relies on the `APS' technique \parencite{AbreuPearceStacchetti1990}, which provides a recursive formulation of repeated games with imperfect monitoring. This is a standard (indeed, essential!) tool for analysing repeated interactions without commitment.
+The original APS paper is rather beautiful,
+but you may prefer to learn it from the textbook treatment of \textcite{MailathSamuelson2006}, or from whatever lecture notes you can find around the internet.
+Another nice paper on dynamic allocation without commitment is \textcite{DeclippelEliazFershtmanRozen2021}, who study a model with \emph{two} agents.

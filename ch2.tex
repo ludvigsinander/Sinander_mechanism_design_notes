@@ -1,0 +1,1181 @@
+% Copyright (c) 2020 Carl Martin Ludvig Sinander.
+
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+`Who gets what?' is perhaps the most fundamental question in economics.
+This chapter concerns recent research on that question.
+
+The setting will be the same throughout: there are $I \geq 2$ agents, each of whom has a `type' $t_i$ that is randomly drawn from some set $\mathcal{T}_i$
+according to a probability measure $\mu_i$
+(defined on some $\sigma$-algebra).
+Draws are independent across agents.%
+	\footnote{This is important. When types are correlated, it is `typically' possible to incentivise agents to do essentially anything by offering them monetary bets on the other players' types; see \textcite[§7]{Myerson1981}, \textcite{CremerMclean1988,McafeeReny1992}.}
+In most (but not all) models studied in this chapter, each agent $i$ privately knows her type $t_i$ from the outset.
+
+There is a single indivisible good to be allocated.
+When convenient, we think of this allocation as performed by a `principal'.
+Apart from giving the good to one of the agents, the principal can keep it.
+The agents' preferences and the principal's objective will vary from model to model.
+
+The standard IPV (independent private values) auction model fits this framework.
+Here agent $i$'s type $t_i$ is her privately-known valuation of the good.
+In an \emph{auction,} the agents take some actions (often called `bids'),
+and as a function of these, the good is allocated and monetary payments are made by the agents.
+Agents' payoffs are quasi-linear in money: $q t_i - p$, where $q \in [0,1]$ is $i$'s probability of getting the good, and $p \in \R$ is her payment.
+
+
+In most models considered in this chapter, monetary transfers are not available.
+The design of incentives without the use of monetary transfers is currently a major area of research.
+
+
+Let's fix some terminology and notation.
+An \emph{allocation} is a (measurable) function $q : \mathcal{T}_1 \times \cdots \mathcal{T}_I \to [0,1]^I$ that satisfies $\sum_{i=1}^I q_i \leq 1$;
+the interpretation is that when types are $\boldsymbol{t} \in \mathcal{T}_1 \times \cdots \mathcal{T}_I$, agent $i$ gets the good with probability $q_i(\boldsymbol{t})$.
+We'll use the notation
+%
+\begin{equation*}
+	(t_1,\dots,t_{i-1},t_{i+1},\dots,t_I)
+	\eqqcolon \boldsymbol{t}_{-i}
+	\in \mathcal{T}_{-i}
+	\coloneqq \mathcal{T}_1 \times \cdots \times \mathcal{T}_{i-1}
+	\times \mathcal{T}_{i+1} \times \cdots \times \mathcal{T}_I .
+\end{equation*}
+
+In many models, each agent $i$ privately knows her type $t_i$.
+We can visualise three stages:
+the (perhaps fictional) \emph{ex-ante} stage at which agents do not know anyone's type,
+the \emph{interim} stage at which agents know their own types but not those of others,
+and the \emph{ex-post} stage at which all types are common knowledge.
+
+At the interim stage, given allocation $q$, agent $i$ expects to receive the good with probability
+%
+\begin{equation*}
+	Q_i(t_i)
+	\coloneqq \E_{\boldsymbol{T_{-i}} \sim \mu_{-i}}\left[ q_i(t_i,\boldsymbol{T_{-i}}) \right] .
+\end{equation*}
+%
+This family $(Q_i)_{i=1}^I$ of (measurable) functions, where $Q_i : \mathcal{T}_i \to [0,1]$,
+is called the \emph{interim allocation} induced by the (ex-post) allocation $q$.
+
+In all models we consider, agents have expected-utility preferences, so that their payoffs are linear in $q$; then if agents know their types when they take decisions, it only is the interim allocation that matters for their incentives.
+Similarly, if the principal has an expected-utility objective that is additively separable across agents, then only the interim allocations matter to her.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Border's theorem}
+\label{sec:ch2:border}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+Whereas an allocation $q : [0,1]^I \to [0,1]^I$ is a high-dimensional object,
+its induced interim allocation $(Q_i)_{i=1}^I$ is fairly tractable.
+For this reason, it is frequently far easier to work directly with interim allocations.
+To adopt this approach, we must do some housekeeping first:
+we must determine which families $(Q_i)_{i=1}^I$ of functions
+are legitimately the interim allocation induced by some allocation $q$.
+
+Suppose you give me a \emph{candidate interim allocation,}
+meaning a collection $(Q_i)_{i=1}^I$ of (measurable) functions, where $Q_i$ maps $\mathcal{T}_i$ into $[0,1]$.
+Can I always construct an allocation $q$ that realises this collection as its interim allocation?
+(No. Find a counter-example!)
+
+How, then, can I tell whether a given collection $(Q_i)_{i=1}^I$ is realisable by some $q$? Border's theorem answers this question.
+
+
+\begin{namedthm}[Asymmetric Border's theorem.]
+	%
+	\label{theorem:border_asym}
+	%
+	For a candidate interim allocation $(Q_i)_{i=1}^I$,
+	the following are equivalent:
+	%
+	\begin{enumerate}
+	
+		\item \label{bullet:border_asym:real}
+		$(Q_i)_{i=1}^I$ is realised by some allocation.
+
+		\item \label{bullet:border_asym:ineq}
+		The Border inequality
+		%
+		\begin{equation*}
+			\sum_{i=1}^I \int_{T_i} Q_i \dd \mu_i
+			\leq 1 - \prod_{i=1}^I \left( 1 - \mu_i(T_i) \right)
+		\end{equation*}
+		%
+		holds for all (measurable) sets $T_1 \subseteq \mathcal{T}_1, \dots, T_I \subseteq \mathcal{T}_I$ of types.
+
+		\item \label{bullet:border_asym:alpha}
+		For any $\alpha_1,\dots,\alpha_I \in [0,1]$,
+		the Border inequality holds for the sets $T_i = \{ t_i \in \mathcal{T}_i : Q_i(t_i) \geq \alpha_i \}$.
+	
+	\end{enumerate}
+	%
+\end{namedthm}
+
+
+Item \ref{bullet:border_asym:alpha} is valuable because it reduces the number of inequalities that must be checked to verify realisability (which could be very large if we rely on \ref{bullet:border_asym:ineq})
+to a finite-dimensional family of inequalities.
+
+We won't prove this; instead we'll introduce and prove a symmetric version.
+Call the environment \emph{symmetric} iff all agents' types are drawn from the same type space, call it $\mathcal{T}$,
+according to the same distribution, call it $\mu$.
+A \emph{symmetric candidate interim allocation} is a (measurable) map $Q : T \to [0,1]$;
+we interpret this as the candidate interim allocation $(Q_i)_{i=1}^I$ in which $Q_i = Q$ for every $i$.
+A symmetric allocation $q$ is one such that $q(\boldsymbol{t}) = q(\boldsymbol{t'})$ whenever $\boldsymbol{t'}$ is a permutation of $\boldsymbol{t}$.
+
+\begin{namedthm}[Symmetric Border's theorem.]
+	%
+	\label{theorem:border_sym}
+	%
+	Let the environment be symmetric.
+	For a symmetric candidate interim allocation $Q : \mathcal{T} \to [0,1]$,
+	the following are equivalent:
+	%
+	\begin{enumerate}
+	
+		\item \label{bullet:border_sym:real}
+		$Q$ is realised by some symmetric allocation.
+
+		\item \label{bullet:border_sym:ineq}
+		The Border inequality
+		%
+		\begin{equation*}
+			I \int_T Q \dd \mu
+			\leq 1 - \left( 1 - \mu(T) \right)^I
+		\end{equation*}
+		%
+		holds for all (measurable) sets $T \subseteq \mathcal{T}$ of types.
+
+		\item \label{bullet:border_sym:alpha}
+		For any $\alpha \in [0,1]$,
+		the Border inequality holds for the set $T = \{ t \in \mathcal{T} : Q(t) \geq \alpha \}$.
+	
+	\end{enumerate}
+	%
+\end{namedthm}
+
+We'll prove the equivalence of \ref{bullet:border_sym:real} and \ref{bullet:border_sym:ineq}.
+The necessity of the Border inequalities for realisability is straightforward:
+
+\begin{proof}[Proof that \ref{bullet:border_sym:real} implies \ref{bullet:border_sym:ineq}]
+	%
+	If $Q$ is realised by some symmetric $q$,
+	then for any measurable $T \subseteq \mathcal{T}$,
+	%
+	\begin{align*}
+		\int_T Q \dd \mu
+		&= \PP_{\mu,q}\left( \;\text{Ms. 1 has type in $T$ and gets the good}\; \right)
+		\\
+		&= \PP_{\mu,q}\left( \;\text{someone has type in $T$}\; \right)
+		\\
+		&\quad\times \PP_{\mu,q}\left( \;\parbox{\widthof{someone with type}}{someone with type in $T$ gets the good}\;
+		\middle| \;\text{someone has type in $T$}\; \right)
+		\\
+		&\quad\times \PP_{\mu,q}\left( \;\parbox{\widthof{Ms. 1 has type in $T$}}{Ms. 1 has type in $T$ and gets the good}\;
+		\middle|
+		\;\parbox{\widthof{someone has type in $T$}}{someone has type in $T$ and gets the good}\; \right)
+		\\
+		&\leq \PP_{\mu,q}\left( \;\text{someone has type in $T$}\; \right)
+		\\
+		&\quad\times \PP_{\mu,q}\left( \;\parbox{\widthof{Ms. 1 has type in $T$}}{Ms. 1 has type in $T$ and gets the good}\;
+		\middle|
+		\;\parbox{\widthof{someone has type in $T$}}{someone has type in $T$ and gets the good}\; \right)
+		\\
+		&= \left[ 1 - \left( 1 - \mu(T) \right)^I \right] \times \frac{1}{I} 
+	\end{align*}
+	%
+	by symmetry.
+	%
+\end{proof}
+
+For sufficiency, call a symmetric allocation $q$ \emph{hierarchical}
+iff for some pairwise disjoint and non-empty (measurable) sets $R_1,\dots,R_K \subseteq \mathcal{T}$,
+%
+\begin{itemize}
+
+	\item If there are agents with type in $R_1$,
+	then the good is allocated among these agents by a fair lottery.
+
+	\item If for some $k \in \{1,\dots,K\}$,
+	there are no agents with type in $R_1 \union \cdots \union R_{k-1}$,
+	but there are agents with type in $R_k$,
+	then the good is allocated among these agents by a fair lottery.
+
+\end{itemize}
+%
+Hierarchical allocations are special because they make the Border inequalities tight for certain sets:
+
+\begin{lemma}
+	%
+	\label{lemma:hier}
+	%
+	If a symmetric allocation $q$ is hierarchical with type sets $R_1,\dots,R_K$,
+	then for each $k \in \{1,\dots,K\}$,
+	it satisfies the Border inequality for the set $T = R_1 \union \cdots \union R_k$ with equality.
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	Fix a $k \in \{1,\dots,K\}$,
+	and write $T \coloneqq R_1 \union \cdots \union R_k$.
+	We have
+	%
+	\begin{align*}
+		\int_{T} Q \dd \mu
+		&= \PP_{\mu,q}\left( \;\text{Ms. 1 has type in $T$ and gets the good}\; \right)
+		\\
+		&= \PP_{\mu,q}\left( \;\text{someone has type in $T$}\; \right)
+		\\
+		&\quad\times \PP_{\mu,q}\left( \;\parbox{\widthof{someone with type}}{someone with type in $T$ gets the good}\;
+		\middle| \;\text{someone has type in $T$}\; \right)
+		\\
+		&\quad\times \PP_{\mu,q}\left( \;\parbox{\widthof{Ms. 1 has type in $T$}}{Ms. 1 has type in $T$ and gets the good}\;
+		\middle|
+		\;\parbox{\widthof{someone has type in $T$}}{someone has type in $T$ and gets the good}\; \right)
+		\\
+		&= \left[ 1 - \left( 1 - \mu(T) \right)^I \right] \times 1 \times \frac{1}{I} . \qedhere
+	\end{align*}
+	%
+\end{proof}
+
+
+Border's (\citeyear{Border1991}) sufficiency proof
+uses hierarchical allocations and a separating-hyperplane argument.
+Since separating hyperplanes are simpler in finite-dimensional spaces,
+we'll restrict our attention to the case of finitely many types.%
+	\footnote{I learned this finite-types version of Border's argument from \textcite[§6.2.3]{Vohra2011}.}
+(To learn how to extend this reasoning to infinitely many types, see \textcite{Border1991}.)
+
+\begin{proof}[Proof that \ref{bullet:border_sym:ineq} implies \ref{bullet:border_sym:real}, finite case]
+	%
+	Assume that $\mathcal{T}$ is finite, and (wlog) that $\mu$ is strictly positive.
+	We shall prove the contra-positive:
+	fix a candidate interim allocation $Q$ that is not realisable;
+	we shall find a set $T \subseteq \mathcal{T}$
+	for which the relevant Border inequality fails.
+
+	The set of all realisable allocations is convex (why?),
+	and is easily seen (how?) to be closed.
+	Thus by the strict separating hyperplane theorem,
+	there are weights $(\gamma_t)_{t \in \mathcal{T}}$, not all zero, such that
+	%
+	\begin{equation*}
+		\sum_{t \in \mathcal{T}} \gamma_t \mu(t) Q(t)
+		> \sum_{t \in \mathcal{T}} \gamma_t \mu(t) Q'(t)
+		\quad \text{for any realisable $Q'$.}\footnotemark
+	\end{equation*}%
+	\footnotetext{More pedantically, the separating hyperplane theorem yields weights $(\Gamma_t)_{t \in \mathcal{T}}$ such that $\sum_{t \in \mathcal{T}} \Gamma_t Q(t) > \sum_{t \in \mathcal{T}} \Gamma_t Q'(t)$ for any realisable $Q'$,
+	and we may define $\gamma_t \coloneqq \Gamma_t / \mu(t)$ for each $t \in \mathcal{T}$.}
+	%
+	We may perturb the $\gamma$s to make them all distinct.
+	Note that $\mathcal{T}^+ \coloneqq \{ t \in \mathcal{T} : \gamma_t > 0 \}$ is non-empty since $0$ is realisable.
+
+
+	Let's re-name the types in $\mathcal{T}^+$ as $\mathcal{T}^+ \equiv \{1,\dots,\abs*{\mathcal{T}^+}\}$, where
+	$\gamma_1 > \cdots > \gamma_{\abs*{\mathcal{T}^+}} > \gamma_{\abs*{\mathcal{T}^+}+1} \coloneqq 0$.
+	Consider the hierarchical allocation $q^\star$
+	with type sets $\{1\},\{2\}, \dots, \{\abs*{\mathcal{T}^+}\}$.
+	Observe that
+	%
+	\begin{equation*}
+		\sum_{t \in \mathcal{T}^+} \gamma_t \mu(t) Q(t)
+		\geq \sum_{t \in \mathcal{T}} \gamma_t \mu(t) Q(t)
+		> \sum_{t \in \mathcal{T}} \gamma_t \mu(t) Q^\star(t)
+		\\
+		= \sum_{t \in \mathcal{T}^+} \gamma_t \mu(t) Q^\star(t) 
+	\end{equation*}
+	%
+	since $\gamma_t \leq 0$ and $Q^\star(t)=0$ for $t \in \mathcal{T} \setminus \mathcal{T}^+$.
+	Telescoping on both sides yields
+	%
+	\begin{equation*}
+		\sum_{t'=1}^{\abs*{\mathcal{T}^+}}
+		(\gamma_{t'}-\gamma_{t'+1})
+		\left( \sum_{t=1}^{t'} \mu(t) Q(t) \right)
+		> \sum_{t'=1}^{\abs*{\mathcal{T}^+}}
+		(\gamma_{t'}-\gamma_{t'+1})
+		\left( \sum_{t=1}^{t'} \mu(t) Q^\star(t) \right) .
+	\end{equation*}
+	
+	Since the weights $\gamma_{t'}-\gamma_{t'+1}$ are positive,
+	there must be a $t' \in \{1,\dots,\abs*{\mathcal{T}^+}\}$ at which
+	%
+	\begin{equation*}
+		\sum_{t=1}^{t'} \mu(t) Q(t)
+		> \sum_{t=1}^{t'} \mu(t) Q^\star(t) 
+		= \left[ 1 - \left( 1 - \mu(\{1,\dots,t'\}) \right)^I \right]
+		\frac{1}{I} ,
+	\end{equation*}
+	%
+	where the equality holds by \Cref{lemma:hier}.
+	Thus $Q$ violates the Border inequality for the set $T = \{1,\dots,t'\}$.
+	%
+\end{proof}
+
+\begin{exercise}
+	%
+	\label{exercise:border_ineq_alpha}
+	%
+	Complete the proof of the symmetric Border theorem by showing that \ref{bullet:border_sym:ineq} is equivalent to \ref{bullet:border_sym:alpha}.
+	%
+\end{exercise}
+
+
+\paragraph{The literature.}
+The symmetric realisability problem was studied first.
+\textcite{MaskinRiley1984} took the first steps.
+\textcite{Matthews1984} proved the necessity of the Border inequalities, and conjectured sufficiency.
+The conjecture was proved by \textcite{Border1991}, using the above argument above based on hierarchical allocations and a separating hyperplane.
+\textcite{Border2007} obtained the asymmetric version for finitely many types,
+and \textcite{Mierendorff2011} extended this to general type spaces.
+Some (not many) extensions have been considered.
+
+
+\begin{remark}
+	%
+	\label{remark:border_altproof}
+	%
+	Gregorio Curello proposes an alternative strategy for proving that \ref{bullet:border_sym:ineq} implies \ref{bullet:border_sym:real},
+	taking inspiration from \textcite{KleinerMoldovanuStrack2021}.
+	Write $\mathcal{B}$ for the set of symmetric candidate interim allocations that satisfy the Border inequalities; we must show that every $Q \in \mathcal{B}$ is realised by some symmetric allocation.
+	It suffices to show that every extreme point of $\mathcal{B}$ is realisable.%
+		\footnote{Suppose we know that every $Q' \in \ext \mathcal{B}$ is realised by some symmetric allocation, call it $q^{Q'}$.
+		Fix some $Q \in \mathcal{B}$.
+		By Choquet's theorem (see the next section), there is a probability measure $\mu$ defined on the extreme points $\ext \mathcal{B}$
+		such that
+		$\smash{Q = \int_{\ext \mathcal{B}} Q' \mu( \dd Q' )}$.
+		Then $Q$ is realised by the symmetric allocation
+		$\smash{q = \int_{\ext \mathcal{B}} q^{Q'} \mu( \dd Q' )}\vphantom{\int_{\ext \mathcal{B}}}$.}
+	It is possible to characterise the extreme points of $\mathcal{B}$ in a reasonably nice fashion.%
+		\footnote{\textcite{KleinerMoldovanuStrack2021} characterise the extreme points of a subset (viz. the set of those $Q \in \mathcal{B}$ that are also increasing),
+		and indicate that a characterisation of the extreme points of $\mathcal{B}$ itself exists (they cite \textcite{Ryff1967}).
+		\emph{Note:} these authors use different language; in particular, they show that membership of $\mathcal{B}$ may be interpreted as satisfaction of a majorisation constraint, and their result characterises the extreme points of any space of monotone functions satisfying a majorisation constraint.}
+	And Gregorio and I conjecture that one can use this characterisation to show that any extreme point of $\mathcal{B}$
+	is realisable;
+	specifically, by some hierarchical allocation.
+	(Small correction: 
+	whereas we defined hierarchical allocations to have finitely many sets $R_1,\dots,R_K$, I think that this claim is true only if infinitely many sets are permitted.)
+	%
+\end{remark}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Incentives}
+\label{sec:ch2:ic}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+We shall always assume that every types of every agent likes the good (and is selfish).
+If the principal cannot directly monitor the agents' private types,
+and if she controls no payoff-relevant decisions apart from the allocation of the good, then screening (separation of different types) is impossible:
+it is possible to implement all and only allocations that do not depend on agents' types. (Why?)
+
+In the sequel, we consider a variety of settings in which the principal \emph{can} (to some extent) screen the agents.
+Some of these models grant the principal control of a payoff-relevant action besides the allocation of the good,
+such as monetary payments by the agent (§\ref{sec:ch2:bic_dsic})
+or allocation decisions in future periods (\cref{ch3}).
+With such an `incentive instrument', the principal can screen an agent by forcing her to trade off her probability of getting the good against another outcome about which she cares.
+(For example, the principal can let the agent increase her likelihood of obtaining the good in exchange for making a higher payment, or for getting the good with a lower probability tomorrow.)
+
+In other models, the principal has no incentive instrument besides her control of the allocation, but she has access to a monitoring technology.
+For example, the principal may be able perfectly to verify an agent's type at a cost (§\ref{sec:ch2:bdl14}), or she may possess a free but noisy monitoring technology (§\ref{sec:ch2:corr}).
+
+There are other possibilities that we will \emph{not} consider in these notes.
+For example, the principal may be able perfectly to verify agents' types ex post, but have recourse only to limited punishments for liars who get caught \parencite[see][]{MylovanovZapechelnyuk2017}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Equivalence of dominant-strategy and Bayes--Nash IC in auctions}
+\label{sec:ch2:bic_dsic}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+An \emph{auction} is a Bayesian game in which players start out with their privately-known valuations $t_i \in \mathcal{T}_i \subseteq \R$, take some actions (often called `bids'), after which the good is allocated and payments are extracted from the agents.
+As before, an \emph{allocation} is a map $q : \mathcal{T}_1 \times \cdots \times \mathcal{T}_I \to [0,1]^I$ such that $\sum_{i=1}^I q_i \leq 1$.
+A remarkable fact about auctions is that frequently, an allocation which can be implemented as the Bayes--Nash equilibrium of some auction
+can in fact be implemented as a \emph{dominant-strategy} equilibrium of some (other) auction.%
+
+\begin{namedthm}[Note well.]
+	%
+	\label{namedthm:dominance}
+	%
+	In mechanism design, a `dominant strategy' of a player in a game is one that yields weakly better payoff than any other strategy, whatever the strategies of the other players.
+	This is weaker than the game-theoretic notion of weak dominance!
+	%
+\end{namedthm}
+
+For example, an \emph{efficient} allocation is one that allocates the good always to one of those players whose valuation is highest.
+The first-price auction implements any efficient allocation as a Bayes--Nash equilibrium. (Convince/remind yourself.)
+But consider the second-price auction: it also has an equilibrium implementing any efficient allocation, and in this equilibrium (in which each agent always bids her true value), agents' strategies are in fact dominant.
+
+Similarly, a first-price auction with a reserve price maximises the seller's revenue \parencite{Myerson1981}.
+The same allocation is implemented by a \emph{second-}price auction with a reserve price, however, in which the players' bidding strategies are dominant.
+(And by revenue equivalence, the two auctions raise the same revenue.)
+
+This was until recently a somewhat baffling phenomenon, but no longer.
+To understand it, recall that
+a direct mechanism $(q,p)$ is called \emph{Bayes--Nash (dominant-strategy) incentive-compatible} iff truthful reporting is a Bayes--Nash equilibrium (a dominant-strategy equilibrium).
+An allocation $q$ is called \emph{Bayes--Nash (dominant-strategy) implementable}
+iff there is a payment rule $p$ such that the direct mechanism $(q,p)$ is interim (dominant-strategy) IC.
+Implementability is standardly characterised as follows:
+
+\begin{lemma}
+	%
+	\label{lemma:impl_mon}
+	%
+	An allocation $q$
+	is Bayes--Nash implementable iff its interim allocation $(Q_i)_{i=1}^I$ has $Q_i$ increasing for every agent $i$,
+	and is dominant-strategy implementable iff $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every agent $i$ and each profile $\boldsymbol{t}_{-i} \in \mathcal{T}_{-i}$.
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	For the dominant-strategies part,
+	fix an agent $i$
+	and a profile $\boldsymbol{t}_{-i}$ of types of the players apart from $i$.
+	In a direct revelation mechanism $(p,q)$,
+	$i$ faces the same reporting problem
+	as if she were the only agent (as in the previous chapter), facing the single-agent mechanism $\left( q_i\left(\cdot,\boldsymbol{t}_{-i}\right), p_i\left(\cdot,\boldsymbol{t}_{-i}\right) \right)$.
+	Thus by the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma} (\cpageref{proposition:SM_lemma}), she is willing to report truthfully iff $q_i\left(\cdot,\boldsymbol{t}_{-i}\right)$ is increasing and $p_i\left(\cdot,\boldsymbol{t}_{-i} \right)$ is given by the envelope formula.
+
+	The Bayes--Nash part is similar:
+	player $i$'s reporting problem in a direct revelation mechanism $(q,p)$
+	is exactly the same as if she were the only agent (as in the previous chapter),
+	facing the allocation $Q_i$ and the payment rule $P_i$ defined by
+	%
+	\begin{equation*}
+		P_i(t_i)
+		\coloneqq \E_{\boldsymbol{T_{-i}} \sim \mu_{-i}}\left[ p_i(t_i,\boldsymbol{T_{-i}}) \right] . \qedhere
+	\end{equation*}
+	%
+\end{proof}
+
+Our question is thus under what circumstances an interim allocation $(Q_i)_{i=1}^I$ with $Q_i$ increasing for every agent $i$
+is realisable (in the sense of the previous section) by some allocation $q$ that has $q_i(\cdot,\boldsymbol{t}_{-i})$ increasing for every agent $i$ and profile $\boldsymbol{t}_{-i}$.
+The answer is in fact `always'!
+
+\begin{theorem}[\cite{ManelliVincent2010}]
+	%
+	\label{theorem:manellivincent}
+	%
+	If $(Q_i)_{i=1}^I$ is realised by some allocation
+	and has $Q_i$ increasing for every $i$,
+	then it is realised by an allocation $q$ such that $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every $i$ and every $\boldsymbol{t}_{-i} \in \mathcal{T}_{-i}$.
+	%
+\end{theorem}
+
+
+Thus \emph{any} allocation that can be implemented by a Bayes--Nash equilibrium of some auction
+can in fact be implemented in dominant strategies.
+Furthermore, by payoff/revenue equivalence, agents' interim payoffs and revenue are unaffected.
+In short, we can get dominant-strategy IC for free.
+
+
+For the sketch proof, we'll focus on the symmetric special case:
+
+\begin{corollary}
+	%
+	\label{corollary:manellivincent}
+	%
+	Suppose that agents are symmetric,
+	with each agent's type drawn from the same space $\mathcal{T}$
+	according to the same distribution.
+	If $Q : \mathcal{T} \to [0,1]$ is increasing and is realised by some symmetric allocation,
+	then it is realised by a symmetric allocation $q$ such that $q_1(\cdot,\boldsymbol{t}_{-1})$ is increasing for every $\boldsymbol{t}_{-1} \in \mathcal{T}^{I-1}$.
+	%
+\end{corollary}
+
+
+\begin{proof}[Sketch proof]
+	%
+	By Border's theorem, the $Q$s of interest
+	are exactly the increasing maps $Q : \mathcal{T} \to [0,1]$ that satisfy the Border inequalities;
+	let's write $\mathcal{Q}$ for the set of all such $Q$s.
+	Observe that $\mathcal{Q}$ is convex.
+
+	\begin{claim}
+		%
+		\label{claim:manellivincent_extr}
+		%
+		The extreme points of $\mathcal{Q}$
+		are $0$ and the interim allocations induced by increasing hierarchical allocations.%
+			\footnote{Here we allow for hierarchical allocations with infinitely many sets $R_k$; the technical details of this might require some head-scratching.}
+		%
+	\end{claim}
+
+	Loosely, interim allocations induced by increasing hierarchical allocations are extreme because they make some Border inequalities (in fact, a maximal set of Border inequalities) hold with equality (\Cref{lemma:hier} above).
+	Conversely, nothing else is extreme because only hierarchical allocations make a maximal set of Border inequalities bind.
+	This is just intuition, but the claim can be proved using the types of arguments found in e.g. \textcite{KleinerMoldovanuStrack2021}.
+
+	It is intuitive, and in fact true, that any member of the convex set $\mathcal{Q}$ can be written as an (infinite) convex combination of the extreme points of $\mathcal{Q}$.
+	Results like this constitute a little field called Choquet theory;
+	and Choquet's theorem says that
+	we may for any $Q \in \mathcal{Q}$ find a probability measure $\mu$ defined on $\ext \mathcal{Q}$ such that $Q = \int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
+
+	So take any $Q \in \mathcal{Q}$;
+	by Choquet's theorem it may be written $\int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
+	Each $Q' \in \ext \mathcal{Q}$ is realised by a $q^{Q'}$
+	that is either $0$ or a symmetric hierarchical allocation with $q^{Q'}_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
+	Thus $Q$ is realised by the allocation
+	%
+	\begin{equation*}
+		q \coloneqq \int_{\ext \mathcal{Q}} q^{Q'} \dd \mu( \dd Q' ) ,
+	\end{equation*}
+	%
+	which is evidently symmetric and has $q_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
+	%
+\end{proof}
+
+\paragraph{The literature.}
+The theorem is due to \textcite{ManelliVincent2010};
+their proof is more involved.%
+	\footnote{Rather than using Choquet's theorem, they rely on the weaker Krein--Milman theorem, which requires an additional limit argument.}
+See \textcite{GershkovEtAl2013} for a generalisation using a different technique, and \textcite{KleinerMoldovanuStrack2021} for yet another generalisation, using yet another technique.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Allocation with costly verification}
+\label{sec:ch2:bdl14}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A principal can allocate an indivisible good to one of $I \geq 2$ agents.
+Agents like the good and are expected-utility maximisers, so an agent's payoff is simply the probability with which she expects to receive the good.
+
+The principal's payoff from allocating to agent $i$ is $t_i$,
+while her payoff from not assigning the good is zero.
+Agent $i$'s type is a random draw $T_i$ from a CDF $F_i$ on $\R_+$
+whose density $f_i$ is strictly positive on a compact interval $\mathcal{T}_i \coloneqq \left[ \underline{t}_i, \bar{t}_i \right]$ and zero off it.
+Agents' types are independent.
+
+Each agent $i$ knows her type $t_i$; the principal and other agents do not.
+The principal can \emph{check} agent $i$'s type at a cost $c_i>0$.
+She cannot check more than one agent.
+
+\begin{remark}
+	%
+	\label{remark:bdl14_extensions}
+	%
+	The analysis changes only a little if types can be negative, so that the principal sometimes strictly prefers to keep the good.
+	%
+\end{remark}
+
+What mechanisms are optimal?
+To fix ideas, assume symmetric checking costs ($c_i = c$ for all $i$).
+Here's a simple mechanism: elicit reports of all agents' types, then check the type of the highest reporter, and award her the good provided she told the truth. (It is necessary to check her with probability one, since otherwise truthful reporting would not be IC.)
+
+This mechanism can be improved upon.
+When all types report lower than the checking cost $c$, it isn't worthwhile to check anyone.
+The principal is therefore better-off instituting a non-negative threshold;
+if anyone reports above the threshold, then the highest-reporting type is checked and awarded the good provided her report was true,
+but if all reports are below the threshold, then the principal keeps the good and checks no-one.
+
+This mechanism can also be improved upon.
+When all agents report below the threshold, the principal wastes the good by keeping it. She can improve by allocating it incentive-compatibly also in this case.
+Since she isn't checking, it is not incentive-compatible to allocate contingent on reported types in this scenario; but it \emph{is} incentive-compatible simply to hand the good to a pre-designated `favoured agent'.
+It is of course optimal to pick as favoured agent someone whose expected type is highest.
+This is called a \emph{favoured-agent mechanism.}
+
+When costs $(c_i)_{i=1}^I$ differ across agents, favoured-agent mechanisms are defined as follows.
+Agents report their `net types' $t_i-c_i$,
+and there is a net-type threshold $\tau$.
+If at least one agent's reported net type exceeds $\tau$,
+then the agent with the highest-reported net type gets the good;
+otherwise, the favoured agent gets the good.
+
+\textcite{BenporathDekelLipman2014} show that such a favoured-agent mechanism is optimal,
+and uniquely so (all optimal mechanisms are essentially randomisations over favoured-agent mechanisms).
+Their proof is really long, despite the simplicity of the model and the result!
+Fortunately, it can be shortened substantially by using Border's theorem.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The principal's problem}
+\label{sec:ch2:bdl14:first}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The standard revelation principle does not apply since there is hard evidence.
+Nonetheless, the same kind of logic reveals that we may restrict attention to mechanisms of the following sort. First, agents are asked to report their types, and truthful reporting is a Bayes--Nash equilibrium.
+As a function of these reports, it is (perhaps randomly) determined who (if anyone) will be checked.
+Finally, the good is allocated as a function of the reports and (if there was one) the check and its outcome.
+
+It is clearly without loss to consider only mechanisms in which,
+if agent $i$ is checked and is found to have lied, then she certainly does not get the good.
+That's because
+if we take any mechanism in which truth-telling is a Bayes--Nash equilibrium
+and modify it to never give the good to a verified liar,
+then our new mechanism allocates the good just like the old one (since agents do not lie in equilibrium),
+and truth-telling remains a best response for every agent
+since lying is punished (even) more harshly in the new mechanism than in the old.
+
+We can restrict one step further: without loss,
+if agent $i$ is checked and (as happens in equilibrium) is found to have reported truthfully, then she gets the good.
+For suppose we had a mechanism in which when $i$ is checked and is found to have told the truth, the good sometimes goes to $j$.
+We could instead first (randomly) determine who will get the good conditional on $i$ being checked and found to have told the truth, and if it's $j$, then we can check her instead;
+this disturbs neither $i$'s nor $j$'s willingness to report truthfully.
+
+For a mechanism of this simple form, an agent $i$'s incentives depend on two things:
+for each profile $\boldsymbol{t} \in \mathcal{T}_1 \times \cdots \times \mathcal{T}_I$,
+(a) the probability $q_i(\boldsymbol{t})$ with which she gets the good, and
+(b) the probability $e_i(\boldsymbol{t})$ with which she is checked.
+Formally, a mechanism is a pair of maps $(q,e)$, each of which carries $\mathcal{T}_1 \times \cdots \times \mathcal{T}_I$ into $[0,1]^I$, which jointly satisfy feasibility:
+$\sum_{i=1}^I q_i(\boldsymbol{t}) \leq 1$ for every $\boldsymbol{t}$,
+and $e \leq q$.
+
+
+The principal wishes to maximise
+%
+\begin{equation*}
+	\E\left(
+	\sum_{i=1}^I 
+	\left[
+	q_i(\boldsymbol{T}) T_i - e_i(\boldsymbol{T}) c_i
+	\right]
+	\right)
+\end{equation*}
+%
+among those mechanisms $(q,e)$ that are incentive-compatible,
+meaning that truthful reporting is a Bayes--Nash equilibrium.
+(As usual, IC can be expressed as some inequalities;
+we'll do that in §\ref{sec:ch2:bdl14:bic_epic} below).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Interim reformulation}
+\label{sec:ch2:bdl14:interim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Both the agents and principal care only about the interim allocation and checking, defined by
+%
+\begin{equation*}
+	Q_i(t_i)
+	\coloneqq \E \left[ q_i(t_i,\boldsymbol{T}_{-i}) \right] 
+	\quad \text{and} \quad
+	E_i(t_i)
+	\coloneqq \E \left[ e_i(t_i,\boldsymbol{T}_{-i}) \right] .
+\end{equation*}
+%
+But which families $(Q_i,E_i)_{i=1}^I$ are realised by some mechanism $(q,e)$?
+
+\begin{lemma}
+	%
+	\label{lemma:bdl14_border}
+	%
+	$(Q_i,E_i)_{i=1}^I$ is realised by some mechanism
+	exactly if $E_i \leq Q_i$ for every $i$ and $(Q_i)_{i=1}^I$ satisfies the Border inequalities:
+	%
+	\begin{equation*}
+		\sum_{i=1}^I \int_{T_i} Q_i f_i
+		\leq 1 - \prod_{i=1}^I \left( 1 - \int_{T_i} f_i \right)
+	\end{equation*}
+	%
+	for all (measurable) sets $T_1 \subseteq \mathcal{T}_1, \dots, T_I \subseteq \mathcal{T}_I$ of types.
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	If $(Q_i,E_i)_{i=1}^I$ is realised by some mechanism $(q,e)$,
+	then $E_i \leq Q_i$ since $e \leq q$,
+	and $(Q_i)_{i=1}^I$ satisfies the Border inequalities
+	by Border's theorem.
+	Conversely, if $(Q_i)_{i=1}^I$ satisfies the Border inequalities,
+	then by Border's theorem,
+	there is an allocation $q$ that realises $(Q_i)_{i=1}^I$.
+	If in addition $E_i \leq Q_i$ for each $i$,
+	then the checking rule $e$ defined by
+	%
+	\begin{equation*}
+		e_i(t_i,\boldsymbol{t}_{-i})
+		=
+		\begin{cases}
+			q_i(t_i,\boldsymbol{t}_{-i}) \times \frac{E_i(t_i)}{Q_i(t_i)}
+			& \text{if $Q_i(t_i)>0$} \\
+			0
+			& \text{otherwise}
+		\end{cases}
+	\end{equation*}
+	%
+	satisfies $e \leq q$
+	and $\E\left[ e_i(t_i,\boldsymbol{T}_{-i}) \right] = E_i(t_i)$ for every $i$ and $t_i \in \mathcal{T}_i$.
+	%
+\end{proof}
+
+
+The principal's problem is then to choose $(E_i,Q_i)_{i=1}^I$ to maximise
+%
+\begin{equation*}
+	\sum_{i=1}^I \E\left[ Q_i(T_i) T_i - E_i(T_i) c_i \right]
+\end{equation*}
+%
+subject to incentive-compatibility,
+$E_i \leq Q_i$ for each $i$,
+and the Border inequalities.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalence of interim and ex-post IC}
+\label{sec:ch2:bdl14:bic_epic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Recall that an incentive-compatible mechanism $(q,e)$ is one in which truthful reporting is a Bayes--Nash equilibrium.
+In other words, $(q,e)$ is IC exactly if its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
+%
+\begin{equation*}
+	Q_i(t_i) \geq Q_i(t_i') - E_i(t_i')
+	\quad \text{for every $i$ and all $t_i,t_i' \in \mathcal{T}_i$.}
+\end{equation*}
+%
+The right-hand side here is the payoff of a type $t_i \neq t_i'$ from claiming to have type $t_i'$:
+she gets allocated the good as if she really did have type $t_i'$ (viz. with probability $Q_i(t_i')$), \emph{except} if she gets checked (which happens with probability $E_i(t_i')$); in that case, she does not get the good.
+If you don't find that explanation of the right-hand side convincing, then have a look at the addendum to this chapter (\cpageref{sec:ch2:bdl14:ic_deriv}), which contains a painstaking derivation of the right-hand side.
+
+A stronger notion of IC would require that agents would prefer truthful reporting even if they knew the other agents' types:
+%
+\begin{equation*}
+	q_i(t_i,\boldsymbol{t}_{-i}) 
+	\geq q_i(t_i',\boldsymbol{t}_{-i}) - e_i(t_i',\boldsymbol{t}_{-i})
+	\quad \text{for every $i$ and all $t_i,t_i' \in \mathcal{T}_i$, $\boldsymbol{t}_{-i} \in \mathcal{T}_{-i}$.}
+\end{equation*}
+%
+This is called \emph{ex-post IC.}
+
+\begin{lemma}
+	%
+	\label{lemma:bdl_epic}
+	%
+	$(q,e)$ is ex-post IC iff
+	%
+	\begin{equation*}
+		e_i(\boldsymbol{t})
+		\geq q_i(\boldsymbol{t})
+		- \inf_{t_i' \in \mathcal{T}_i}
+		q_i(t_i',\boldsymbol{t}_{-i})
+		\quad \text{for every $i$ and all $\boldsymbol{t} \in \mathcal{T}_1 \times \cdots \times \mathcal{T}_I$,}
+	\end{equation*}
+	%
+	and is interim IC iff its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
+	%
+	\begin{equation*}
+		E_i(t_i)
+		\geq Q_i(t_i) - \inf_{\mathcal{T}_i} Q_i
+		\quad \text{for every $i$ and all $t_i \in \mathcal{T}_i$.}
+	\end{equation*}
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	Ex-post of $(q,e)$ requires precisely that
+	for every agent $i$
+	and profile $\boldsymbol{t} = (t_i,\boldsymbol{t}_{-i}) \in \mathcal{T}_i \times \mathcal{T}_{-i}$,
+	%
+	\begin{equation*}
+		q_i(t_i',\boldsymbol{t}_{-i}) 
+		\geq q_i(\boldsymbol{t}) - e_i(\boldsymbol{t}) 
+		\quad \text{for every type $t_i' \in \mathcal{T}_i$.}
+	\end{equation*}
+	%
+	This is equivalent to requiring
+	for every agent $i$
+	and profile $\boldsymbol{t}$
+	that
+	%
+	\begin{equation*}
+		\inf_{t_i' \in \mathcal{T}_i} q_i(t_i',\boldsymbol{t}_{-i}) 
+		\geq q_i(\boldsymbol{t}) - e_i(\boldsymbol{t}) .
+	\end{equation*}
+	%
+	Similarly for interim IC.
+	%
+\end{proof}
+
+Ex-post IC appears much stronger than interim IC. And yet:
+
+\begin{theorem}
+	%
+	\label{theorem:bdl_epic}
+	%
+	For any (interim) IC mechanism $(q,e)$,
+	there is an ex-post IC mechanism that realises the same interim allocation and checking.
+	%
+\end{theorem}
+
+(This result can actually be further strengthened to obtain \emph{dominant-strategy IC,} but we won't go into that here.)
+
+\begin{proof}
+	%
+	Let $(q,e)$ be interim IC,
+	and write $(Q_i,E_i)_{i=1}^I$ for its interim allocation and checking.
+	Wlog re-label each agent $i$'s types so that $Q_i$ is increasing.%
+		\footnote{More formally, consider the alternative type spaces $\mathcal{T}_i' \coloneqq \{ Q_i(t_i) \}_{t_i \in \mathcal{T}_i}$.}
+	Then by the \hyperref[theorem:manellivincent]{Manelli--Vincent theorem} (\cpageref{theorem:manellivincent}),
+	there is an allocation $q'$ realising $(Q_i)_{i=1}^I$ such that $q_i'(\cdot,\boldsymbol{t}_{-i})$ is increasing (in the new order on the types) for every $i$ and $\boldsymbol{t}_{-i}$.
+	Thus
+	%
+	\begin{equation*}
+		\inf_{t_i' \in \mathcal{T}_i} \E
+		\left[ q_i'(t_i',\boldsymbol{T}_{-i}) \right]
+		= \E \left[ \inf_{t_i' \in \mathcal{T}_i} 
+		q_i'(t_i',\boldsymbol{T}_{-i}) \right] .
+	\end{equation*}
+	
+	Define
+	%
+	\begin{equation*}
+		e_i'(t_i',\boldsymbol{t}_{-i})
+		\coloneqq q_i'(t_i',\boldsymbol{t}_{-i})
+		- \inf_{t_i' \in \mathcal{T}_i} q_i'(t_i',\boldsymbol{t}_{-i}) .
+	\end{equation*}
+	%
+	Evidently $e' \leq q'$, so $\left( q', e' \right)$ is a mechanism.
+	This mechanism
+	satisfies the reformulated ex-post IC constraints in \Cref{lemma:bdl_epic}
+	with equality,
+	so it is IC.
+	And its interim checking costs are lower than those of $(q,e)$:
+	for any $i$ and $t_i \in \mathcal{T}_i$, we have
+	%
+	\begin{multline*}
+		\E\left[ e_i'(t_i,\boldsymbol{T}_{-i}) \right]
+		= \E\left[ q_i'(t_i',\boldsymbol{t}_{-i}) \right]
+		- \inf_{t_i' \in \mathcal{T}_i}
+		\E\left[ q_i'(t_i',\boldsymbol{t}_{-i}) \right]
+		\\
+		= Q_i(t_i)
+		- \inf_{\mathcal{T}_i} Q_i
+		\leq E_i(t_i) ,
+	\end{multline*}
+	%
+	where the last inequality holds by \Cref{lemma:bdl_epic} since $(q,e)$ is interim IC.
+	By augmenting adding probability to the checking rule $e'$,
+	we may obtain a (clearly still ex-post IC) mechanism $(q',e')$
+	with the same interim checking as $(q,e)$.
+	%
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solving}
+\label{sec:ch2:bdl14:solving}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Fixing $Q_i$, by \Cref{lemma:bdl_epic},
+IC requires precisely that $E_i(t_i) \geq Q_i(t_i) - \inf_{\mathcal{T}_i} Q_i$ for every $t_i \in \mathcal{T}_i$,
+and it is obviously optimal to choose $E_i$ to make this hold with equality.
+(This also ensures that $E_i \leq Q_i$ for every agent $i$.)
+Then remainder of the principal's problem is to choose $(Q_i)_{i=1}^I$ to maximise
+%
+\begin{equation*}
+	\sum_{i=1}^I \E \left[ Q_i(T_i) [T_i-c_i]
+	+ c_i \inf_{\mathcal{T}_i} Q_i \right] ,
+\end{equation*}
+%
+subject to the Border inequalities.
+
+This is not a linear programme, because $Q_i$ also enters non-linearly.
+But we can convert it into a parametrised linear programme:
+given weights $\varphi_1,\dots,\varphi_I \in [0,1]$ that sum to $\leq 1$, consider maximising
+%
+\begin{equation*}
+	\sum_{i=1}^I \E \left[ Q_i(T_i) [T_i-c_i]
+	+ c_i \varphi_i \right] 
+\end{equation*}
+%
+subject $Q_i \geq \varphi_i$ and the Border inequalities.
+It can be shown by an elementary argument \parencite[see][]{ErlansonKleiner2019} that whatever the values of $(\varphi_i)_{i=1}^I$, any solution of this linear programme is a \emph{threshold mechanism.}
+Thus optimal mechanisms must be threshold mechanisms.
+
+What's a threshold mechanism?
+Call an interim allocation $(Q_i)_{i=1}^I$
+\emph{$\tau$-threshold} iff
+%
+\begin{equation*}
+	Q_i(t_i) =
+	\begin{cases}
+		\prod_{j \neq i} F_j(t_i-c_i+c_j)
+		& \text{if $t_i-c_i > \tau$} \\
+		\varphi_i
+		& \text{if $t_i-c_i \leq \tau$.} 
+	\end{cases}
+\end{equation*}
+%
+This is implemented by an allocation $q$
+such that if anyone reports a net type $t_i-c_i$ above $\tau$ then (one of) the highest reporters gets the good,
+while if no-one does then the good is allocated so that $i$ gets the good with probability $\varphi_i / \prod_{j \neq i} F_j(\tau-c_i+c_j)$.
+The cheapest checking rule $e$ that makes this ex-post IC (i.e. the one that makes the reformulated ex-post IC in \Cref{lemma:bdl_epic} hold with equality) is the one that checks the highest-reporting agent in the first case, and checks no-one in the second.
+
+In our parametrised linear programme, among threshold interim allocations, the principal obviously prefers a lower threshold.
+But the constraints limit how low the threshold can be set.
+The optimal mechanisms are those threshold mechanisms with the lowest feasible threshold $\tau^\star$.
+
+To get to favoured-agent mechanisms, it remains to choose the values of $\varphi_1,\dots,\varphi_I$. It turns out that not all choices are feasible.
+\textcite{BenporathDekelLipman2014} show that the set of all feasible choices is convex, however.
+Since the principal's objective is linear, that means that extreme points are optimal choices.
+Some of the extreme points are, unsurprisingly, those with $\varphi_i=0$ for all but one `favoured' agent $i^\star$, whose $\varphi_{i^\star}$ is instead `as large as possible';
+these correspond to favoured-agent mechanisms.
+
+
+\paragraph{The literature.}
+The model and main result (the optimality of favoured-agent mechanisms) are due to \textcite{BenporathDekelLipman2014}.
+\textcite{ErlansonKleiner2019} used the interim perspective (§\ref{sec:ch2:bdl14:interim} above)
+to establish the equivalence of ex-post and interim IC (\Cref{theorem:bdl_epic} above)
+and to obtain a simpler proof of the optimality of threshold mechanisms.%
+	\footnote{There are at least two other shortenings of the threshold-mechanisms argument, one by Bart Lipman (in an unpublished note), and another by Ricky Vohra (in a lecture on Border's theorem and its applications: \href{https://youtu.be/DbzOqBoTmm0}{youtu.be/DbzOqBoTmm0}).}
+There's been some subsequent work looking at variations of the original model.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Addendum: derivation of the IC constraints}
+\label{sec:ch2:bdl14:ic_deriv}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In writing down the (interim) IC constraints in §\ref{sec:ch2:bdl14:bic_epic},
+we had to express the payoff of a type $t_i \neq t_i'$ from claiming to be $t_i'$, in a given mechanism $(q,e)$ with interim allocation and checking $(Q_i,E_i)_{i=1}^I$.
+The expression is $Q_i(t_i') - E_i(t_i')$, and I gave a simple explanation of why.
+
+But if you weren't satisfied with my explanation, here's another one. (Tedium alert!)
+Observe first that
+%
+\begin{align*}
+	Q_i(t_i)
+	&= \PP( \text{$i$ gets the good}
+	| \text{$i$ truthfully reports $t_i$} )
+	\\
+	&= \PP( \text{$i$ gets the good}
+	| \text{$i$ truthfully reports $t_i$ and is checked} )
+	\\
+	&\quad \times \PP( \text{$i$ is checked} 
+	| \text{$i$ truthfully reports $t_i$} )
+	\\
+	&\quad + \PP( \text{$i$ gets the good}
+	| \text{$i$ truthfully reports $t_i$ and is not checked} )
+	\\
+	&\quad \times \PP( \text{$i$ is not checked} 
+	| \text{$i$ truthfully reports $t_i$} )
+	\\
+	&= 1 \times E_i(t_i)
+	\\
+	&\quad + \PP( \text{$i$ gets the good}
+	| \text{$i$ reports $t_i$ and is not checked} )
+	\\
+	&\quad \times [ 1 - E_i(t_i) ] ,
+\end{align*}
+%
+which rearranges to
+%
+\begin{multline}
+	\PP( \text{$i$ gets the good}
+	| \text{$i$ reports $t_i$ and is not checked} )
+	\times [ 1 - E_i(t_i) ]
+	\\
+	= Q_i(t_i) = E_i(t_i) .
+	\label{eq:bdl_ic_ugly}
+\end{multline}
+%
+Now, the expected payoff of a type $t_i \neq t_i'$ from claiming to have type $t_i'$ is
+%
+\begin{multline*}
+	\PP( \text{$i$ gets the good}
+	| \text{$i$ falsely reports $t_i$} )
+	\\
+	\begin{aligned}
+		&= \PP( \text{$i$ gets the good}
+		| \text{$i$ falsely reports $t_i$ and is checked} )
+		\\
+		&\quad \times \PP( \text{$i$ is checked}
+		| \text{$i$ falsely reports $t_i$} )
+		\\
+		&\quad + \PP( \text{$i$ gets the good}
+		| \text{$i$ falsely reports $t_i$ and is not checked} )
+		\\
+		&\quad \times \PP( \text{$i$ is not checked}
+		| \text{$i$ falsely reports $t_i$} )
+		\\
+		&= 0 \times \PP( \text{$i$ is checked}
+		| \text{$i$ reports $t_i$} )
+		\\
+		&\quad + \PP( \text{$i$ gets the good}
+		| \text{$i$ reports $t_i$ and is not checked} )
+		\\
+		&\quad \times \PP( \text{$i$ is not checked}
+		| \text{$i$ reports $t_i$} )
+		\\
+		&= \PP( \text{$i$ gets the good}
+		| \text{$i$ reports $t_i$ and is not checked} )
+		\times [ 1 - E_i(t_i) ]
+		\\
+		&= Q_i(t_i) - E_i(t_i) ,
+	\end{aligned}
+\end{multline*}
+%
+where the last inequality holds by \eqref{eq:bdl_ic_ugly}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Allocation with evidence acquisition}
+\label{sec:ch2:bdl21}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consider the same setting as in the previous section,
+except that agents do not know their own types $t_i$: instead, the principal and agents are symmetrically uninformed about the types $(t_1,\dots,t_I)$.
+By paying a cost of $c_i \geq 0$, an agent $i$ can learn her type.
+If she does, then she can verifiably disclose her type to the principal (that is, she can \emph{prove} that her type is such-and-such).
+
+
+A revelation argument shows that we may restrict attention to mechanisms in which
+%
+\begin{itemize}
+
+	\item Each agent has at most one information set,
+	at which she is asked to acquire and deliver evidence.
+
+	\item If she ever gets the good after delivering evidence,
+	then she never gets the good \emph{without} delivering evidence.
+
+	\item Each agent is willing to acquire evidence when asked.
+
+	\item (An agent asked for evidence who does not deliver it is never given the good; thus an agent who is asked for evidence is willing not to just to acquire it, but also to deliver it.)
+
+\end{itemize}
+
+An ex-post allocation is $(q,e)$, where $q : \mathcal{T}_1 \times \cdots \mathcal{T}_I \to [0,1]^I$ satisfies $\sum_{i=1} q_i \leq 1$,
+and $e = (e_1,\dots,e_I)$ where $e_i$ maps $\mathcal{T}_{-i} \to [0,1]$.%
+	\footnote{In this section, I'm using the term `allocation' to encompass not only how the good is distributed, but also who acquires evidence.}
+Which allocations $(q,e)$ are feasible?
+It isn't obvious; for example, with $I=2$ agents, we cannot ask each for evidence iff the other's type is $<1/2$.%
+	\footnote{If we are to ask agent $2$ for evidence only contingent on the realised value of agent $1$'s type, then we must first ask agent $1$ for evidence no matter what.
+	But then $1$ is not being asked for evidence contingent on the realised value of $2$'s type!}
+This is a model in which it is difficult to characterise feasibility even of \emph{ex-post} allocations.
+
+It turns out, however, to be \emph{more} tractable to characterise feasible \emph{interim} allocations!
+The interim allocation induced by $(q,e)$ is $(Q_i,E_i)_{i=1}^I$,
+where $Q_i(t_i) = \E \left[ q_i(t_i,\boldsymbol{T}_{-i}) \right]$ and $E_i = \E \left[ e_i(\boldsymbol{T}_{-i}) \right]$.
+
+Clearly a necessary condition for $(q,e)$ to be feasible
+is for $q$ to be a feasible allocation by itself.
+By Border's theorem, this is equivalent to $(Q_i)_{i=1}^I$ satisfying the Border inequalities.
+
+Another necessary condition is that for each $i$, either $Q_i$ is constant, or else $Q_i \leq E_i$.
+This is because if $i$ is never asked for evidence, then her allocation cannot depend on her type, and so $Q_i$ must be constant.
+And if $i$ is sometimes asked for evidence, then she never gets the good without giving evidence, so $Q_i(t_i) \leq E_i$ for every type $t_i \in \mathcal{T}_i$.
+
+Remarkably, these conditions are also \emph{sufficient:}
+
+\begin{theorem}
+	%
+	\label{theorem:bdl21_feas}
+	%
+	For an interim allocation $(Q_i,E_i)_{i=1}^I$, the following are equivalent:
+	%
+	\begin{enumerate}
+	
+		\item $(Q_i)_{i=1}^I$ satisfies the Border inequalities,
+		and $Q_i(t_i) \leq E_i$ for every $t_i \in \mathcal{T}_i$ and $i$.
+
+		\item There is a game form and a strategy profile in it
+		that realises $(Q_i,E_i)_{i=1}^I$ as its interim allocation.
+	
+	\end{enumerate}
+	%
+\end{theorem}
+
+The proof is based on Border's theorem and hierarchical allocations.
+With this characterisation of feasibility, one may go on to characterise optimal mechanisms.
+
+
+\paragraph{The literature.}
+The model and results are from work in progress by Elchanan Ben-Porath, Eddie Dekel and Bart Lipman titled `Sequential mechanisms for evidence acquisition'.
+You can find a video recording of Eddie presenting the paper at \href{http://youtu.be/B70fYGKc760}{youtu.be/B70fYGKc760}, and his slides are also online.%
+	\footnote{\url{http://drive.google.com/file/d/1nzlo0NP5vlk_P1TVIRbUi4WtNvYNk8xk}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Allocation with extra information}
+\label{sec:ch2:corr}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Return to the baseline assumption of this chapter that agents are privately informed about their types (and that they always want the good).
+In \cref{sec:ch2:bdl14}, the principal had the power to perfectly monitor an agent's type, at a cost.
+In this section, we instead consider free but imperfect monitoring.
+
+Suppose, in particular, that after agents make their reports, the principal will observe some signals that are correlated with their types, and may condition her allocation decision on these.
+A revelation principle lets us focus on mechanisms in which the good is allocated (possibly randomly) contingent on agents' self-reported types and the realised signals, and in which agents are willing to report truthfully.
+
+Here's a simple model.
+Each agent has an intrinsic `quality' $\theta_i \in \{0,1\}$.
+We assume that the principal must select one of the agents, i.e. she cannot keep the good. (That is a good assumption in some applications, and not in others.)
+The principal earns a higher payoff from allocating to a high-quality agent than to a low-quality agent.
+Each agent observes a private signal $t_i \in \{0,1\}$ of her quality,
+and the principal also observes a signal $s_i \in \{0,1\}$ of each agent's quality.
+
+We assume that the agents' random qualities $(\Theta_i)_{i=1}^I$ are independent,
+that the random signals $(T_i,S_i)_{i=1}^I$ are independent conditional on $(\Theta_i)_{i=1}^I$,
+and that for each $i$ and profile $\boldsymbol{\theta}_{-i} \in \{0,1\}^{I-1}$ we have
+%
+\begin{equation*}
+	\PP( T_i=1 | \Theta_i=\theta_i, \boldsymbol{\Theta}_{-i} = \boldsymbol{\theta}_{-i} )
+	= \PP( T_i=1 | \Theta_i=\theta_i )
+	= 
+	\begin{cases}
+		1-p	& \text{for $\theta_i=0$} \\
+		p	& \text{for $\theta_i=1$.}
+	\end{cases}
+\end{equation*}
+%
+for some precision $p \in (1/2,1)$
+and
+%
+\begin{equation*}
+	\PP( S_i=1 | \Theta_i=\theta_i, \boldsymbol{\Theta}_{-i} = \boldsymbol{\theta}_{-i} )
+	= \PP( S_i=1 | \Theta_i=\theta_i )
+	= 
+	\begin{cases}
+		1-q	& \text{for $\theta_i=0$} \\
+		q	& \text{for $\theta_i=1$}
+	\end{cases}
+\end{equation*}
+%
+for some lower precision $q \in (1/2,p]$.
+
+
+\paragraph{The literature.}
+\textcite{BlochDuttaDziubinski2021} study this model, and obtain a  `lexicographic' characterisation of optimal mechanisms.
+The broader insight here, first articulated by \textcite{Kattwinkel2019}, is that an agent can be screened by conditioning allocation decisions on an exogenous signal that is correlated with her type.

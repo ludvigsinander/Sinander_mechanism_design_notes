@@ -1,0 +1,907 @@
+% Copyright (c) 2020 Carl Martin Ludvig Sinander.
+
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+There is a single agent (or `buyer') and one indivisible unit of a good.
+The agent's valuation $t \in [0,1]$ for the good is privately known to her.
+She has quasi-linear expected-utility preferences, meaning that her payoff from getting the good with probability $q \in [0,1]$ and paying $p \in \R$ is $t q - p$.
+
+A \emph{principal} can design any mechanism she likes;
+this specifies various actions the agent can take,
+and as a function of these actions, the probability $q$ with which the agent receives the good and the payment $p$ that she makes.
+The agent chooses optimally among these actions.
+Let's write $q(t)$ for the probability with which the agent of type $t$ gets the good, given her actions, and $p(t)$ for the payment she makes.
+The map $q : [0,1] \to [0,1]$ is called the induced \emph{allocation} of the good, while $p : [0,1] \to \R$ is the induced \emph{payment rule.}
+
+We'd first like to know which allocations and payment rules the principal can achieve,
+given that only the agent knows her valuation $t$ and that she can be relied upon to choose optimally.
+(We'll also assume that the agent can be relied upon to break any indifferences she might experience in whatever way we'd like her to. That's not a big deal when there's just one agent.)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{The revelation principle}
+\label{sec:ch1:revelation}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+We may drastically reduce the space of mechanisms we consider.
+For any allocation $q : [0,1] \to [0,1]$ and payment rule $p : [0,1] \to \R$,
+we may define a simple `direct revelation mechanism' (DRM):
+the agent is asked to make a report $r \in [0,1]$ of her type,
+and is then given the good with probability $q(r)$ and pays $p(r)$.
+This DRM is denoted simply by $(q,p)$.
+(So `$(q,p)$' can denote an allocation--payment rule pair,
+\emph{or} a direct mechanism; mathematically the same, but psychologically distinct.)
+
+A DRM is called \emph{truthful,} or \emph{incentive-compatible (IC),}
+iff every type of the agent weakly prefers to report her own type.
+Clearly if $(q,p)$ is an IC DRM, then it induces the allocation $q$ and payment rule $p$.
+
+\begin{namedthm}[Revelation principle.]
+	%
+	\label{observation:rev}
+	%
+	If the allocation and payment rule $(q,p)$ are induced by some mechanism,
+	then $(q,p)$ (viewed as a DRM) is incentive-compatible
+	(and thus induces the allocation $q$ and the payment rule $p$).
+	%
+\end{namedthm}
+
+The revelation principle is both deep and trivial.
+By the latter, I mean that fully understanding it is tantamount to considering it obvious.
+
+\begin{proof}
+	%
+	Let $(q,p)$ be induced by some mechanism.
+	Fix a type $t$.
+
+	Since type $t$ of the agent behaves optimally,
+	her payoff from her outcome $(q(t),p(t))$ is better than the payoff she could get from any deviation.
+
+	One deviation would be for her to take whatever actions some other type $r \in [0,1]$ takes; we call this `mimicking type $r$'.
+	This would obviously give type $t$ the outcome $(q(r),p(r))$.
+	We infer that type $t$ likes her own outcome $(q(t),p(t))$ weakly better than the outcome $(q(r),p(r))$ of any other type $r \neq t$.
+
+	Now consider the DRM $(q,p)$.
+	The \emph{only} deviations available to $t$
+	are to mimic type $r$, for some $r \neq t$.
+	We just showed that each such deviation is unprofitable;
+	thus $(q,p)$ is IC.
+	%
+\end{proof}
+
+The revelation principle allows us to restrict attention to incentive-compatible direct revelation mechanisms for analytical purposes, and that's what we'll do.
+(But once we've finished analysing and have found an optimal mechanism,
+we shall have occasion to consider whether it admits a natural \emph{indirect implementation:} i.e. a more natural mechanism that induces the same allocation and payment rule.)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{The envelope theorem}
+\label{sec:ch1:env}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+Fix a (direct revelation) mechanism $(q,p)$.
+Type $t$'s problem is to choose an action (her report) $r \in [0,1]$, where her objective $f(r,t)$ is given by
+%
+\begin{equation*}
+	f(r,t) = t q(r) - p(r) .
+\end{equation*}
+%
+So programmatically, the agent's problem is to choose her report $r$ to maximise $f(\cdot,t)$.
+
+Suppose that our mechanism is an incentive-compatible one,
+meaning that the report $r=t$ yields a global maximum of $f(\cdot,t)$.
+One implication of incentive-compatibility is that no type $t$ wishes to mimic a \emph{nearby} type $r$; this is called \emph{local incentive-compatibility.}
+Intuitively, local IC is captured by the first-order condition
+%
+\begin{equation*}
+	\left. \frac{\dd}{\dd m} f( t+m, t ) \right|_{m=0} = 0 ,
+	\quad \text{or more compactly,} \quad
+	f_1(t,t)=0 .
+\end{equation*}
+%
+Formally, we'll say that $(q,p)$ is locally IC if this expression holds for a.e. type $t \in [0,1]$.
+
+
+Now let's re-express that.
+Write $V(t) \coloneqq f(t,t)$ for the value of truthful reporting.
+Differentiating on both sides:
+%
+\begin{equation*}
+	V'(t)
+	= f_1(t,t) + f_2(t,t) .
+\end{equation*}
+%
+The first term on the RHS is exactly the thing that's zero if our mechanism is a locally IC one.
+So local IC is equivalent to
+%
+\begin{equation*}
+	V'(t) = f_2(t,t)
+	\quad \text{for a.e. $t \in [0,1]$,}
+\end{equation*}
+%
+or (integrating)
+%
+\begin{equation*}
+	V(t) = V(0) + \int_0^t f_2(s,s) \dd s
+	\quad \text{for every $t \in [0,1]$.}
+\end{equation*}
+%
+This is called the \emph{envelope formula.}
+Recalling that $f(r,t) = t q(r) - p(r)$ by definition,
+the envelope formula more explicitly reads
+%
+\begin{equation*}
+	t q(t) - p(t) = - p(0) + \int_0^t q .
+\end{equation*}
+%
+(Here `$\int_0^t q$' is a shorter way of writing `$\int_0^t q(s) \dd s$'.)
+
+The fact that IC mechanisms satisfy the envelope formula is an instance the \emph{envelope theorem.}
+(The envelope theorem is more general: it applies to \emph{any} parametrised maximisation problem. Other applications are Shephard's lemma, Roy's identity and Hotelling's lemma.)
+
+
+The above argument has a big hole: given our completely arbitrary mechanism $(q,p)$, there is no reason why the agent's reporting payoff $f(r,t) = t q(r) - p(r)$ should be a differentiable function of $r$, in which case the derivative
+%
+\begin{equation*}
+	\left. \frac{\dd}{\dd m} f( t+m, t ) \right|_{m=0}
+	\equiv f_1(t,t)
+\end{equation*}
+%
+simply does not exist.
+But the above argument \emph{can} be made rigorous: it really is true that the envelope formula is a fancy way of rewriting `local optimality' (suitably defined; see \textcite{Sinander2021}).
+Alternatively and more traditionally,
+one can use a completely different (unintuitive but elegant) argument to derive the envelope formula \parencite{MilgromSegal2002}.
+Either way, we have learned:
+
+\begin{namedthm}[Mirrlees envelope theorem.]
+	%
+	\label{proposition:ic_env}
+	%
+	Any IC mechanism $(q,p)$ satisfies the envelope formula:
+	%
+	\begin{equation*}
+		t q(t) - p(t) = - p(0) + \int_0^t q
+		\quad \text{for every $t \in [0,1]$.}
+		\tag{{\Large\Letter}}
+	\end{equation*}
+	%
+\end{namedthm}
+
+
+\begin{remark}[revenue/payoff equivalence]
+	%
+	\label{remark:rev_equivalence}
+	%
+	It follows that any two indirect mechanisms
+	that induce the same allocation $q$
+	\emph{and} induce a payment of $p(0)=0$ from type $t=0$
+	must actually induce the exact same payment rule $p$.
+	(Why? Prove it!)
+	Thus any two such mechanisms provide the same payoff to every type of the agent,
+	and also the same payment (or `revenue' from the perspective of the principal/seller collecting the money).
+	%
+\end{remark}
+
+
+\begin{remark}
+	%
+	\label{remark:env_powerful}
+	%
+	Why is the envelope formula so restrictive (and thus the envelope theorem so powerful)?
+	Fix a type $t \in (0,1)$.
+	The IC constraint $V(r) \geq f(t,r)$
+	deterring a higher type $r>t$ from mimicking $t$
+	may be rewritten (by subtracting $V(t)$ from both sides and dividing by $r-t$) as
+	%
+	\begin{equation}
+		\frac{V(r) - V(t)}{r-t} \geq \frac{f(t,r) - f(t,t)}{r-t} ,
+		\label{eq:env_ineq_above}
+	\end{equation}
+	%
+	so that letting $r \downarrow t$ yields $V'(t) \geq f_2(t,t)$.
+	Similarly, the IC constraint $V(r') \geq f(t,r')$
+	deterring a \emph{lower} type $r'<t$ from mimicking $t$
+	may be rewritten
+	%
+	\begin{equation}
+		\frac{V(t) - V(r')}{t-r'} \leq \frac{f(t,t) - f(t,r')}{t-r'} ,
+		\label{eq:env_ineq_below}
+	\end{equation}
+	%
+	which as $r' \uparrow t$ yields $V'(t) \leq f_2(t,t)$.
+	Putting together our two conclusions, we have
+	%
+	\begin{equation*}
+		f_2(t,t) \leq V'(t) \leq f_2(t,t) ,
+		\quad \text{or} \quad
+		V'(t) = f_2(t,t) .
+	\end{equation*}
+	%
+	Economically, the fact that we obtain an equality comes from the fact that we must deter $t$ from being mimicked by other types $r,r'$ that are \emph{arbitrarily} close to her. (Formally, because the set $[0,1]$ of types is a connected set.)
+	If types were spaced out discretely, then we would obtain only the more permissive `inequality' envelope formula comprising \eqref{eq:env_ineq_above}--\eqref{eq:env_ineq_below}.
+	%
+\end{remark}
+
+
+\paragraph{The literature.}
+The modern envelope theorem is due to \textcite{MilgromSegal2002};
+the more intuitive treatment here is based on \textcite{Sinander2021}.
+The theorem applies to any parametrised optimisation problem in which an action $x$ is chosen from an arbitrary choice set $\mathcal{X}$ to maximise an objective $f(x,t)$,
+where the only assumptions needed are that the parameter $t$ belongs to a connected space (without loss of generality, the unit interval $[0,1]$) and that $f(x,\cdot)$ is differentiable and satisfies a mild further condition (which rules out a badly-behaved derivative).%
+	\footnote{\Cref{remark:env_powerful} illustrated the role of connectedness.
+	If differentiability is dropped, we still obtain an inequality envelope formula involving directional (or Dini) derivatives; see e.g. \textcite{CarbajalEly2013}.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Characterisation of incentive-compatibility}
+\label{sec:ch1:ic}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{namedthm}[Spence--Mirrlees lemma.]
+	%
+	\label{proposition:SM_lemma}
+	%
+	A mechanism $(q,p)$ is IC if and only if
+	it satisfies the envelope formula
+	and $q$ is increasing.
+	%
+\end{namedthm}
+
+\begin{proof}
+	%
+	Fix a mechanism $(q,p)$.
+	Write $V(t) \coloneqq t q(t) - p(t)$ for the value of truthful reporting.
+
+	Observe first that \emph{if} $(q,p)$ satisfies the envelope formula, then the payoff loss of type $t$ from mimicking type $r$ instead of reporting truthfully is
+	%
+	\begin{align}
+		V(t) - [ t q(r) - p(r) ]
+		&= V(t) - V(r)
+		+ [ r q(r) - p(r) ]
+		- [ t q(r) - p(r) ]
+		\nonumber
+		\\
+		&= \int_r^t q(s) \dd s
+		- (t-r) q(r)
+		\nonumber
+		\\
+		&= \int_r^t \left[ q(s) - q(r) \right] \dd s ,
+		\label{eq:dev_payoff}
+		\tag{$\star$}
+	\end{align}
+	%
+	where the final equality holds by the fundamental theorem of calculus.
+
+	Suppose that $(q,p)$ is IC.
+	We've seen (the \hyperref[proposition:ic_env]{Mirrlees envelope theorem} above) that it satisfies the envelope formula.
+	So by IC and \eqref{eq:dev_payoff}, we must have 
+	%
+	\begin{equation*}
+		\int_r^t \left[ q(s) - q(r) \right] \dd s \geq 0
+		\quad \text{for all $r,t \in [0,1]$,}
+	\end{equation*}
+	%
+	which is only possible if $q$ is increasing.
+	(Right? Convince yourself.)
+
+	Suppose that $(q,p)$ satisfies the envelope formula and that $q$ is increasing.
+	Then type $t$'s payoff loss from mimicking $r$ is given by \eqref{eq:dev_payoff} as
+	%
+	\begin{equation*}
+		\int_r^t \left[ q(s) - q(r) \right] \dd s ,
+	\end{equation*}
+	%
+	which is non-negative since $q$ is increasing.
+	Thus $(q,p)$ is IC.
+	%
+\end{proof}
+
+
+\paragraph{The literature.}
+The Spence--Mirrlees lemma has been extended in various ways.
+At the highest level of generality, the `outcome' $q$ belongs to an abstract space $Q$ ($=[0,1]$ in the text) equipped with a partial order,
+and the agent's payoff is some function $f(q,p,t)$ ($=tq-p$ in the text).
+Versions of the result go through whenever $f$ satisfies the \emph{Spence--Mirrlees (`single-crossing') condition,}
+defined in terms of how different types' indifference curves in $q$--$p$ space cross each other.%
+	\footnote{When preferences have the quasi-linear form $f(q,p,t) = g(q,t) - p$, Spence--Mirrlees requires precisely that $g$ be \emph{supermodular.}
+	In general, a broader (ordinal) notion of supermodularity (or `complementarity') characterises the Spence--Mirrlees condition \parencite[][Theorem 3]{MilgromShannon1994}.}
+See \textcite[§4]{Sinander2021} for an overview of such results (plus a new, general result).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Participation}
+\label{sec:ch1:part}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+It is natural to assume that the agent can walk away.
+In particular, she may consume an outside option worth zero to her (no good, no payment).
+
+It is without loss of generality to focus on mechanisms that induce every type of the agent to participate.
+This is because if type $t$ were not participating, then we could invite her to participate and award her the outcome $(q(t),p(t)) = (0,0)$ if she does, which is no better (or worse) than non-participation.
+
+We may thus focus on IC mechanisms that induce participation (or are `individually rational', aka `IR'),
+meaning that every type $t$'s payoff $t q(t) - p(t)$ is non-negative.
+
+\begin{corollary}
+	%
+	\label{corollary:ic_ir}
+	%
+	A mechanism $(q,p)$ is IC and IR if and only if
+	it satisfies the envelope formula,
+	$q$ is increasing,
+	and $p(0) \leq 0$.
+	%
+\end{corollary}
+
+\begin{proof}
+	%
+	`$\implies$' direction:
+	if $(q,p)$ is IR, then the payoff $0 \times q(0) - p(0) = -p(0)$ of type $t=0$ must be at least zero (the value of the outside option).
+	And we've already seen (the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma}) that IC requires the other properties.
+
+	`$\Longleftarrow$' direction:
+	fix a mechanism $(q,p)$, and
+	write $V(t) \coloneqq t q(t) - p(t)$ for the value of type $t$.
+	If $(q,p)$ satisfies the first two properties, then we've seen (the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma}) that it is IC.
+	If it furthermore satisfies $p(0) \leq 0$,
+	then $V(0) = -p(0) \geq 0$,
+	and so by the \hyperref[proposition:ic_env]{Mirrlees envelope theorem}
+	%
+	\begin{equation*}
+		V(t) = V(0) + \int_0^t q \geq 0 
+		\quad \text{for every $t \in [0,1]$,}
+	\end{equation*}
+	%
+	which is to say that $(q,p)$ is IR.
+	%
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{The optimality of posting a price}
+\label{sec:ch1:post}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose that the good is owned by a monopolist (principal) who wishes to sell it so as to maximise expected profit.
+(Equivalently, re-interpret the agent as a continuum of consumers, each with a privately-known valuation; the monopolist wishes to maximise profit. This problem bears the antiquated name of \emph{second-degree price discrimination.})
+
+The monopolist may use any mechanism she likes, but must take into account that the only the agent knows her valuation and that she may choose to walk away.
+
+Here's a very simple (indirect) mechanism that the monopolist could adopt: post a price!
+More fully, the monopolist sets a price $\pi \in \R_+$
+and gives the agent two options:
+purchase the good at price $\pi$ (pay $\pi$ and get the good for sure)
+or don't (pay nothing and get nothing).
+
+What allocation and payments does this induce?
+Agents of type $t > \pi$ will purchase the good, so $(q(t),p(t)) = (1,\pi)$ for them, while agents of type $t < \pi$ will not, so $(q(t),p(t)) = (0,0)$.
+
+\begin{exercise}
+	%
+	\label{exercise:posted_price}
+	%
+	(a) This allocation--payment pair (viewed as a direct mechanism) is IC; why?
+	(b) Verify that this mechanism satisfies the envelope formula.
+	(c) There are other mechanisms $(q,p')$, i.e. they have the same allocation but different payments. Describe them.
+	%
+\end{exercise}
+
+This is about as simple a mechanism as can be devised.
+One thing that makes it simple is that it does not make use of the monopolist's power to allocate the good randomly, which is in principle very powerful.
+Nonetheless:
+
+\begin{theorem}[\textcite{Myerson1981}]
+	%
+	\label{theorem:Myerson}
+	%
+	There is a posted-price mechanism that is optimal.
+	%
+\end{theorem}
+
+The rest of this section is devoted to proving this result.
+Myerson's original argument is based on a duality technique called `(ironed) virtual valuations'. This technique is important and useful; indeed, Myerson's proof directly extends to the case of multiple agents. (This yields Myerson's celebrated result that a second-price auction with a reserve price is optimal.)
+We shall instead pursue a direct, convexity-based argument that I learned from Eran Shmaya.
+
+We begin by using our preceding results (in particular, \Cref{corollary:ic_ir}) greatly to narrow down the space of mechanisms under consideration.
+It is obviously not optimal to subsidise type $t=0$ (and thus by the envelope formula to lower the payments of all types), so $p(0)=0$ is optimal.
+The monopolist therefore merely has to choose the allocation, which can be any increasing function $q : [0,1] \to [0,1]$.
+The payment rule $p$ is then pinned down by the envelope formula and $p(0)=0$ as
+%
+\begin{equation*}
+	p(t)
+	= t q(t) - \int_0^t q 
+	\quad \text{for each $t \in [0,1]$.}
+\end{equation*}
+
+This narrows our problem down to one of choosing from among the space of all increasing functions $[0,1] \to [0,1]$.
+That's still a very large (infinite-dimensional) space, though, so we aren't out of the woods yet.
+It isn't obvious, for example, that it won't be optimal sometimes to allocate with interior probability (selling a coin toss), as that could have incentive benefits.
+
+The monopolist's revenue is just the agent's payment, which depends on her type according to the equation above.
+The monopolist views the agent's valuation as a random variable; we'll denote it by $T$, and write $F$ for its CDF.
+Her expected revenue is thus
+%
+\begin{equation*}
+	\E_{T \sim F}( p(T) )
+	= \E_{T \sim F}\left( T q(T) - \int_0^T q \right)
+	\eqqcolon R(q) .
+\end{equation*}
+%
+The monopolist's problem is to maximise $R(q)$
+by choosing $q$ from the space $\mathcal{Q}$ of all increasing maps $q : [0,1] \to [0,1]$.
+
+Note that $\mathcal{Q}$ is a convex space: if $q$ and $q'$ are both increasing maps $[0,1] \to [0,1]$, then so is $\alpha q + (1-\alpha) q'$ for any scalar $\alpha \in [0,1]$.
+Note further that the objective $R$ is linear:
+%
+\begin{equation*}
+	R( \alpha q + (1-\alpha) q' ) = \alpha R(q) + (1-\alpha) R(q') 
+	\quad \text{for any $q,q' \in \mathcal{Q}$ and $\alpha \in [0,1]$.}
+\end{equation*}
+%
+Finally, $\mathcal{Q}$ is (in fact) compact in a suitable sense.%
+	\footnote{It is compact in the product topology (=the topology of pointwise convergence).
+	Proof: it is a closed subset of the space of all functions $[0,1] \to [0,1]$, which is compact by Tychonoff's theorem.}
+
+Now let's do some convex geometry (see \cref{ch:convexity} for a little overview).
+An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that cannot be expressed as the convex combination of two \emph{distinct} elements of $\mathcal{Q}$.
+
+\begin{observation}
+	%
+	\label{observation:bauer}
+	%
+	Any convex and suitably continuous (e.g. linear) function $\phi : \mathcal{Q} \to \R$
+	is maximised at an extreme point of $\mathcal{Q}$.
+	%
+\end{observation}
+
+\begin{proof}
+	%
+	It is intuitive, and in fact true, that any element of the compact convex set $\mathcal{Q}$ can be written as an (infinite) convex combination of the extreme points of $\mathcal{Q}$.
+	Results like this constitute a little field called Choquet theory,
+	and Choquet's theorem%
+		\footnote{Or its generalisation, the Choquet--Bishop--de Leeuw theorem. See e.g. \textcite{Phelps2001}.}
+	says that
+	we may for any $q \in \mathcal{Q}$ find a probability measure $\mu$ defined on $\ext \mathcal{Q}$ such that $q = \int_{\ext \mathcal{Q}} q' \mu(\dd q')$.%
+		\footnote{That's a Lebesgue integral;
+		it's a fancy way of saying that $q$ is a convex combination of $q'$s in $\ext \mathcal{Q}$, with $\mu(q') \in [0,1]$ being the weight placed on $q' \in \ext \mathcal{Q}$.}
+
+	Now, let $q \in \mathcal{Q}$ maximise a convex and suitably continuous function $\phi$ on $\mathcal{Q}$.
+	Then since we have $q = \int_{\ext \mathcal{Q}} q' \mu(\dd q')$ for some probability measure $\mu$ on $\ext \mathcal{Q}$, we have
+	%
+	\begin{equation*}
+		\phi(q) \leq \int_{\ext \mathcal{Q}} \phi(q') \mu(\dd q') ,
+	\end{equation*}
+	%
+	and thus $\phi(q) \leq \phi(q')$ for some $q' \in \ext \mathcal{Q}$.
+	Since $q$ is optimal, $q'$ must be, too.
+	%
+\end{proof}
+
+
+\Cref{observation:bauer} permits us to conclude that the monopolist's problem $\max_{q \in \mathcal{Q}} R(q)$
+admits a solution that is an extreme point of the space $\mathcal{Q}$ of the space of increasing functions $[0,1] \to [0,1]$.
+I claim that the extreme points of $\mathcal{Q}$
+are exactly those functions
+ $q : [0,1] \to [0,1]$
+that satisfy
+%
+\begin{equation*}
+	q(t) =
+	\begin{cases}
+		0	& \text{for $t<t^\star$} \\
+		1	& \text{for $t>t^\star$} 
+	\end{cases}
+	\quad \text{and} \quad q(t^\star) \in \{0,1\}
+	\quad
+	\text{for some $t^\star \in [0,1]$.}
+\end{equation*}
+%
+I will call such functions \emph{impulses} (my term).
+It is a fact that all and only impulses are extreme points of $\mathcal{Q}$.
+
+\begin{exercise}
+	%
+	\label{exercise:incr_ext_pnts}
+	%
+	Prove it! That is,
+	(a) show that every impulse is an extreme point of $\mathcal{Q}$, and
+	(b) show that every extreme point of $\mathcal{Q}$ is an impulse.%
+		\footnote{Part (b) is harder, so here's a hint.
+		Prove the contra-positive: fix an arbitrary $q \in \mathcal{Q}$, and try to show that it isn't an extreme point, by constructing distinct $q^-,q^+ \in \mathcal{Q}$ such that $q = \alpha q^- + (1-\alpha) q^+$ for some $\alpha \in (0,1)$.
+		Be careful to ensure that your $q^-$ and $q^+$ are legitimately elements of $\mathcal{Q}$, i.e. that they take values in $[0,1]$ and are increasing.}
+		% A solution: $q^- \coloneqq q + \frac{1}{2}(1-q)$, $q^+ \coloneqq q + \frac{1}{2}(1-q)$ and $\alpha=1/2$.}
+	%
+\end{exercise}
+
+
+We conclude that there is a revenue-maximising allocation $q$
+that is an impulse.
+In other words, all types above a threshold get the good for sure,
+while those below do not get the good.
+This is a remarkably simple allocation rule; for one thing, it is deterministic!
+
+What are the implied payments? You can calculate the payment rule from the envelope formula and the condition $p(0)=0$. (Try it!)
+Or from scratch: although each type $t$ can make many different reports in the direct mechanism, they fall into two categories: reports $< t^\star$, which yield $q=0$,
+and reports $>t^\star$, which yield $q=1$.
+Clearly IC requires that all types $<t^\star$ make the same payment;
+and similarly for types $>t^\star$.
+By $p(0)=0$, the former group pay zero;
+let's write $\pi$ for what the latter group pay.
+Evidently type $t^\star$ must be indifferent; so $\pi = t^\star$.
+
+We have shown that whatever the distribution $F$ of the agent's type,
+there is a posted-price mechanism that is optimal.
+We have not described the optimal price $\pi$; this depends on the distribution $F$, and is easily characterised via a first-order condition.
+
+
+\paragraph{The literature.}
+The theorem is due to \textcite{Myerson1981}; his result is actually more general, as it covers the case of several agents.
+He proved it by developing a duality technique based on `(ironed) virtual valuations' that has proved useful in other environments.
+I find the direct convexity-based approach pursued here both more insightful and more widely applicable,
+and that seems to be where the literature is going: \textcite{KleinerMoldovanuStrack2021} is a nice recent example.
+More generally, much of the structure of modern economic theory is simply convex structure, as described by convex analysis. The standard reference here is \textcite{Rockafellar1970}; for Choquet theory in particular, see e.g. \textcite{Phelps2001}.
+
+
+\begin{exercise}
+	%
+	\label{exercise:ambiguity}
+	%
+	Suppose that the monopolist is not a Bayesian decision-maker:
+	instead of having a single belief $F$ about the agent's valuation,
+	she entertains an entire set $\mathcal{F}$ of beliefs $F$.
+	For each given belief $F$, let us write
+	%
+	\begin{equation*}
+		R_F(q) \coloneqq \E_{T \sim F}( p(T) )
+		= \E_{T \sim F}\left( T q(T) - \int_0^T q \right)
+	\end{equation*}
+	%
+	for the monopolist's expected revenue from an increasing allocation $q$.
+
+	\begin{enumerate}[label=(\alph*)]
+	
+		\item
+		Suppose to begin with that the monopolist is a `maxmax' decision-maker, meaning that she evaluates an allocation $q$ according to the most optimistic of the beliefs $F$ in the set $\mathcal{F}$:%
+			\footnote{This could be interpreted as `motivated reasoning'.}
+		%
+		\begin{equation*}
+			\mathcal{U}(q) = \max_{F \in \mathcal{F}} R_F(q) .
+		\end{equation*}
+		%
+		Prove that there is a posted-price mechanism that is optimal.
+		(Hint: $\mathcal{U}$ is not linear. But\dots?)
+
+		\item
+		Suppose instead that the monopolist has `maxmin' preferences:
+		she evaluates an increasing allocation $q$ according to the pessimistic criterion
+		%
+		\begin{equation*}
+			\mathcal{V}(q) = \min_{F \in \mathcal{F}} R_F(q) .
+		\end{equation*}
+		%
+		(This captures `uncertainty-aversion', as exemplified by the Ellsberg paradox.)
+		Can our argument above be salvaged? Explain.
+
+		\item
+		Maintain the maxmin assumption,
+		and further suppose that $\mathcal{F}$ has a least element $\underline{F}$, in the sense of first-order stochastic dominance.
+		(That is, every $F \in \mathcal{F}$ first-order stochastically dominates $\underline{F}$.)
+
+		\emph{Reminder: $F$ first-order stochastically dominates $G$
+		if and only if $\E_{T \sim F}( \phi(T) ) \geq \E_{T' \sim G}( \phi(T') )$ for every increasing $\phi : [0,1] \to \R$.}
+
+		\begin{enumerate}[label=(\roman*)]
+		
+			\item Fix an increasing allocation $q$.
+			Let $p$ be the payment rule induced by $q$ via the envelope formula and the condition $p(0)=0$.
+			Show that $p$ is increasing.
+
+			\item 
+			Prove that
+			$\mathcal{V}(q) = R_{\underline{F}}(q)$
+			for every increasing allocation $q$.
+
+			\item
+			Show that there is a posted-price mechanism which is optimal.
+		
+		\end{enumerate}
+	
+	\end{enumerate}
+	%
+\end{exercise}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The role of commitment}
+\label{sec:ch1:commitment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The monopolist's ability to commit to a mechanism is the backbone of the above analysis. To see why it matters, consider an optimal posted-price mechanism with price $\pi$. Although it maximises \emph{expected} revenue, the monopolist might get unlucky ex post: if the agent's valuation turns out to be less than $\pi$, then the good stays with the monopolist, and she earns no revenue at all.
+
+Having observed the agent's failure to purchase, the monopolist may reasonably infer that the agent's valuation is less than $\pi$, but quite possibly still positive.
+Were she able to, the monopolist would now very much like to offer the good for sale once more, this time at a lower price.
+
+Were the agent to expect the monopolist to behave in this way, however,
+it would change the agent's behaviour in the first place: even if her valuation exceeds $\pi$, she may decline to purchase at this price since doing so will secure her a better deal.
+Continuing this reasoning suggests, correctly, that the revelation principle is invalid absent commitment by the monopolist.
+The trouble is that there are now IC constraints not just for the agent, but also for the monopolist.
+
+The monopolist's inability to commit not to try to sell the good again is an inherently dynamic problem,
+and so we need a dynamic model.
+(We were able to avoid this previously because the revelation principle made static mechanisms without loss.)
+We'll let the `length' of a period be $\Delta>0$,
+so that the periods are $n \in \{0,\Delta,2\Delta,\dots\}$.
+The discount rate (for both the agent and the monopolist) is $r>0$.
+(So between adjacent periods, the agent discounts by factor $\delta = e^{-r\Delta}$.)
+Note that we are assuming the good to be durable (non-perishable): its value does not diminish over time.
+
+Previously, we allowed the monopolist to commit (in each period) to either (a) hand over the good (immediately) or (b) to retain the good (forever).
+As discussed above, it is plausible to suppose that the monopolist is unable to commit to (b): if she fails to sell the good, then she cannot bind her future selves not to try to sell it again.
+It remains reasonable (do you agree?) to assume that the monopolist has the power to commit to (a) hand over the good: this means that the she is able to prevent her future selves from clawing back the good from the agent.%
+	\footnote{This commitment power on the monopolist's part presumably comes from an external system of enforced property rights. Where such enforcement or rights are absent, a monopolist may not be able to prevent her future self from expropriating the agent.}
+
+This suggests the following interaction within each period: the monopolist offers the good for sale at a price, and the agent accepts or rejects.
+If the agent accepts, then the monopolist gives her the good (and thus commits permanently to relinquish the good---she cannot claw it back).
+If not, then the monopolist keeps the good until the next period.%
+	\footnote{The monopolist might wish to offer a new price right away, instead of waiting until the next period. We are ruling this out as infeasible---the (possibly very short) `period length' $\Delta>0$ captures constraint on how long it takes to carry out one round of bargaining between buyer and monopolist.}
+This is a bargaining game, and we'll be interested in its (perfect Bayesian) equilibria. (Let's not get bogged down in defining PBE formally, though.)
+
+The \emph{Coase conjecture} asserts that the monopolist's bargaining power is small when offers are frequent ($\Delta$ is small): in equilibrium, she sells at a low price.
+More formally, the claim is that the good sells a.s. in finite time,
+at a price $p^\Delta$ that vanishes as $\Delta \to 0$.
+The classical intuition for this conjecture is that when the period length $\Delta$ is small, the monopolist in period $n$
+engages in near-perfect competition with her period-$(n+1)$ self,
+driving the price down to marginal cost (which we've normalised to zero).
+
+Is the conjecture true?
+If we restrict attention to stationary equilibria,
+then given some technical assumptions,
+it is indeed true \parencite{GulSonnenscheinWilson1986}.
+This can be proved easily, in about a page: see the nice and short note by \textcite{Liu2015}.
+
+What about non-stationary equilibria?
+Let's assume that the agent's valuation $T$ is supported on an interval $S \subseteq [0,1]$, and recall that we normalise the monopolist's valuation of the good to zero.
+(The results below also require some further technical assumptions.)
+If $\inf S > 0$ (the `gap case'), there is an (essentially) unique equilibrium, and it is stationary;
+but if $\inf S = 0$ (the `no-gap case'), a folk theorem holds, 
+meaning that there exist non-stationary `reputational' equilibria
+which support trade at any price between zero and the full-commitment monopoly price, provided $\Delta>0$ is small enough \parencite{GulSonnenscheinWilson1986,AusubelDeneckere1989}.
+
+
+\paragraph{The literature.}
+The conjecture is from \textcite{Coase1972}.
+The big papers are \textcite{FudenbergLevineTirole1985,GulSonnenscheinWilson1986,AusubelDeneckere1989};
+see \textcite{AusubelCramtonDeneckere2002} for a survey.
+For a taste of recent work on this topic, consider \textcite{DovalSkreta2021}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Selling several goods}
+\label{sec:ch1:multi-d}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose now that the monopolist has two goods to sell.
+We consider the simplest case: the agent's payoff is $t_1 q_1 + t_2 q_2 - p$.
+
+The monopolist's revenue-maximisation problem with two goods is an open problem, despite its apparent simplicity!
+This is true even when $t_1,t_2$ are assumed to be statistically independent.
+In this section, we'll try to get a feel for what the issues are, and why this problem is hard.
+
+Mechanisms are now $(q_1,q_2,p) : [0,1]^2 \to [0,1]^2 \times \R$.
+It remains true that an allocation $(q_1,q_2)$ is implementable (i.e. a payment rule $p$ can be found such that $(q_1,q_2,p)$ is IC)
+exactly if $(q_1,q_2)$ is suitably monotone;
+in particular, \emph{cyclically monotone.}%
+	\footnote{The term comes from convex analysis \parencite[see][]{Rockafellar1970}. This link between implementability and convex analysis was spotted by \textcite{Rochet1987}.}
+
+Let's write $\mathcal{Q}_2$ for all cyclically monotone allocations.
+$\mathcal{Q}_2$ is convex (and compact),
+and revenue is a linear function $R : \mathcal{Q}_2 \to \R$,
+so our previous analysis tells us that there must be an optimal mechanism that is an extreme point of $\mathcal{Q}_2$.
+But characterising these extreme points is hard, and there are many of them.
+More broadly: cyclic monotonicity is intractable.
+
+So what can happen? For one thing, it can easily be that optimal mechanisms feature random assignment.
+Here's an example from \textcite{HartReny2015}:
+
+\begin{proposition}
+	%
+	\label{proposition:hartreny}
+	%
+	Suppose that the agent's valuation can be either
+	$(t_1,t_2)$ can be either $(1,0)$, $(0,2)$ or $(3,3)$, each with equal probability.
+	The uniquely optimal direct mechanism is
+	%
+	\begin{equation*}
+		( q_1(t), q_2(t), p(t) )
+		=
+		\begin{cases}
+			\left( \tfrac{1}{2}, 0, \tfrac{1}{2} \right)
+			& \text{for $t=(1,0)$} \\
+			( 0, 1, 2 )
+			& \text{for $t=(0,2)$} \\
+			( 1, 1, 5 )
+			& \text{for $t=(3,3)$.} 
+		\end{cases}
+	\end{equation*}
+	%
+\end{proposition}
+
+To get a handle on this mechanism, let's simplify notation a little
+by letting
+$(\alpha_1,\beta_1,\pi_1)$, $(\alpha_2,\beta_2,\pi_2)$ and $(\alpha_3,\beta_3,\pi_3)$ denote $( q_1(t), q_2(t), p(t) )$
+for $t = (1,0)$, $t=(0,2)$ and $t=(3,3)$, respectively.
+There is an IC constraint for each pair of distinct types (so six IC constraints), plus an IR constraint for each type.
+
+\begin{exercise}
+	%
+	\label{exercise:hartreny_ic}
+	%
+	Verify that this mechanism is IC and IR.
+	%
+\end{exercise}
+
+Some of these constraints bind, and others do not.
+The `downward' IC constraints that deter type $t=(3,3)$ from pretending to be one of the lower-valuation types both bind:
+this type's truthful payoff is
+%
+\begin{equation*}
+	3 \times 1 + 3 \times 1 - 5
+	= 1 ,
+\end{equation*}
+%
+while she earns
+%
+\begin{equation*}
+	3 \times \tfrac{1}{2} + 3 \times 0 - \tfrac{1}{2}
+	= 1
+\end{equation*}
+%
+by mimicking type $t=(1,0)$
+and earns
+%
+\begin{equation*}
+	3 \times 0 + 3 \times 1 - 2
+	= 1
+\end{equation*}
+%
+by mimicking type $t=(0,2)$.
+You can also easily verify that the IR constraints for types $(1,0)$ and $(0,2)$ both bind.
+
+This is where the random outcome for type $(1,0)$ is valuable to the monopolist.
+By randomising, she is able to keep \emph{both} `downward' IC constraints binding, while still giving type $(1,0)$ a payoff of zero.
+Using deterministic outcomes, it is typically not possible to satisfy several downward IC constraints with equality without ceding `information rents' to the lower types in question.
+
+If that was too loose for you, here's a proof.
+It's a lot of algebra, \emph{but with `economic' remarks added in italics.}
+
+\begin{proof}
+	%
+	For an arbitrary mechanism $(q_1,q_2,p)$,
+	we may write
+	$(\alpha_1,\beta_1,\pi_1)$, $(\alpha_2,\beta_2,\pi_2)$ and $(\alpha_3,\beta_3,\pi_3)$ for $( q_1(t), q_2(t), p(t) )$
+	for $t = (1,0)$, $=(0,2)$ and $=(3,3)$, respectively.
+	Expected revenue is $\frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 + \frac{1}{3}\pi_3$.
+
+	The mechanism in the proposition is easily shown to satisfy all of the IC and IR constraints.
+	We shall show that it is uniquely optimal in a relaxed revenue-maximisation problem in which some of these constraints are ignored; that obviously implies that it is uniquely optimal in the original problem.
+
+	So consider the problem of choosing a mechanism subject only to the IR constraints for types $(1,0)$ and $(0,2)$
+	and the `downward' IC constraints $(3,3) \to (1,0)$ and $(3,3) \to (0,2)$, i.e.
+	%
+	\begin{align*}
+		\alpha_1 - \pi_1
+		&\geq 0 \\
+		2 \beta_2 - \pi_2
+		&\geq 0 \\
+		3 \alpha_3 + 3 \beta_3 - \pi_3
+		&\geq 3 \alpha_1 + 3 \beta_1 - \pi_1 \\
+		3 \alpha_3 + 3 \beta_3 - \pi_3
+		&\geq 3 \alpha_2 + 3 \beta_2 - \pi_2 .
+	\end{align*}
+	%
+	Rewriting yields
+	%
+	\begin{align*}
+		\pi_3 + 3 \alpha_1 + 3 \beta_1 - 3 \alpha_3 - 3 \beta_3
+		&\leq \pi_1
+		\leq \alpha_1
+		\\
+		\pi_3 + 3 \alpha_2 + 3 \beta_2 - 3 \alpha_3 - 3 \beta_3
+		&\leq \pi_2
+		\leq 2 \beta_2 .
+	\end{align*}
+	%
+	Clearly to maximise $\frac{1}{3}\pi_1 + \frac{1}{3}\pi_2 + \frac{1}{3}\pi_3$,
+	we must choose $\pi_1 = \alpha_1$ and $\pi_2 = 2 \beta_2$.
+	\emph{(IR binds for the two low-valuation types: it is not optimal to give information rents to `low' types.)}
+	The remaining constraints are
+	%
+	\begin{align*}
+		\pi_3
+		&\leq 3 \alpha_3 + 3 \beta_3 - 2 \alpha_1 - 3 \beta_1
+		\\
+		\pi_3
+		&\leq 3 \alpha_3 + 3 \beta_3 - 3 \alpha_2 - \beta_2 .
+	\end{align*}
+	%
+	It is then clearly optimal to let $\alpha_3 = \beta_3 = 1$ and $\beta_1 = \alpha_2 = 0$.
+	\emph{(This is intuitive: the high-valuation type gets both goods, while each of the lower-valuation types get zero of the good that they do not value.)}
+	Clearly $\pi_3$ should be set as high as possible subject to these two constraints:
+	%
+	\begin{equation*}
+		\pi_3 = \min\left\{ 6 - 2 \alpha_1, 6 - \beta_2 \right\} .
+	\end{equation*}
+	%
+	The remainder of the problem is to choose $\alpha_1,\beta_2$ to maximise
+	%
+	\begin{equation*}
+		\frac{1}{3}\alpha_1 + \frac{2}{3}\beta_2
+		+ \frac{1}{3}\min\left\{ 6 - 2 \alpha_1, 6 - \beta_2 \right\} .
+	\end{equation*}
+	%
+	\emph{The trade-off here is that
+	raising $\alpha_1$ allows a higher payment ($\pi_1 = \alpha_1$) to be extracted from type $t=(1,0)$,
+	but also tightens the IC constraint \textrm{`$(3,3) \to (1,0)$'}, potentially requiring $\pi_3$ to be lowered.
+	Similarly for $\beta_2$.}
+	
+	Since this expression is increasing in $\beta_2$, it is optimal to set $\beta_2 = 1$.
+	We now merely have to choose $\alpha_1$ to maximise
+	%
+	\begin{equation*}
+		\frac{1}{3}\alpha_1 + \frac{2}{3}
+		+ \frac{1}{3}\min\left\{ 6 - 2 \alpha_1, 5 \right\} .
+	\end{equation*}
+	%
+	This is (uniquely) achieved by setting $\alpha_1 = 1/2$.
+
+	\emph{The economics of the last step are as follows.
+	As we decrease $\alpha_1$ from $1$,
+	we decrease the payment $\pi_1 = \alpha_1$ that we may extract from type $(1,0)$,
+	but the amount $\pi_3 = 6-2\alpha_1$ that we may charge type $(3,3)$ rises twice as quickly since lowering $\alpha_1$ slackens the IC constraint $(3,3) \to (1,0)$;
+	so this is worth it.
+	But once $\alpha_1$ hits $1/2$, decreasing it further continues to be costly, but without the benefit, because now the other downward IC constraint $(3,3) \to (0,2)$ binds, preventing us from raising $\pi_3$ any further.
+	Thus $\alpha_1 = 1/2$ is uniquely optimal.}
+	%
+\end{proof}
+
+\paragraph{The literature.}
+\textcite{HartReny2015} provide a good guide to why this problem is difficult and why optimal mechanisms are stranger than one might expect; they also provide good references to the literature.
+Computer scientists have taken an interest in this slice of economic theory, and much recent progress has come from that corner,
+including the closest thing to a recent breakthrough: \textcite{DaskalakisDeckelbaumTzamos2017}.%
+	\footnote{Their proof uses fancy optimal-transport techniques; see \textcite{Galichon2016} for an economist's introduction. But as so often, there is an elementary proof: \textcite{KleinerManelli2019} found one.}
