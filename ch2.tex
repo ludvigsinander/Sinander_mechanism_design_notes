@@ -1,4 +1,4 @@
-% Copyright (c) 2021 Carl Martin Ludvig Sinander.
+% Copyright (c) 2022 Carl Martin Ludvig Sinander.
 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -136,7 +136,7 @@ to a finite-dimensional family of inequalities.
 We won't prove this; instead we'll introduce and prove a symmetric version.
 Call the environment \emph{symmetric} iff all agents' types are drawn from the same type space, call it $\mathcal{T}$,
 according to the same distribution, call it $\mu$.
-A \emph{symmetric candidate interim allocation} is a (measurable) map $Q : T \to [0,1]$;
+A \emph{symmetric candidate interim allocation} is a (measurable) map $Q : \mathcal{T} \to [0,1]$;
 we interpret this as the candidate interim allocation $(Q_i)_{i=1}^I$ in which $Q_i = Q$ for every $i$.
 A symmetric allocation $q$ is one such that $q(\boldsymbol{t}) = q(\boldsymbol{t'})$ whenever $\boldsymbol{t'}$ is a permutation of $\boldsymbol{t}$.
 
@@ -385,7 +385,7 @@ Some (not many) extensions have been considered.
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-We shall always assume that every types of every agent likes the good (and is selfish).
+We shall always assume that every type of every agent likes the good (and is selfish).
 If the principal cannot directly monitor the agents' private types,
 and if she controls no payoff-relevant decisions apart from the allocation of the good, then screening (separation of different types) is impossible:
 it is possible to implement all and only allocations that do not depend on agents' types. (Why?)
@@ -456,7 +456,7 @@ Implementability is standardly characterised as follows:
 	For the dominant-strategies part,
 	fix an agent $i$
 	and a profile $\boldsymbol{t}_{-i}$ of types of the players apart from $i$.
-	In a direct revelation mechanism $(p,q)$,
+	In a direct revelation mechanism $(q,p)$,
 	$i$ faces the same reporting problem
 	as if she were the only agent (as in the previous chapter), facing the single-agent mechanism $\left( q_i\left(\cdot,\boldsymbol{t}_{-i}\right), p_i\left(\cdot,\boldsymbol{t}_{-i}\right) \right)$.
 	Thus by the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma} (\cpageref{proposition:SM_lemma}), she is willing to report truthfully iff $q_i\left(\cdot,\boldsymbol{t}_{-i}\right)$ is increasing and $p_i\left(\cdot,\boldsymbol{t}_{-i} \right)$ is given by the envelope formula.
@@ -494,7 +494,7 @@ Furthermore, by payoff/revenue equivalence, agents' interim payoffs and revenue 
 In short, we can get dominant-strategy IC for free.
 
 
-For the sketch proof, we'll focus on the symmetric special case:
+We shall sketch a proof of the symmetric special case:
 
 \begin{corollary}
 	%
@@ -509,7 +509,7 @@ For the sketch proof, we'll focus on the symmetric special case:
 \end{corollary}
 
 
-\begin{proof}[Sketch proof]
+\begin{proof}[Sketch proof of \Cref{corollary:manellivincent}]
 	%
 	By Border's theorem, the $Q$s of interest
 	are exactly the increasing maps $Q : \mathcal{T} \to [0,1]$ that satisfy the Border inequalities;
@@ -554,6 +554,7 @@ The theorem is due to \textcite{ManelliVincent2010};
 their proof is more involved.%
 	\footnote{Rather than using Choquet's theorem, they rely on the weaker Krein--Milman theorem, which requires an additional limit argument.}
 See \textcite{GershkovEtAl2013} for a generalisation using a different technique, and \textcite{KleinerMoldovanuStrack2021} for yet another generalisation, using yet another technique.
+Equivalence generally fails if agents' types are multi-dimensional \parencite{JehielMoldovanuStacchetti1999}.
 
 
 
@@ -847,12 +848,12 @@ Ex-post IC appears much stronger than interim IC. And yet:
 		= \E \left[ \inf_{t_i' \in \mathcal{T}_i} 
 		q_i'(t_i',\boldsymbol{T}_{-i}) \right] .
 	\end{equation*}
-	
+
 	Define
 	%
 	\begin{equation*}
-		e_i'(t_i',\boldsymbol{t}_{-i})
-		\coloneqq q_i'(t_i',\boldsymbol{t}_{-i})
+		e_i'(t_i,\boldsymbol{t}_{-i})
+		\coloneqq q_i'(t_i,\boldsymbol{t}_{-i})
 		- \inf_{t_i' \in \mathcal{T}_i} q_i'(t_i',\boldsymbol{t}_{-i}) .
 	\end{equation*}
 	%
@@ -866,7 +867,7 @@ Ex-post IC appears much stronger than interim IC. And yet:
 	%
 	\begin{multline*}
 		\E\left[ e_i'(t_i,\boldsymbol{T}_{-i}) \right]
-		= \E\left[ q_i'(t_i',\boldsymbol{t}_{-i}) \right]
+		= \E\left[ q_i'(t_i,\boldsymbol{t}_{-i}) \right]
 		- \inf_{t_i' \in \mathcal{T}_i}
 		\E\left[ q_i'(t_i',\boldsymbol{t}_{-i}) \right]
 		\\
@@ -876,7 +877,7 @@ Ex-post IC appears much stronger than interim IC. And yet:
 	\end{multline*}
 	%
 	where the last inequality holds by \Cref{lemma:bdl_epic} since $(q,e)$ is interim IC.
-	By augmenting adding probability to the checking rule $e'$,
+	By adding probability to the checking rule $e'$,
 	we may obtain a (clearly still ex-post IC) mechanism $(q',e')$
 	with the same interim checking as $(q,e)$.
 	%
@@ -951,7 +952,7 @@ The model and main result (the optimality of favoured-agent mechanisms) are due 
 to establish the equivalence of ex-post and interim IC (\Cref{theorem:bdl_epic} above)
 and to obtain a simpler proof of the optimality of threshold mechanisms.%
 	\footnote{There are at least two other shortenings of the threshold-mechanisms argument, one by Bart Lipman (in an unpublished note), and another by Ricky Vohra (in a lecture on Border's theorem and its applications: \href{https://youtu.be/DbzOqBoTmm0}{youtu.be/DbzOqBoTmm0}).}
-There's been some subsequent work looking at variations of the original model.
+There's been some subsequent work looking at variations of the original model \parencite[e.g.][]{KattwinkelKnoepfle2022,ErlansonKleiner2020,ErlansonKleiner2022}.
 
 
 
@@ -999,7 +1000,7 @@ which rearranges to
 	| \text{$i$ reports $t_i$ and is not checked} )
 	\times [ 1 - E_i(t_i) ]
 	\\
-	= Q_i(t_i) = E_i(t_i) .
+	= Q_i(t_i) - E_i(t_i) .
 	\label{eq:bdl_ic_ugly}
 \end{multline}
 %
@@ -1039,7 +1040,7 @@ Now, the expected payoff of a type $t_i \neq t_i'$ from claiming to have type $t
 	\end{aligned}
 \end{multline*}
 %
-where the last inequality holds by \eqref{eq:bdl_ic_ugly}.
+where the last equality holds by \eqref{eq:bdl_ic_ugly}.
 
 
 

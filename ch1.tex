@@ -1,4 +1,4 @@
-% Copyright (c) 2021 Carl Martin Ludvig Sinander.
+% Copyright (c) 2022 Carl Martin Ludvig Sinander.
 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -499,9 +499,10 @@ An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that can
 	Then since we have $q = \int_{\ext \mathcal{Q}} q' \mu(\dd q')$ for some probability measure $\mu$ on $\ext \mathcal{Q}$, we have
 	%
 	\begin{equation*}
-		\phi(q) \leq \int_{\ext \mathcal{Q}} \phi(q') \mu(\dd q') ,
+		\phi(q) \leq \int_{\ext \mathcal{Q}} \phi(q') \mu(\dd q') 
 	\end{equation*}
 	%
+	by Jensen's inequality,
 	and thus $\phi(q) \leq \phi(q')$ for some $q' \in \ext \mathcal{Q}$.
 	Since $q$ is optimal, $q'$ must be, too.
 	%
@@ -537,9 +538,9 @@ It is a fact that all and only impulses are extreme points of $\mathcal{Q}$.
 	(a) show that every impulse is an extreme point of $\mathcal{Q}$, and
 	(b) show that every extreme point of $\mathcal{Q}$ is an impulse.%
 		\footnote{Part (b) is harder, so here's a hint.
-		Prove the contra-positive: fix an arbitrary $q \in \mathcal{Q}$, and try to show that it isn't an extreme point, by constructing distinct $q^-,q^+ \in \mathcal{Q}$ such that $q = \alpha q^- + (1-\alpha) q^+$ for some $\alpha \in (0,1)$.
+		Prove the contra-positive: fix any non-impulse $q \in \mathcal{Q}$, and try to show that it isn't an extreme point, by constructing distinct $q^-,q^+ \in \mathcal{Q}$ such that $q = \alpha q^- + (1-\alpha) q^+$ for some $\alpha \in (0,1)$.
 		Be careful to ensure that your $q^-$ and $q^+$ are legitimately elements of $\mathcal{Q}$, i.e. that they take values in $[0,1]$ and are increasing.}
-		% A solution: $q^- \coloneqq q + \frac{1}{2}(1-q)$, $q^+ \coloneqq q + \frac{1}{2}(1-q)$ and $\alpha=1/2$.}
+		% A solution: $q^-(t) \coloneqq q(t) - \min\left\{ q(t), 1-q(t) \right\}$, $q^+(t) \coloneqq q(t) + \min\left\{ q(t), 1-q(t) \right\}$ and $\alpha=1/2$.}
 	%
 \end{exercise}
 
@@ -679,12 +680,15 @@ If not, then the monopolist keeps the good until the next period.%
 	\footnote{The monopolist might wish to offer a new price right away, instead of waiting until the next period. We are ruling this out as infeasible---the (possibly very short) `period length' $\Delta>0$ captures constraint on how long it takes to carry out one round of bargaining between buyer and monopolist.}
 This is a bargaining game, and we'll be interested in its (perfect Bayesian) equilibria. (Let's not get bogged down in defining PBE formally, though.)
 
+Let's assume that the agent's valuation $T$ is supported on an interval $S \subseteq [0,1]$. Recall that we normalise the monopolist's valuation of the good to zero.
+
 The \emph{Coase conjecture} asserts that the monopolist's bargaining power is small when offers are frequent ($\Delta$ is small): in equilibrium, she sells at a low price.
-More formally, the claim is that the good sells a.s. in finite time,
-at a price $p^\Delta$ that vanishes as $\Delta \to 0$.
-The classical intuition for this conjecture is that when the period length $\Delta$ is small, the monopolist in period $n$
-engages in near-perfect competition with her period-$(n+1)$ self,
-driving the price down to marginal cost (which we've normalised to zero).
+More formally, the claim is roughly that the good sells a.s. in finite time,
+at a price $p^\Delta$ that approaches $\inf S$ as $\Delta \to 0$.
+The classical intuition for this conjecture is that when the period length $\Delta$ is small, the monopolist in period $n$ engages in near-perfect competition with her period-$(n+1)$ self.
+
+This intuition is incomplete, it seems to me, at least when $\inf S > 0$, because `perfect competition' surely means selling at marginal cost (which we've normalised to zero), rather than at price $\inf S$!
+Here's a better intuition: (1) the seller always has enough bargaining power to extract the surplus $\inf S - 0 = \inf S$, because she (not the buyer) is the one who makes the offers, but (2) as $\Delta \to 0$, any \emph{additional} bargaining power that she has vanishes because she must compete against her next-period self.
 
 Is the conjecture true?
 If we restrict attention to stationary equilibria,
@@ -693,8 +697,7 @@ it is indeed true \parencite{GulSonnenscheinWilson1986}.
 This can be proved easily, in about a page: see the nice and short note by \textcite{Liu2015}.
 
 What about non-stationary equilibria?
-Let's assume that the agent's valuation $T$ is supported on an interval $S \subseteq [0,1]$, and recall that we normalise the monopolist's valuation of the good to zero.
-(The results below also require some further technical assumptions.)
+(The results below involve some technical assumptions.)
 If $\inf S > 0$ (the `gap case'), there is an (essentially) unique equilibrium, and it is stationary;
 but if $\inf S = 0$ (the `no-gap case'), a folk theorem holds, 
 meaning that there exist non-stationary `reputational' equilibria
