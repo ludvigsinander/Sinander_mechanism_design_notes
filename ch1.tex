@@ -21,8 +21,11 @@ There is a single agent (or `buyer') and one indivisible unit of a good.
 The agent's valuation $t \in [0,1]$ for the good is privately known to her.
 She has quasi-linear expected-utility preferences, meaning that her payoff from getting the good with probability $q \in [0,1]$ and paying $p \in \R$ is $t q - p$.
 
-A \emph{principal} can design any mechanism she likes;
-this specifies various actions the agent can take,
+(This entails an assumption of risk-neutrality over monetary lotteries, but that is not important for most results. What \emph{is} important for several results is that preferences are strongly separable between the good and money. See §\ref{sec:ch1:risk-neutrality} for a discussion.)
+
+A \emph{principal} can design any mechanism she likes:
+a mechanism specifies various (observable) actions the agent can take,%
+	\footnote{The actions are often called `messages'.}
 and as a function of these actions, the probability $q$ with which the agent receives the good and the payment $p$ that she makes.
 The agent chooses optimally among these actions.
 Let's write $q(t)$ for the probability with which the agent of type $t$ gets the good, given her actions, and $p(t)$ for the payment she makes.
@@ -107,7 +110,7 @@ Type $t$'s problem is to choose an action (her report) $r \in [0,1]$, where her 
 	f(r,t) = t q(r) - p(r) .
 \end{equation*}
 %
-So programmatically, the agent's problem is to choose her report $r$ to maximise $f(\cdot,t)$.
+So programmatically, the agent's problem is to choose her report $r$ to maximise $f(r,t)$.
 
 Suppose that our mechanism is an incentive-compatible one,
 meaning that the report $r=t$ yields a global maximum of $f(\cdot,t)$.
@@ -125,7 +128,7 @@ Formally, we'll say that $(q,p)$ is locally IC if this expression holds for a.e.
 
 Now let's re-express that.
 Write $V(t) \coloneqq f(t,t)$ for the value of truthful reporting.
-Differentiating on both sides:
+Differentiating on both sides yields
 %
 \begin{equation*}
 	V'(t)
@@ -168,10 +171,13 @@ The above argument has a big hole: given our completely arbitrary mechanism $(q,
 	\equiv f_1(t,t)
 \end{equation*}
 %
-simply does not exist.
+simply does not exist.%
+	\footnote{There's another issue:
+	the step from `$V'(t) = f_2(t,t)$ for a.e. $t \in [0,1]$' to `$V(t) = V(0) + \int_0^t f_2(s,s) \dd s$ for every $t \in [0,1]$'
+	is valid iff $V$ is \emph{absolutely continuous---}see §\ref{sec:ch1:envelope_rigorous}.}
 But the above argument \emph{can} be made rigorous: it really is true that the envelope formula is a fancy way of rewriting `local optimality' (suitably defined; see \textcite{Sinander2022}).
 Alternatively and more traditionally,
-one can use a completely different (unintuitive but elegant) argument to derive the envelope formula \parencite{MilgromSegal2002}.
+one can use a completely different (unintuitive but elegant) argument to derive the envelope formula directly from (global) IC \parencite{MilgromSegal2002}---see §\ref{sec:ch1:envelope_rigorous} at the end of this chapter.
 Either way, we have learned:
 
 \begin{namedthm}[Mirrlees envelope theorem.]
@@ -183,7 +189,6 @@ Either way, we have learned:
 	\begin{equation*}
 		t q(t) - p(t) = - p(0) + \int_0^t q
 		\quad \text{for every $t \in [0,1]$.}
-		\tag{{\Large\Letter}}
 	\end{equation*}
 	%
 \end{namedthm}
@@ -245,12 +250,8 @@ Either way, we have learned:
 
 
 \paragraph{The literature.}
-The modern envelope theorem is due to \textcite{MilgromSegal2002};
-the more intuitive treatment here is based on \textcite{Sinander2022}.
-The theorem applies to any parametrised optimisation problem in which an action $x$ is chosen from an arbitrary choice set $\mathcal{X}$ to maximise an objective $f(x,t)$,
-where the only assumptions needed are that the parameter $t$ belongs to a connected space (without loss of generality, the unit interval $[0,1]$) and that $f(x,\cdot)$ is differentiable and satisfies a mild further condition (which rules out a badly-behaved derivative).%
-	\footnote{\Cref{remark:env_powerful} illustrated the role of connectedness.
-	If differentiability is dropped, we still obtain an inequality envelope formula involving directional (or Dini) derivatives; see e.g. \textcite{CarbajalEly2013}.}
+The intuitive treatment in this section can be made formal: see \textcite{Sinander2022}.
+In §\ref{sec:ch1:envelope_rigorous} below, we'll give a rigorous treatment of the envelope theorem from a different perspective \parencite{MilgromSegal2002}.
 
 
 
@@ -395,7 +396,7 @@ meaning that every type $t$'s payoff $t q(t) - p(t)$ is non-negative.
 Suppose that the good is owned by a monopolist (principal) who wishes to sell it so as to maximise expected profit.
 (Equivalently, re-interpret the agent as a continuum of consumers, each with a privately-known valuation; the monopolist wishes to maximise profit. This problem bears the antiquated name of \emph{second-degree price discrimination.})
 
-The monopolist may use any mechanism she likes, but must take into account that the only the agent knows her valuation and that she may choose to walk away.
+The monopolist may use any mechanism she likes, but must take into account that only the agent knows her valuation and that she may choose to walk away.
 
 Here's a very simple (indirect) mechanism that the monopolist could adopt: post a price!
 More fully, the monopolist sets a price $\pi \in \R_+$
@@ -420,7 +421,7 @@ This is about as simple a mechanism as can be devised.
 One thing that makes it simple is that it does not make use of the monopolist's power to allocate the good randomly, which is in principle very powerful.
 Nonetheless:
 
-\begin{theorem}[\textcite{Myerson1981}]
+\begin{theorem}[\cite{Myerson1981}]
 	%
 	\label{theorem:Myerson}
 	%
@@ -468,6 +469,7 @@ Note further that the objective $R$ is linear:
 	\quad \text{for any $q,q' \in \mathcal{Q}$ and $\alpha \in [0,1]$.}
 \end{equation*}
 %
+$R$ is also continuous in a suitable sense.
 Finally, $\mathcal{Q}$ is (in fact) compact in a suitable sense.%
 	\footnote{It is compact in the product topology (=the topology of pointwise convergence).
 	Proof: it is a closed subset of the space of all functions $[0,1] \to [0,1]$, which is compact by Tychonoff's theorem.}
@@ -479,7 +481,7 @@ An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that can
 	%
 	\label{observation:bauer}
 	%
-	Any convex and suitably continuous (e.g. linear) function $\phi : \mathcal{Q} \to \R$
+	Any convex and suitably continuous function $\phi : \mathcal{Q} \to \R$
 	is maximised at an extreme point of $\mathcal{Q}$.
 	%
 \end{observation}
@@ -493,7 +495,7 @@ An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that can
 	says that
 	we may for any $q \in \mathcal{Q}$ find a probability measure $\mu$ defined on $\ext \mathcal{Q}$ such that $q = \int_{\ext \mathcal{Q}} q' \mu(\dd q')$.%
 		\footnote{That's a Lebesgue integral;
-		it's a fancy way of saying that $q$ is a convex combination of $q'$s in $\ext \mathcal{Q}$, with $\mu(q') \in [0,1]$ being the weight placed on $q' \in \ext \mathcal{Q}$.}
+		it's a fancy way of saying that $q$ is a convex combination of $q'$s in $\ext \mathcal{Q}$, with $\mu(\{q'\}) \in [0,1]$ being the weight placed on $q' \in \ext \mathcal{Q}$.}
 
 	Now, let $q \in \mathcal{Q}$ maximise a convex and suitably continuous function $\phi$ on $\mathcal{Q}$.
 	Then since we have $q = \int_{\ext \mathcal{Q}} q' \mu(\dd q')$ for some probability measure $\mu$ on $\ext \mathcal{Q}$, we have
@@ -562,14 +564,15 @@ Evidently type $t^\star$ must be indifferent; so $\pi = t^\star$.
 
 We have shown that whatever the distribution $F$ of the agent's type,
 there is a posted-price mechanism that is optimal.
-We have not described the optimal price $\pi$; this depends on the distribution $F$, and is easily characterised via a first-order condition.
+We have not described the optimal price $\pi$; this depends on the distribution $F$, and is easily characterised via a first-order condition.%
+	\footnote{You may have derived this first-order condition when studying monopoly pricing in introductory microeconomics.}
 
 
 \paragraph{The literature.}
 The theorem is due to \textcite{Myerson1981}; his result is actually more general, as it covers the case of several agents.
 He proved it by developing a duality technique based on `(ironed) virtual valuations' that has proved useful in other environments.
-I find the direct convexity-based approach pursued here both more insightful and more widely applicable,
-and that seems to be where the literature is going: \textcite{KleinerMoldovanuStrack2021} is a nice recent example.
+The direct convexity-based approach here is more intuitive to me,
+and has other applications: \textcite{KleinerMoldovanuStrack2021} is a nice recent example.
 More generally, much of the structure of modern economic theory is simply convex structure, as described by convex analysis. The standard reference here is \textcite{Rockafellar1970}; for Choquet theory in particular, see e.g. \textcite{Phelps2001}.
 
 
@@ -694,7 +697,7 @@ Is the conjecture true?
 If we restrict attention to stationary equilibria,
 then given some technical assumptions,
 it is indeed true \parencite{GulSonnenscheinWilson1986}.
-This can be proved easily, in about a page: see the nice and short note by \textcite{Liu2015}.
+This can be proved easily, in about a page: see the nice and short note by Qingmin Liu (\citeyear{Liu2015}).
 
 What about non-stationary equilibria?
 (The results below involve some technical assumptions.)
@@ -765,10 +768,6 @@ Here's an example from \textcite{HartReny2015}:
 	%
 \end{proposition}
 
-To get a handle on this mechanism, let's simplify notation a little
-by letting
-$(\alpha_1,\beta_1,\pi_1)$, $(\alpha_2,\beta_2,\pi_2)$ and $(\alpha_3,\beta_3,\pi_3)$ denote $( q_1(t), q_2(t), p(t) )$
-for $t = (1,0)$, $t=(0,2)$ and $t=(3,3)$, respectively.
 There is an IC constraint for each pair of distinct types (so six IC constraints), plus an IR constraint for each type.
 
 \begin{exercise}
@@ -907,4 +906,571 @@ It's a lot of algebra, \emph{but with `economic' remarks added in italics.}
 \textcite{HartReny2015} provide a good guide to why this problem is difficult and why optimal mechanisms are stranger than one might expect; they also provide good references to the literature.
 Computer scientists have taken an interest in this slice of economic theory, and much recent progress has come from that corner,
 including the closest thing to a recent breakthrough: \textcite{DaskalakisDeckelbaumTzamos2017}.%
-	\footnote{Their proof uses fancy optimal-transport techniques; see \textcite{Galichon2016} for an economist's introduction. But as so often, there is an elementary proof: \textcite{KleinerManelli2019} found one.}
+	\footnote{Their proof uses fancy optimal-transport techniques; see \textcite{Galichon2016} for an economist's introduction. \textcite{KleinerManelli2019} found an elementary proof.}
+Although `simple' mechanisms (e.g. selling each good separately at a posted price, or selling all the goods in one big bundle at a posted price) are typically not optimal, they can sometimes do rather well: see \textcite{HartNisan2017}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Incentives via side bets}
+\label{sec:ch1:CremerMclean}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Return to the case of a single good (with commitment),
+and let $\mathcal{T} \subseteq [0,1]$ denote the set of types.
+We previously assumed that $\mathcal{T} = [0,1]$,
+but in this section, it will sometimes be convenient to suppose that $\mathcal{T}$ is finite.
+
+In defining a `mechanism' at the beginning of this chapter, we implicitly ruled out incentive schemes in which the outcome $(q,p) \in [0,1] \times \R$ depends on factors beyond the agent's control: only the agent's actions in the mechanism were allowed to affect the outcome.
+
+We now relax this assumption. There is a contractible \emph{signal}
+whose realisation becomes known
+(i) late enough that the agent has already chosen her actions in the mechanism, but
+(ii) early enough that monetary payments can be made contingent on it.
+(It won't matter whether the allocation of the good can depend on the realisation of the signal.)
+Suppose for simplicity that there are only finitely many possible signal realisations, $\mathcal{X}=\{1,\dots,\abs*{\mathcal{X}}\}$.
+
+The signal can arise from a noisy monitoring technology.
+(For example, any external information about the market value of the good.)
+Alternatively, the signal could be a \emph{second} agent's type,
+provided (as will turn out to be the case) that this second agent can costlessly be prevailed upon truthfully to reveal her type.
+
+Each type $t \in \mathcal{T}$ of the agent has a belief $\mu(t)$ about how likely various signal realisations are.
+Formally, \emph{belief} (about the signal) is a vector $\mu \in [0,1]^{\abs*{\mathcal{X}}}$ whose entries sum to unity. We write $\Delta$ for the set of all beliefs.
+
+\begin{remark}
+	%
+	\label{remark:signal_exante}
+	%
+	This model is `ex interim', which you may find unintuitive.
+	In the (slightly more restrictive) `ex ante' version of the model,
+	the signal $X$ and agent type $T$ are random variables, drawn from some joint (`prior') distribution,
+	and the belief $\mu(t)$ of type $t \in \mathcal{T}$
+	is simply the vector whose $x^\text{th}$ entry (for $x \in \{1,\dots,\abs*{\mathcal{X}}\}$) is $\mu(t)_x = \PP( X=x | T=t )$.
+
+	Insofar as $X$ and $T$ are not independent, the signal is informative about the agent's type.
+	In (only) this case, the reverse is also true:
+	the agent's type is informative about the signal, meaning that from observing her own type, the agent learns something about the likely realisation of the signal.
+	In other words, $\mu(t)$ differs across types $t \in \mathcal{T}$
+	if (and only if) $X,T$ are not independent.%
+		\footnote{A simple example: if $X$ and $T$ are `positively correlated' in the sense of affiliation, then higher types have `higher' beliefs in the sense of monotone likelihood ratio.}
+	%
+\end{remark}
+
+As before, an \emph{allocation} is a map $q : \mathcal{T} \to [0,1]$.
+A \emph{contingent payment rule} is a vector-valued map $p : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$;
+the interpretation is that if the agent reports that her type is $r \in \mathcal{T}$ and the signal turns out to be $x \in \mathcal{X}$,
+then the agent pays $p(r)_x \in \R$.
+
+A \emph{direct revelation mechanism} is now $(q,p)$,
+where $q$ is an allocation
+and $p$ is a contingent payment rule.
+A direct revelation mechanism $(q,p)$ is \emph{incentive-compatible} iff each type $t \in \mathcal{T}$ finds it optimal (in expectation, given her belief) to report truthfully:
+%
+\begin{equation*}
+	q(t) t - p(t) \cdot \mu(t)
+	\geq q(r) t - p(r) \cdot \mu(t)
+	\quad \text{for all $r,t \in \mathcal{T}$.}
+\end{equation*}
+%
+As before, a revelation principle permits us without loss to restrict attention to incentive-compatible direct revelation mechanisms, henceforth called simply `IC mechanisms'.
+An allocation $q$ is called \emph{implementable} iff there is a contingent payment rule $p$ such that $(q,p)$ is incentive-compatible.
+
+Suppose first that all types of the agent have the same belief about the signal ($\mu(r) = \mu(t)$ for all $r,t \in \mathcal{T}$).
+(In the `ex ante' model of \Cref{remark:signal_exante}, this means precisely that the signal is uninformative about the agent's type---they are independent random variables.)
+In this case, contingent payments cannot help with incentive provision:
+it remains true that (all and) only increasing allocations $q$ are implementable.
+
+\begin{exercise}
+	%
+	\label{exercise:cremer-mclean_samebelief}
+	%
+	Prove it!
+	%
+\end{exercise}
+
+As soon as different types of the agent have different beliefs about the signal
+(i.e. the signal is informative about type),
+contingent payments can be used to provide additional incentives.
+The reason is that different types then have different preferences over `side bets' (monetary gambles on the realisation of the signal),
+which can be exploited to induce self-selection.
+
+The power of side bets is most clearly illustrated
+in the case in which \emph{all} types have `separate' beliefs.
+The appropriate notion of `separate' is slightly stronger than `distinct' ($\mu(r) \neq \mu(t)$ for all $r,t \in \mathcal{T}$):
+it also requires that different types' beliefs not be linearly dependent in a weak (`convex') sense.
+Precisely:
+
+\begin{definition}
+	%
+	\label{definition:convex_indep}
+	%
+	When the set $\mathcal{T}$ of types is finite,
+	the beliefs $\{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$
+	are said to satisfy \emph{convex independence}
+	iff no type's belief may be written as a convex combination of \emph{other} types' beliefs:
+	for each $t \in \mathcal{T}$, $\mu(t)$ lies outside the convex hull of $\{ \mu(t) : t \in \mathcal{T} \}$.
+	%
+\end{definition}
+
+More explicitly, convex independence requires that
+for no $t \in \mathcal{T}$
+can we write $\mu(t) = \sum_{r \in \mathcal{T} \setminus \{t\}} \lambda(r) \mu(r)$
+for a collection $( \lambda_r )_{r \in \mathcal{T} \setminus \{t\}} \subseteq [0,1]$ of weights satisfying $\sum_{r \in \mathcal{T} \setminus \{t\}} \lambda(r) = 1$.
+This is weaker than \emph{linear independence} of the vectors $\{ \mu(t) : t \in \mathcal{T} \}$ because only weights $( \lambda_r )_{r \in \mathcal{T} \setminus \{t\}}$ that sum to unity are contemplated.
+
+\begin{exercise}
+	%
+	\label{exercise:convex_indep_ext_point}
+	%
+	Let $\mathcal{T}$ be finite,
+	fix beliefs $M \coloneqq \{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$,
+	and let $\co M$ denote the convex hull of $M$.
+	If beliefs $M$ satisfy convex independence, must $\mu(t)$ be an extreme point of $\co M$, for every $t$?
+	If $\mu(t)$ is an extreme point of $\co M$ for every $t$, must $M$ satisfy convex independence?
+	%
+\end{exercise}
+
+If $\abs*{\mathcal{X}} > \abs*{\mathcal{T}}$, then convex independence is `generic', in the formal sense that if we draw each type's belief independently from the Lebesgue measure on $\Delta$, then the probability that convex independence fails is zero.
+
+
+\begin{theorem}
+	%
+	\label{theorem:CremerMclean}
+	%
+	If the set $\mathcal{T}$ of types is finite
+	and the beliefs $\{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$
+	satisfy convex independence,
+	then for any mechanism $(q,p)$,
+	there is a contingent payment rule $p' : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$
+	such that $(q,p')$ is incentive-compatible
+	and $p(t) \cdot \mu(t) = p'(t) \cdot \mu(t)$.
+	%
+\end{theorem}
+
+In other words, \emph{any} mechanism can be made incentive-compatible
+without changing either the allocation or the expected payment of any type $t \in \mathcal{T}$.
+
+\begin{corollary}
+	%
+	\label{corollary:CremerMclean_implementability}
+	%
+	Under the hypotheses of \Cref{theorem:CremerMclean},
+	\emph{every} allocation $q : \mathcal{T} \to [0,1]$ is implementable.
+	%
+\end{corollary}
+
+A much-emphasised consequence of \Cref{theorem:CremerMclean} is the following:
+
+\begin{corollary}
+	%
+	\label{corollary:CremerMclean_fullextraction}
+	%
+	Under the hypotheses of \Cref{theorem:CremerMclean},
+	a revenue-maximising seller can design a `full-extraction' mechanism that induces every type $t$ to pay, in expectation, her full valuation $t$ for the good.
+	%
+\end{corollary}
+
+\begin{proof}
+	%
+	Start with the mechanism $(q,p)$ given by $(q(t),p(t)) \coloneqq (1,t)$ for every $t \in \mathcal{T}$.
+	\Cref{theorem:CremerMclean} delivers a payment rule $p'$
+	under which type $t$ (still) pays
+	$p'(t) \cdot \mu(t) = p(t) \cdot \mu(t) = t$ in expectation,
+	and such that $(q,p')$ is incentive-compatible.
+	Finally, since $(q,p)$ is individually rational by inspection,
+	the same is true of $(q,p')$.
+	%
+\end{proof}
+
+\begin{proof}[Proof of \Cref{theorem:CremerMclean}]
+	%
+	Fix an arbitrary mechanism $(q,p)$.
+	For each type $t \in \mathcal{T}$,
+	by convex independence and the (strict) separating hyperplane theorem, there is a (`side bet') $b(t) \in \R^{\abs*{\mathcal{X}}}$ that satisfies $b(t) \cdot \mu(t) = 0 < b(t) \cdot \mu(r)$ for every $r \in \mathcal{T} \setminus \{t\}$.
+
+	Define a new contingent payment rule $p' : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$ by $p'(t) \coloneqq p(t) + \alpha b(t)$ for each $t \in \mathcal{T}$,
+	where $\alpha > 0$ is a constant large enough that
+	%
+	\begin{equation*}
+		\alpha
+		> \max_{\text{$r \neq t$ in $\mathcal{T}$}} \frac{ - [ q(t) - q(r) ] t + [p(t)-p(r)] \cdot \mu(t) }
+		{ b(r) \cdot \mu(t) } .
+	\end{equation*}
+	%
+	Clearly $p'(t) \cdot \mu(t) = p(t) \cdot \mu(t)$ for every $t \in \mathcal{T}$.
+	And for all $r \neq t$ in $\mathcal{T}$, we have
+	%
+	\begin{align*}
+		q(t) t - p'(t) \cdot \mu(t)
+		&= q(t) t - p(t) \cdot \mu(t)
+		\\
+		&> q(r) t - [ p(r) + \alpha b(r) ] \cdot \mu(t)
+		= q(r) t - p'(r) \cdot \mu(t) ,
+	\end{align*}	
+	%
+	where the inequality holds by our choice of $\alpha$.
+	%
+\end{proof}
+
+In the proof, `side bet' $b(t)$ is a monetary gamble on the signal; it has zero expected value for type $t$, but strictly positive expected value for all the other types.
+By tacking a sufficiently blown-up version of this gamble onto the payment rule $p$,
+we ensure that the agent's incentive to choose the right \emph{gamble} overwhelms all other considerations:
+she reports truthfully regardless.
+
+The usual interpretation of these results
+is that (essentially) \emph{any} correlation between the signal and type sharply alters the model's predictions: incentive-provision becomes trivial.
+This is widely felt to be very disturbing.
+There are several reasons for this; one of them is large side bets are rarely seen in the wild.
+
+I encourage you to reflect on the significance and implications of these results.
+I also encourage you think about what sorts of modifications of the model would break the proof.
+
+
+\begin{exercise}
+	%
+	\label{exercise:CremerMclean_riskaversion}
+	%
+	Suppose that the agent is risk-averse:
+	type $t$'s payoff when her (ex-post) payment is $p \in \R$ is
+	$t-\psi(p)$ in case she gets the good
+	and $-\psi(p)$ otherwise,
+	where $\psi : \R \to \R$ is convex and strictly increasing.
+	(We have relaxed risk-neutrality, but \emph{not} strong separability between the good and money---see the discussion in §\ref{sec:ch1:risk-neutrality}.)
+	Prove that \Cref{corollary:CremerMclean_implementability} remains true.
+	(Hint: \Cref{theorem:CremerMclean} is not true as stated\dots but a version of it is.)
+	Do you think that \Cref{corollary:CremerMclean_fullextraction} remains true?
+	%
+\end{exercise}
+
+\paragraph{The literature.}
+The extraordinary power of side bets was glimpsed by \textcite[§7]{Myerson1981}, who gave an example,
+and then demonstrated at increasing levels of generality by \textcite{CremerMclean1985,CremerMclean1988,McafeeReny1992}.
+\textcite{LopomoRigottiShannon2022} provide a careful and insightful synthesis of such results, paying special attention to the case (neglected in this section) in which the set $\mathcal{T}$ of types is infinite (e.g. $\mathcal{T}=[0,1]$).
+
+There is a cottage industry devoted to `debunking' these results.
+For example, the logic fails if payments cannot be unboundedly large, e.g. due to an ex-post IR or `limited liability' constraint \parencite{Robert1991},
+or if the good and money are not strongly separable in the agent's preferences \parencite{Robert1991,Eso2005}.
+More subtly, \textcite{Neeman2004} argues that convex independence is not so `generic' after all.%
+	\footnote{This nice paper sparked an arcane literature about whether convex independence is `generic' in the universal type space.
+	The answer: it depends (greatly) on what is meant by `generic'.
+	\emph{(Universal what?! See my lecture notes from Eddie Dekel's course `Economic theory and methods', available at \href{https://ludvigsinander.net/lecture_notes}{ludvigsinander.net/lecture\_notes}.)}}
+Others have highlighted that large side bets have problematic incentive side effects not captured by the model:
+for example,
+they provide strong incentives to collude when the signal is a second agent's type \parencite{LaffontMartimort2000},
+and also to acquire information (at a cost) about the realisation of the signal \parencite{Laohakunakorn2019}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Addendum: preference assumptions}
+\label{sec:ch1:risk-neutrality}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In discussions of the model of this chapter (and other models like it), there is often much confusion about what `risk-neutrality' means and what role it plays. In this section, I clarify.
+
+In the model of this chapter, the payoff-relevant ex-post outcomes are $(g,p) \in \{0,1\} \times \R$, where $g=1$ iff the agent gets the good.
+A \emph{lottery} (over outcomes) is a probability measure on $\{0,1\} \times \R$.
+Each type of the agent has a preference over lotteries.
+\emph{Expected-utility (EU) preferences} over lotteries $\ell$ are those that admit a \emph{linear} representation:
+$U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
+for some (`utility index') $u : \{0,1\} \times \R \to \R$.
+(I have omitted the measure-theoretic details.)
+You will recall that $u$ is unique up to affine transformations:
+if $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
+and $V(\ell) = \int_{\{0,1\} \times \R} v \dd \ell$ represent the same EU preference over lotteries, then $u = \alpha + \beta v$ for some $\alpha \in \R$ and $\beta>0$.
+
+\emph{Risk attitude} is a property of preferences over \emph{monetary} lotteries, not over joint good--money lotteries $\ell$.
+We may contemplate the `risk attitude' of the agent's \emph{marginal} preferences, however:
+that is, her preferences among lotteries $\ell$ that all assign the good for sure ($\ell( \{1\} \times \R ) = 1$),
+and also among those that certainly do not ($\ell( \{0\} \times \R ) = 1$).
+The agent's marginal preferences are risk-neutral (risk-averse)
+iff $u(0,\cdot)$ and $u(1,\cdot)$ are both affine (concave).
+In this case, we shall say that `the agent is risk-averse (risk-neutral)'.
+
+EU preferences are \emph{monotone} iff $u(g,p)$ is strictly increasing in $g$ and strictly decreasing in $p$,
+and \emph{strongly separable} iff $u$ is additively separable:
+$u(g,p) = \phi(g) - \psi(p)$
+for some $\phi : \{0,1\} \to \R$ and $\psi : \R \to \R$.
+By inspection, for strongly separable EU preferences,
+(i) given monotonicity, we may choose $\phi(g) = gt$ for any $t>0$, and
+(ii) under risk-neutrality (risk-aversion), $\psi$ is affine (convex).
+
+Our assumption in this chapter
+was that each type $t \in (0,1]$ has \emph{monotone and quasi-linear EU preferences,} meaning an index of the form $u(g,p) = gt - p$;
+in other words, strongly separable, monotone and risk-neutral EU preferences.
+If risk-neutrality were weakened to risk-aversion,
+then we would instead have $u(g,p) = gt - \psi(p)$ for some convex and strictly increasing $\psi : \R \to \R$.
+
+Most of the analysis in this chapter remains valid in the latter (risk-averse) case.
+Simply `change currency' from dollars to utils via $p \mapsto \psi(p)$: in this currency, the agent is risk-neutral, so preferences are quasi-linear again,
+and thus everything that we said about incentive-compatibility remains true.
+Differences arise only when maximising the seller's revenue, since the seller cares about revenue denominated in dollars, not utils.
+(In the language of cooperative game theory: when both agent and principal were risk-neutral, utility was perfectly transferable between them; now it is not.)
+
+The analysis in this chapter is less robust to dropping strong separability (e.g. $u(g,p) = \chi( gt - p )$ for some concave and strictly increasing $\chi : \R \to \R$).
+Some results remain true (e.g. the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma}).
+But others do not, for example the results in §\ref{sec:ch1:CremerMclean} about the extraordinary incentive power of side bets \parencite[see][]{Robert1991}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Addendum: the envelope theorem, rigorously}
+\label{sec:ch1:envelope_rigorous}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In §\ref{sec:ch1:env}, we gave a heuristic treatment of the envelope theorem, arguing that the envelope formula is intuitively a rewritten form of a first-order condition capturing `local optimality'; thus optimality implies (local optimality and thus) the envelope formula.
+In this section, we provide a rigorous treatment.%
+	\footnote{The text of this section is partly drawn from \textcite{Sinander2022}.}
+
+
+\begin{namedthm}[Formalities.]
+	%
+	\label{namedthm:formalities_env}
+	%
+	We will be working with the unit interval $[0,1]$. We equip it with the Lebesgue $\sigma$-algebra and the Lebesgue measure. All integrals will be Lebesgue integrals (with respect to the Lebesgue measure).
+
+	Recall that for a constant $K \geq 0$, a function $\phi : [0,1] \to \R$ is called \emph{$K$-Lipschitz continuous} iff
+	$\abs*{ \phi(t) - \phi(r) } \leq K\abs*{t-r}$ for all $r,t \in [0,1]$. (If $\phi$ is continuously differentiable, then it is $K$-Lipschitz iff $\abs*{\phi'} \leq K$. [Prove it!])
+	A function is \emph{Lipschitz continuous} iff it is $K$-Lipschitz for some $K \geq 0$.
+
+	\emph{Absolute continuity} is a continuity concept that is weaker than Lipschitz continuity, but still stronger than ordinary continuity.%
+		\footnote{The definition:
+		$\phi : [0,1] \to \R$ is absolutely continuous iff for each $\eps > 0$, there is a $\delta > 0$ such that for any finite collection $\{ (r_n,t_n) \}_{n=1}^N$ of disjoint intervals of $[0,1]$,
+		$\sum_{n=1}^N ( t_n - r_n ) < \delta$ implies $\sum_{n=1}^N \abs*{ \phi(t_n) - \phi(r_n) } < \eps$.}
+	The fundamental theorem of calculus for Lebesgue integrals
+	\parencite[see e.g.][§3.5, p. 106]{Folland1999}
+	states that
+	a function $\phi : [0,1] \to \R$
+	is absolutely continuous
+	iff it is an integral%
+		\footnote{There is an integrable $\psi : [0,1] \to \R$ such that $\phi(t) = \phi(0) + \int_0^t \psi$ for every $t \in [0,1]$.}
+	iff it is the integral of its own derivative.%
+		\footnote{$\phi$ is differentiable a.e., its (a.e.-defined) derivative $\phi' : [0,1] \to \R$ is integrable, and $\phi(t) = \phi(0) + \int_0^t \phi'$ for every $t \in [0,1]$.}
+	%
+\end{namedthm}
+
+
+The setting is a (smoothly) parametrised maximisation problem:
+there are \emph{actions} $\mathcal{X}$, \emph{parameters} $[0,1]$, and an \emph{objective function} $f : \mathcal{X} \times [0,1] \to \R$.
+The interpretation is that
+$f(\cdot,t)$ is the objective to be maximised, when the parameter is $t \in [0,1]$.
+
+The action set $\mathcal{X}$ is completely arbitrary---it need not have any convex, topological or measurable structure, for example.
+The assumption that the parameter $t \in [0,1]$ is one-dimensional is less restrictive than it may appear; see \Cref{remark:env_param_higher} at the end of this section.
+
+As for the objective function, our only assumptions will be that it varies smoothly with the parameter and that this derivative is not `very crazy'. Specifically:
+
+\begin{namedthm}[Basic assumptions.]
+	%
+	\label{assumption:basic}
+	%
+	$f(x,\cdot)$ is differentiable for every $x \in \mathcal{X}$,
+	and the family $\{ f(x,\cdot) \}_{ x \in \mathcal{X} }$ of functions $[0,1] \to \R$ is an \emph{absolutely equi-continuous} family.
+	%
+\end{namedthm}
+
+See \textcite{Sinander2022} for the definition of absolute equi-continuity.
+A simple sufficient condition is that the derivative $f_2$ be bounded (there is a constant $K \geq 0$ such that $\abs*{f_2(x,t)} \leq K$ for all $x \in \mathcal{X}$ and $t \in [0,1]$).
+
+\begin{example}
+	%
+	\label{example:env_mech}
+	%
+	In the model considered throughout this chapter,
+	the `actions' are outcomes $x = (q,p) \in [0,1] \times \R \eqqcolon \mathcal{X}$, and the (agent's) objective is $f(x,t) = f((q,p),t) \coloneqq qt - p$.
+	Clearly $f(x,\cdot)$ is differentiable for each $x \in \mathcal{X}$; furthermore, the derivative is bounded (why?).
+	%
+\end{example}
+
+A \emph{decision rule} is a map $X : [0,1] \to \mathcal{X}$ that prescribes an action for each parameter.
+The \emph{value function} of a decision rule $X$ is $V_X(t) \coloneqq f(X(t),t)$.
+A decision rule $X$ is \emph{optimal} iff $V_X(t) \geq f(x,t)$ for all $x \in \mathcal{X}$ and $t \in [0,1]$.
+
+A decision rule $X$ satisfies the \emph{envelope formula} iff
+%
+\begin{equation*}
+	V_X(t) = V_X(0) + \int_0^t f_2(X(s),s) \dd s
+	\quad \text{for every $t \in [0,1]$.}
+\end{equation*}
+%
+Equivalently, by Lebesgue's fundamental theorem of calculus,
+$X$ satisfies the envelope formula iff
+$V_X$ is \emph{absolutely continuous} (hence a.e. differentiable) and satisfies $V_X'(t) = f_2(X(t),t)$ for a.e. $t \in [0,1]$.
+
+
+\begin{namedthm}[Milgrom--Segal envelope theorem.]
+	%
+	\label{theorem:MS_envelope}
+	%
+	If $f$ satisfies the \hyperref[assumption:basic]{basic assumptions},
+	then any optimal decision rule satisfies the envelope formula.
+	%
+\end{namedthm}
+
+This is really a slight refinement of Theorem 2 in \textcite{MilgromSegal2002}, because the assumptions are weaker. You can find this exact version in \textcite{Sinander2022}.
+
+
+\addtocounter{example}{-1}
+\begin{example}[continued]
+	%
+	\label{example:env_mech_ic}
+	%
+	In the model considered throughout this chapter,
+	`decision rules' are mechanisms $X = (q,p) : [0,1] \to \mathcal{X}$.
+	Fix a mechanism $X$,
+	and assume without loss that it is onto $\mathcal{X}$;%
+		\footnote{This is without loss because we may re-define $\mathcal{X}$ to be the image of $X$.
+		(This has no effect on incentives, since it removes from consideration those actions/outcomes $x$ that never arise under the mechanism $X$.)}
+	then $X$ is incentive-compatible exactly if it is `optimal' in the sense defined above.
+	Thus the \hyperref[theorem:MS_envelope]{Milgrom--Segal envelope theorem} implies the \hyperref[proposition:ic_env]{Mirrlees envelope theorem} from §\ref{sec:ch1:env}:
+	every incentive-compatible mechanism satisfies the envelope formula.
+	%
+\end{example}
+
+
+The \hyperref[theorem:MS_envelope]{Milgrom--Segal envelope theorem} may be decomposed into two lemmata:
+the former asserts that the derivatives $V_X'(t)$ and $f_2(X(t),t)$ are equal whenever they (both) exist,
+and the latter says that $V_X$ may be written as the integral of its derivative.
+
+
+\begin{lemma}
+	%
+	\label{lemma:deriv_value}
+	%
+	If $X$ is optimal,
+	then for any $t \in (0,1)$
+	at which $V_X'(t)$ and $f_2(X(t),t)$ exist,
+	we have $V_X'(t) = f_2(X(t),t)$.
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	For any $r<t$, we have
+	%
+	\begin{equation*}
+		V_X(t) - V_X(r)
+		= f(X(t),t) - f(X(r),r)
+		\leq f(X(t),t) - f(X(t),r) ,
+	\end{equation*}
+	%
+	so that dividing both sides by $t-r$ and sending $r \uparrow t$ yields $V_X'(t) \leq f_2(X(t),t)$.
+	Similarly, for any $r>t$ we have
+	$V_X(r) - V_X(t) \geq f(X(t),r) - f(X(t),t)$,
+	so that dividing by $r-t$ and sending $r \downarrow t$
+	delivers $V_X'(t) \geq f_2(X(t),t)$.
+	%
+\end{proof}
+
+
+\begin{lemma}
+	%
+	\label{lemma:AC}
+	%
+	If $f$ satisfies the \hyperref[assumption:basic]{basic assumptions},
+	then for any optimal decision rule $X$,
+	the value $V_X$ is absolutely continuous.
+	%
+\end{lemma}
+
+We'll prove a special case.
+(For a proof of the general case, see \textcite{Sinander2022}---the relevant result is labelled `the necessity lemma'.)
+
+\begin{proof}[Proof of a special case]
+	%
+	Assume a stronger version of the \hyperref[assumption:basic]{basic assumptions}: $f_2$ exists and is \emph{bounded.}
+	Write $K \geq 0$ for the constant that bounds $f_2$.
+	Fix an optimal $X$; we will show that $V_X$ is \emph{$K$-Lipschitz continuous} (hence absolutely continuous).
+
+	So fix any $r<t$ in $[0,1]$,
+	and let $B \coloneqq \sup_{x \in \mathcal{X}} \abs*{ f(x,t) - f(x,r) }$.
+	Then
+	%
+	\begin{equation*}
+		V_X(t) - V_X(r)
+		\leq f(X(t),t) - f(X(t),r)
+		\leq \sup_{x \in \mathcal{X}}
+		[ f(x,t) - f(x,r) ]
+		\leq B 
+	\end{equation*}
+	%
+	and (similarly)
+	%
+	\begin{equation*}
+		V_X(t) - V_X(r)
+		\geq f(X(r),t) - f(X(r),r)
+		\geq \inf_{x \in \mathcal{X}}
+		[ f(x,t) - f(x,r) ]
+		\geq - B ,
+	\end{equation*}
+	%
+	so
+	%
+	\begin{equation*}
+		\abs*{ V_X(t) - V_X(r) }
+		\leq B
+		= \sup_{x \in \mathcal{X}}
+		\abs*{ \int_r^t f_2(x,s) \dd s }
+		\leq K(t-r) 
+	\end{equation*}
+	%
+	by the fundamental theorem of calculus
+	and the bound $\abs*{f_2} \leq K$.
+	%
+\end{proof}
+
+
+\begin{proof}[Proof of {the \hyperref[theorem:MS_envelope]{Milgrom--Segal envelope theorem}}]
+	%
+	Let $f$ satisfy the \hyperref[assumption:basic]{basic assumptions}, and let $X : [0,1] \to \mathcal{X}$ be optimal.
+	Then $V_X$ is absolutely continuous by \Cref{lemma:AC},
+	so (by Lebesgue's fundamental theorem of calculus)
+	$V_X'$ exists a.e.
+	and $V_X(t) = V_X(0) + \int_0^t V_X'$ for every $t \in [0,1]$.
+	For every $t \in [0,1]$ at which $V_X'(t)$ exists,
+	$f_2(X(t),t)$ also exists by the \hyperref[assumption:basic]{basic assumptions},
+	so $V_X'(t) = f_2(X(t),t)$ by \Cref{lemma:deriv_value}.
+	%
+\end{proof}
+
+
+\paragraph{The literature.}
+The envelope theorem originated in the theories of the consumer and firm \parencite{Hotelling1932,Roy1947,Shephard1953}, and was then considered more abstractly by \textcite{Samuelson1947}. 
+The perspective on the envelope theorem presented in this section,
+and the \hyperref[theorem:MS_envelope]{Milgrom--Segal envelope theorem} in which it culminates, are due to \textcite{MilgromSegal2002}.
+
+The \emph{textbook} perspective on the envelope theorem
+\parencite[e.g.][§M.L]{MascolellWhinstonGreen1995}
+is quite different.
+The argument is typically that optimality implies \emph{local optimality} in the form of a first-order condition,
+and that this first-order condition may be re-expressed as the envelope formula.
+(We saw a version of this reasoning in §\ref{sec:ch1:env}.)
+A nice feature of this perspective is that it tells you what the envelope formula \emph{means} economically: namely, `local optimality'.
+The downside is that the textbook argument requires very strong assumptions---far too strong for mechanism-design applications.
+
+But it is in fact possible to obtain the general \hyperref[theorem:MS_envelope]{Milgrom--Segal envelope theorem} from the textbook argument (with some frills), as long as one uses a suitable notion of `local optimality'.
+It is therefore quite generally legitimate to interpret the envelope formula as `local optimality'.
+The details are in \textcite{Sinander2022}.
+
+
+\begin{remark}
+	%
+	\label{remark:env_param_higher}
+	%
+	Suppose that instead of a one-dimensional parameter $t \in [0,1]$,
+	there is a parameter $\theta$ drawn from a convex subset $\Theta$ of a normed vector space (e.g. $\R^n$, or a higher-dimensional space).
+	Write $F : \mathcal{X} \times \Theta \to \R$ for the objective function.
+	Then along any smooth path $[0,1] \ni t \mapsto \theta_t \in \Theta$ through the parameter space $\Theta$,
+	we may define $f(x,t) \coloneqq F(x,\theta_t)$;
+	the envelope theorem applies along this path,
+	and that is true for any such smooth path $t \mapsto \theta_t$.
+	%
+\end{remark}
+

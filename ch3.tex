@@ -18,8 +18,8 @@
 
 
 This chapter concerns repeated allocation problems.
-In each period, the principal has one good, which she can either allocate to the agent or keep.
-The agent has a privately-known valuation $t$ for the good.
+In each period, the principal has one good, which she can either allocate to the agent or keep,
+and the agent has a privately-known valuation $t$ for the good.
 The principal wishes to allocate only to high types of the agent.
 Every type of the agent wants the good, but high types want it more.
 
@@ -58,9 +58,9 @@ that just means that there are two fixed `transition probabilities' $u,d \in (0,
 The initial type $T_0$ is drawn from the stationary distribution of the Markov chain: this is the distribution assigning probability $p \coloneqq u / (u+d)$ to $t=h$.
 We write $\mu$ for its mean: $\mu = (1-p) \ell + p h$.
 
-An important special case is when types are iid over time: $u=1-d$.
+An important special case is when types are IID over time: $u=1-d=p$.
 More generally, $u \leq 1-d$ means that the agent's type is persistent (non-negatively auto-correlated).
-\emph{(In §\ref{sec:ch3:guohorner}, we shall assume persistence; in §\ref{sec:ch3:nocommitment} we shall assume iid.)}
+\emph{(In §\ref{sec:ch3:guohorner}, we shall assume persistence; in §\ref{sec:ch3:nocommitment} we shall assume IID.)}
 
 In principle, $\mu$ can be on either side of $c$.
 We shall focus on the more interesting case in which $\mu < c$, so that the principal wishes to allocate only if she manages to screen the agent.%
@@ -68,8 +68,12 @@ We shall focus on the more interesting case in which $\mu < c$, so that the prin
 
 We shall also assume that patience $\delta$ is `high enough' to make screening possible: $\delta > \ell/\mu$.%
 	\footnote{This assumption is also unnecessary in §\ref{sec:ch3:token}.}
-This condition is easily interpreted in the iid case ($u=1-d$):
+This condition is easily interpreted in the IID case ($u=1-d=p$):
 it ensures that a low type is willing to forego consumption today if promised that she'll be allowed to consume tomorrow no matter what ($\ell < \delta \mu$).
+
+The analysis differs slightly depending on when the agent learns her type.
+In §\ref{sec:ch3:token}, we shall assume that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset (period $n=0$).
+In §\ref{sec:ch3:guohorner}--§\ref{sec:ch3:nocommitment}, we shall instead assume that the agent learns the realisation of $T_n$ only at the dawn of period $n$, for each $n \in \{0,1,\dots,\}$.
 
 
 
@@ -80,9 +84,11 @@ it ensures that a low type is willing to forego consumption today if promised th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Assume (mostly for simplicity) that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset.
+
 Here's a mechanism:
-the agent freely chooses in each period $n$
-the probability $q_n \in [0,1]$ with which she will consume the good,
+the agent freely chooses
+the probability $q_n \in [0,1]$ with which she will consume the good in each period $n$,
 subject to the lifetime budget constraint
 %
 \begin{equation*}
@@ -145,7 +151,8 @@ is the one in which the agent consumes when and only when her type is high.
 The first-best discounted total quantity is therefore
 %
 \begin{equation*}
-	Q_\delta \coloneqq (1-\delta) \sum_{n=0}^\infty \delta^n \1_{\{h\}}(T_n) .
+	Q_\delta \coloneqq (1-\delta)
+	\sum_{n=0}^\infty \delta^n \1_{\{h\}}(T_n) .
 \end{equation*}
 %
 Its expected value is
@@ -157,7 +164,7 @@ Its expected value is
 	= p .
 \end{equation*}
 %
-Given this, a natural choice of $K$ is $K = p$.%
+Given this, a natural choice of cap $K$ is $K = p$.%
 	\footnote{I am \emph{not} claiming that among discounted-quota mechanisms, the one with $K=p$ gives the principal the highest payoff. That's not true in general.}
 
 The incentive properties of discounted quotas are simple:
@@ -179,7 +186,7 @@ Conversely, if her type is initially low for several periods, then she accrues e
 
 This problematic variability of $Q_\delta$ is less severe the greater is the discount factor $\delta$.
 To see why,
-assume for simplicity that the agent's type is iid over time ($u=1-d$),
+assume for simplicity that the agent's type is IID over time ($u=1-d=p$),
 and calculate
 %
 \begin{align*}
@@ -215,14 +222,74 @@ so that
 \end{equation*}
 %
 (In other words, $Q_\delta$ \emph{converges in probability} to $p$ as $\delta \uparrow 1$.
-Such a result is called a \emph{(weak) law of large numbers.})
+Such a result is called a \emph{weak law of large numbers.})
 
-The discounted-quota mechanism with quota $K=p$
+The discounted-quota mechanism with cap $K=p$
 therefore provides close to the first-best discounted total quantity
 with high probability when $\delta$ is high.
-This suggests, correctly, that if $\delta$ is large, then this discounted-quota mechanism gives the principal a payoff close to her first-best payoff (which is $(h-c) Q_\delta$, by the way---why?).
-In other words, this mechanism is \emph{approximately optimal} (for large $\delta$).
-Note that we haven't quite proved approximate optimality---some extra steps are needed to accomplish that.
+This suggests (but does not prove!) that if $\delta$ is large, then this discounted-quota mechanism gives the principal a \emph{payoff} close to her first-best payoff (which is $(h-c) Q_\delta$, by the way---why?).
+In other words, this mechanism is \emph{approximately optimal} (for large $\delta$). Formally:
+
+\begin{proposition}
+	%
+	\label{proposition:JacksonSonnenschein}
+	%
+	Assume that the agent's type is IID over time ($u=1-d=p$)
+	and that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset.
+	Let $U_\delta^K$ denote the principal's (ex-post, random) payoff under the discounted-quota mechanism with cap $K \in [0,1]$
+	when the discount factor is $\delta \in (0,1)$.
+	Then $(h-c) Q_\delta - U_\delta^p \to 0$ a.s. as $\delta \uparrow 1$.%
+		\footnote{Hence by the bounded convergence theorem,
+		the \emph{expected} payoff $\E( U_\delta^p )$ converges as $\delta \uparrow 1$
+		to the first-best expected payoff $(h-c)p$.}
+	%
+\end{proposition}
+
+The proof relies on a simple \emph{strong law of large numbers.}
+The IID assumption can be relaxed by using a fancier strong law of large numbers.
+
+\begin{proof}
+	%
+	Fix a cap $K \in [0,1]$ and a discount factor $\delta \in (0,1)$.
+	Clearly the agent always exhausts the budget.
+	If $Q_\delta \geq K$, then she consumes only when $T_n=h$,
+	so her payoff is $h K$.
+	If $Q_\delta < K$, then the agent consumes whenever $T_n=h$,
+	and spends the rest of the budget when $T_n=\ell$;
+	thus her payoff is $h Q_\delta + \ell (K-Q_\delta)$.
+	The principal's payoff is the agent's payoff minus $cK$, so
+	%
+	\begin{multline*}
+		(h-c) Q_\delta
+		- U_\delta^K
+		\\
+		\begin{aligned}
+			&= (h-c) Q_\delta
+			- \Bigl[
+			h \min\{K,Q_\delta\}
+			+ \ell \min\{K-Q_\delta,0\}
+			- c K 
+			\Bigr]
+			\\
+			&= (h-c) Q_\delta
+			+ \Bigl[
+			h \max\{-K,-Q_\delta\}
+			+ \ell \max\{Q_\delta-K,0\}
+			+ c K 
+			\Bigr]
+			\\
+			&= (h+\ell) \max\{Q_\delta-K,0\}
+			- c (Q_\delta-K) .			
+		\end{aligned}		
+	\end{multline*}
+	%
+	For $K=p$,
+	as $\delta \uparrow 1$,
+	the right-hand side vanishes a.s.
+	since $Q_\delta \to p$ a.s.
+	by a strong law of large numbers for discounted sums \parencite[see][]{Lai1974}.
+	%
+\end{proof}
 
 
 \begin{remark}
@@ -239,13 +306,13 @@ Note that we haven't quite proved approximate optimality---some extra steps are 
 
 \paragraph{The literature.}
 \textcite{JacksonSonnenschein2007} showed that the principal's first-best can be approximated by `linking' the allocations across different periods via something like a discounted quota.
-(The theorem in this paper is true as stated, but the proof is wrong. See \textcite{BallJacksonKattwinkel2022} for a correct proof.)
+(The theorem in this paper is true as stated, but the proof is wrong: see \textcite{BallJacksonKattwinkel2022} for the correction.)
 \textcite{MatsushimaMiyazakiYagi2010,Ishii2016} go further, characterising the full set of allocations that are (virtually) implementable via quota mechanisms.
 (The characterisation: virtual implementability via quotas is equivalent to implementability using monetary transfers.)
 \textcite{Frankel2016jet} is a clear-eyed and general formulation of the quotas idea, with good references references to related work.
+\textcite{Frankel2016aej} provides a similarly insightful and general treatment of the idea in \Cref{remark:het}.
 (None of these papers considers precisely the model above,
 and the mechanism in Jackson--Sonnenschein is not quite a discounted-quota mechanisms.)
-\textcite{Frankel2016aej} provides a similarly insightful and general treatment of the idea in \Cref{remark:het}.
 
 
 
@@ -256,7 +323,8 @@ and the mechanism in Jackson--Sonnenschein is not quite a discounted-quota mecha
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we'll assume that the agent's valuation is persistent ($u \leq 1-d$).
+In this section, we'll assume that the agent's valuation is persistent ($u \leq 1-d$),
+and that the agent learns her type in real time (she observes the realisation of $T_n$ only at the dawn of period $n$).
 
 Discounted quota mechanisms ensure IC
 precisely by capping the discounted total quantity.
@@ -264,9 +332,9 @@ This inflexibility causes inefficiency, since the first-best discounted total qu
 Is it possible to improve by supplying a greater discounted total quantity when the agent's type turns out to be high in several early periods, while preserving IC?
 
 Consider the case of two periods, $n \in \{0,1\}$, 
-with iid types ($u = 1-d$),
+with IID types ($u = 1-d = p$),
 and let's neglect discounting ($\delta=1$).
-In the mechanism with quota $K=1$,
+In the mechanism with cap $K=1$,
 the agent consumes in period $n=0$ if her type is high ($T_0=h$),
 and otherwise waits and consumes in period $n=1$. (Why?)
 The principal's payoff is therefore
@@ -327,7 +395,8 @@ It offers a general recursive way of formulating dynamic contracting problems (w
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we'll assume that the agent's valuation is iid over time ($u = 1-d$).
+In this section, we'll assume that the agent's valuation is IID over time ($u = 1-d = p$),
+and that the agent learns her type in real time (she observes the realisation of $T_n$ only at the dawn of period $n$).
 We'll also add an extra `enough patience' assumption:
 %
 \begin{equation*}
@@ -366,12 +435,12 @@ And which is the principal's favourite?
 
 
 \paragraph{The literature.} \textcite{LipnowskiRamos2020} characterise principal-optimal equilibria (and more generally, Pareto-optimal equilibria).%
-	\footnote{In their model, the agent learns her type only after being offered the good. This does not make a difference, I believe.
-	In particular, suppose the principal-preferred equilibrium featured the agent conditioning her behaviour in period $n+1$
-	on what her valuation was in period $n$ if she was not offered the good in period $n$.
-	Since her period-$n$ valuation has no statistical effect on her period-$(t+1)$ valuation (that's our iid assumption),
+	\footnote{In their model, the agent learns $T_n$ only if and when she is offered the good in period $n$. This does not make a difference, I believe.
+	For suppose the principal-preferred equilibrium were to feature the agent conditioning her behaviour in period $n+1$
+	on what $T_n$ if she was not offered the good in period $n$.
+	Since $T_n$ has no statistical effect on $T_{n+1}$ (that's our IID assumption),
 	this just amounts to the agent randomising in period $n+1$ (when the principal did not offer the good in period $n$);
-	so we can replicate this behaviour by having the agent mix (i.e. she can use her own set of dice to randomise, instead of conditioning her behaviour on the `natural dice' of her previous period's type).}
+	so we can replicate this behaviour by having the agent mix (i.e. she can use her own set of dice to randomise, instead of conditioning her behaviour on the `natural dice' $T_n$).}
 Their analysis relies on the `APS' technique \parencite{AbreuPearceStacchetti1990}, which provides a recursive formulation of repeated games with imperfect monitoring. This is a standard (indeed, essential!) tool for analysing repeated interactions without commitment.
 The original APS paper is rather beautiful,
 but you may prefer to learn it from the textbook treatment of \textcite{MailathSamuelson2006}, or from whatever lecture notes you can find around the internet.

@@ -20,27 +20,27 @@
 `Who gets what?' is perhaps the most fundamental question in economics.
 This chapter concerns recent research on that question.
 
-The setting will be the same throughout: there are $I \geq 2$ agents, each of whom has a `type' $t_i$ that is randomly drawn from some set $\mathcal{T}_i$
+The setting will be the same throughout: there are $I \geq 2$ agents, each of whom has a `type' $T_i$ that is randomly drawn from some set $\mathcal{T}_i$
 according to a probability measure $\mu_i$
 (defined on some $\sigma$-algebra).
 Draws are independent across agents.%
-	\footnote{This is important. When types are correlated, it is `typically' possible to incentivise agents to do essentially anything by offering them monetary bets on the other players' types; see \textcite[§7]{Myerson1981}, \textcite{CremerMclean1988,McafeeReny1992}.}
-In most (but not all) models studied in this chapter, each agent $i$ privately knows her type $t_i$ from the outset.
+	\footnote{This is important. When types are correlated, it is `typically' possible to incentivise agents to do essentially anything by offering them monetary bets on the other agents' types---see §\ref{sec:ch1:CremerMclean}.}
+In most (but not all) models studied in this chapter, each agent $i$ privately knows her type $t_i \in \mathcal{T}_i$ from the outset.
 
 There is a single indivisible good to be allocated.
 When convenient, we think of this allocation as performed by a `principal'.
-Apart from giving the good to one of the agents, the principal can keep it.
+The good may be either assigned to an agent or kept by the principal.
 The agents' preferences and the principal's objective will vary from model to model.
 
 The standard IPV (independent private values) auction model fits this framework.
 Here agent $i$'s type $t_i$ is her privately-known valuation of the good.
 In an \emph{auction,} the agents take some actions (often called `bids'),
 and as a function of these, the good is allocated and monetary payments are made by the agents.
-Agents' payoffs are quasi-linear in money: $q t_i - p$, where $q \in [0,1]$ is $i$'s probability of getting the good, and $p \in \R$ is her payment.
+Agents' payoffs are quasi-linear in money: $q_i t_i - p_i$, where $q_i \in [0,1]$ is $i$'s probability of getting the good, and $p_i \in \R$ is her payment.
 
 
-In most models considered in this chapter, monetary transfers are not available.
-The design of incentives without the use of monetary transfers is currently a major area of research.
+In many models considered in this chapter, monetary transfers are not available.
+The design of incentives without the use of monetary transfers is currently a fairly hot topic.
 
 
 Let's fix some terminology and notation.
@@ -57,10 +57,10 @@ We'll use the notation
 \end{equation*}
 
 In many models, each agent $i$ privately knows her type $t_i$.
-We can visualise three stages:
+We can imagine three stages:
 the (perhaps fictional) \emph{ex-ante} stage at which agents do not know anyone's type,
 the \emph{interim} stage at which agents know their own types but not those of others,
-and the \emph{ex-post} stage at which all types are common knowledge.
+and the \emph{ex-post} stage at which all agents' types are common knowledge.
 
 At the interim stage, given allocation $q$, agent $i$ expects to receive the good with probability
 %
@@ -84,9 +84,9 @@ Similarly, if the principal has an expected-utility objective that is additively
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-Whereas an allocation $q : [0,1]^I \to [0,1]^I$ is a high-dimensional object,
-its induced interim allocation $(Q_i)_{i=1}^I$ is fairly tractable.
-For this reason, it is frequently far easier to work directly with interim allocations.
+Whereas an allocation $q$ is a high-dimensional object,
+its induced interim allocation $(Q_i)_{i=1}^I$ is not.
+For this reason, it is frequently easier to work directly with interim allocations.
 To adopt this approach, we must do some housekeeping first:
 we must determine which families $(Q_i)_{i=1}^I$ of functions
 are legitimately the interim allocation induced by some allocation $q$.
@@ -290,7 +290,7 @@ we'll restrict our attention to the case of finitely many types.%
 
 
 	Let's re-name the types in $\mathcal{T}^+$ as $\mathcal{T}^+ \equiv \{1,\dots,\abs*{\mathcal{T}^+}\}$, where
-	$\gamma_1 > \cdots > \gamma_{\abs*{\mathcal{T}^+}} > \gamma_{\abs*{\mathcal{T}^+}+1} \coloneqq 0$.
+	$\gamma_1 > \gamma_2 > \cdots > \gamma_{\abs*{\mathcal{T}^+}} > 0$.
 	Consider the hierarchical allocation $q^\star$
 	with type sets $\{1\},\{2\}, \dots, \{\abs*{\mathcal{T}^+}\}$.
 	Observe that
@@ -308,14 +308,16 @@ we'll restrict our attention to the case of finitely many types.%
 	%
 	\begin{equation*}
 		\sum_{t'=1}^{\abs*{\mathcal{T}^+}}
-		(\gamma_{t'}-\gamma_{t'+1})
+		\beta_{t'}
 		\left( \sum_{t=1}^{t'} \mu(t) Q(t) \right)
 		> \sum_{t'=1}^{\abs*{\mathcal{T}^+}}
-		(\gamma_{t'}-\gamma_{t'+1})
-		\left( \sum_{t=1}^{t'} \mu(t) Q^\star(t) \right) .
+		\beta_{t'}
+		\left( \sum_{t=1}^{t'} \mu(t) Q^\star(t) \right) ,
 	\end{equation*}
-	
-	Since the weights $\gamma_{t'}-\gamma_{t'+1}$ are positive,
+	%
+	where $\beta_{t'} \coloneqq \gamma_{t'}-\gamma_{t'+1}$ for $t' < \abs*{\mathcal{T}^+}$ and $\beta_{\abs*{\mathcal{T}^+}} \coloneqq \gamma_{\abs*{\mathcal{T}^+}}$.
+
+	Since the weights $\beta_{t'}$ are positive,
 	there must be a $t' \in \{1,\dots,\abs*{\mathcal{T}^+}\}$ at which
 	%
 	\begin{equation*}
@@ -326,7 +328,9 @@ we'll restrict our attention to the case of finitely many types.%
 	\end{equation*}
 	%
 	where the equality holds by \Cref{lemma:hier}.
-	Thus $Q$ violates the Border inequality for the set $T = \{1,\dots,t'\}$.
+	The left-hand side
+	is $\int_{\{1,\dots,t'\}} Q \dd \mu$;
+	thus $Q$ violates the Border inequality for the set $T = \{1,\dots,t'\}$.
 	%
 \end{proof}
 
@@ -346,7 +350,8 @@ The symmetric realisability problem was studied first.
 The conjecture was proved by \textcite{Border1991}, using the above argument above based on hierarchical allocations and a separating hyperplane.
 \textcite{Border2007} obtained the asymmetric version for finitely many types,
 and \textcite{Mierendorff2011} extended this to general type spaces.
-Some (not many) extensions have been considered.
+\textcite{HartReny2015border} provide an alternative characterisation of realisability in terms of second-order stochastic dominance.
+Some (not many) extensions to richer environments have been considered; for example, \textcite{CheKimMierendorff2013} allow for certain sorts of constraints.
 
 
 \begin{remark}
@@ -392,7 +397,7 @@ it is possible to implement all and only allocations that do not depend on agent
 
 In the sequel, we consider a variety of settings in which the principal \emph{can} (to some extent) screen the agents.
 Some of these models grant the principal control of a payoff-relevant action besides the allocation of the good,
-such as monetary payments by the agent (§\ref{sec:ch2:bic_dsic})
+such as monetary payments by the agent (§\ref{sec:ch2:ipv})
 or allocation decisions in future periods (\cref{ch3}).
 With such an `incentive instrument', the principal can screen an agent by forcing her to trade off her probability of getting the good against another outcome about which she cares.
 (For example, the principal can let the agent increase her likelihood of obtaining the good in exchange for making a higher payment, or for getting the good with a lower probability tomorrow.)
@@ -407,14 +412,29 @@ For example, the principal may be able perfectly to verify agents' types ex post
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
-\section{Equivalence of dominant-strategy and Bayes--Nash IC in auctions}
-\label{sec:ch2:bic_dsic}
+\section{IPV auctions}
+\label{sec:ch2:ipv}
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-An \emph{auction} is a Bayesian game in which players start out with their privately-known valuations $t_i \in \mathcal{T}_i \subseteq \R$, take some actions (often called `bids'), after which the good is allocated and payments are extracted from the agents.
-As before, an \emph{allocation} is a map $q : \mathcal{T}_1 \times \cdots \times \mathcal{T}_I \to [0,1]^I$ such that $\sum_{i=1}^I q_i \leq 1$.
-A remarkable fact about auctions is that frequently, an allocation which can be implemented as the Bayes--Nash equilibrium of some auction
+The \emph{IPV (independent private values) model} is the following.
+Agents' types are drawn from $\mathcal{T}_i = [0,1]$, and are called \emph{valuations.}
+(As before, they are statistically independent, and each agent learns only her own type.)
+Payoffs are as in \cref{ch1}: if agent $i$ has type $t_i \in [0,1]$ and pays $p_i \in \R$, then her payoff is $t_i - p_i$ in case she gets the good, and $-p_i$ otherwise.
+
+The IPV model is used to study \emph{auctions,} meaning mechanisms in which agents' actions are non-negative numbers, called `bids'.
+We shall continue to allow for arbitrary mechanisms, though
+it will turn out that all the mechanisms of interest can be implemented using various familiar auctions formats.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalence of dominant-strategy and Bayes--Nash IC}
+\label{sec::}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As before, an \emph{allocation} is a map $q : [0,1]^I \to [0,1]^I$ such that $\sum_{i=1}^I q_i \leq 1$.
+A remarkable fact about the IPV setting is that frequently, an allocation which can be implemented as the Bayes--Nash equilibrium of some auction
 can in fact be implemented as a \emph{dominant-strategy} equilibrium of some (other) auction.%
 
 \begin{namedthm}[Note well.]
@@ -423,21 +443,24 @@ can in fact be implemented as a \emph{dominant-strategy} equilibrium of some (ot
 	%
 	In mechanism design, a `dominant strategy' of a player in a game is one that yields weakly better payoff than any other strategy, whatever the strategies of the other players.
 	This is weaker than the game-theoretic notion of weak dominance!
+	(Spot the difference!)
 	%
 \end{namedthm}
 
-For example, an \emph{efficient} allocation is one that allocates the good always to one of those players whose valuation is highest.
+For example, an \emph{efficient} allocation is one that allocates the good always to one of those agents whose valuation is highest.
 The first-price auction implements any efficient allocation as a Bayes--Nash equilibrium. (Convince/remind yourself.)
-But consider the second-price auction: it also has an equilibrium implementing any efficient allocation, and in this equilibrium (in which each agent always bids her true value), agents' strategies are in fact dominant.
-
-Similarly, a first-price auction with a reserve price maximises the seller's revenue \parencite{Myerson1981}.
-The same allocation is implemented by a \emph{second-}price auction with a reserve price, however, in which the players' bidding strategies are dominant.
-(And by revenue equivalence, the two auctions raise the same revenue.)
+But consider the second-price auction: it also has an equilibrium implementing any efficient allocation, and in this equilibrium (in which each agent always bids her true value), agents' strategies are in fact weakly dominant.
 
 This was until recently a somewhat baffling phenomenon, but no longer.
-To understand it, recall that
-a direct mechanism $(q,p)$ is called \emph{Bayes--Nash (dominant-strategy) incentive-compatible} iff truthful reporting is a Bayes--Nash equilibrium (a dominant-strategy equilibrium).
-An allocation $q$ is called \emph{Bayes--Nash (dominant-strategy) implementable}
+A \emph{payment rule} is a map $p : [0,1]^I \to \R^I$.
+A \emph{direct revelation mechanism (DRM)} is a pair $(q,p)$, where $q$ is an allocation and $p$ is a payment rule.
+A direct revelation mechanism is called \emph{Bayes--Nash (dominant-strategy) incentive-compatible} iff truthful reporting is a Bayes--Nash equilibrium (a weakly dominant strategy profile).
+By a revelation principle,
+if an allocation--payment rule pair $(q,p)$ is
+induced by some Bayes--Nash equilibrium (by some profile of weakly dominant strategies) of some mechanism,
+then $(q,p)$ (viewed as a DRM) is Bayes--Nash IC (dominant-strategy IC).
+
+An allocation $q$ is \emph{Bayes--Nash (dominant-strategy) implementable}
 iff there is a payment rule $p$ such that the direct mechanism $(q,p)$ is interim (dominant-strategy) IC.
 Implementability is standardly characterised as follows:
 
@@ -445,9 +468,10 @@ Implementability is standardly characterised as follows:
 	%
 	\label{lemma:impl_mon}
 	%
-	An allocation $q$
+	In the IPV model,
+	an allocation $q$
 	is Bayes--Nash implementable iff its interim allocation $(Q_i)_{i=1}^I$ has $Q_i$ increasing for every agent $i$,
-	and is dominant-strategy implementable iff $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every agent $i$ and each profile $\boldsymbol{t}_{-i} \in \mathcal{T}_{-i}$.
+	and is dominant-strategy implementable iff $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every agent $i$ and each profile $\boldsymbol{t}_{-i} \in [0,1]^{I-1}$.
 	%
 \end{lemma}
 
@@ -455,16 +479,16 @@ Implementability is standardly characterised as follows:
 	%
 	For the dominant-strategies part,
 	fix an agent $i$
-	and a profile $\boldsymbol{t}_{-i}$ of types of the players apart from $i$.
+	and a profile $\boldsymbol{t}_{-i}$ of types of the agents apart from $i$.
 	In a direct revelation mechanism $(q,p)$,
 	$i$ faces the same reporting problem
 	as if she were the only agent (as in the previous chapter), facing the single-agent mechanism $\left( q_i\left(\cdot,\boldsymbol{t}_{-i}\right), p_i\left(\cdot,\boldsymbol{t}_{-i}\right) \right)$.
 	Thus by the \hyperref[proposition:SM_lemma]{Spence--Mirrlees lemma} (\cpageref{proposition:SM_lemma}), she is willing to report truthfully iff $q_i\left(\cdot,\boldsymbol{t}_{-i}\right)$ is increasing and $p_i\left(\cdot,\boldsymbol{t}_{-i} \right)$ is given by the envelope formula.
 
 	The Bayes--Nash part is similar:
-	player $i$'s reporting problem in a direct revelation mechanism $(q,p)$
+	agent $i$'s reporting problem in a direct revelation mechanism $(q,p)$
 	is exactly the same as if she were the only agent (as in the previous chapter),
-	facing the allocation $Q_i$ and the payment rule $P_i$ defined by
+	facing the allocation $Q_i$ and the payment rule $P_i : [0,1] \to \R$ defined by
 	%
 	\begin{equation*}
 		P_i(t_i)
@@ -481,9 +505,10 @@ The answer is in fact `always'!
 	%
 	\label{theorem:manellivincent}
 	%
-	If $(Q_i)_{i=1}^I$ is realised by some allocation
+	In the IPV model,
+	if $(Q_i)_{i=1}^I$ is realised by some allocation
 	and has $Q_i$ increasing for every $i$,
-	then it is realised by an allocation $q$ such that $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every $i$ and every $\boldsymbol{t}_{-i} \in \mathcal{T}_{-i}$.
+	then it is realised by an allocation $q$ such that $q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for every $i$ and every $\boldsymbol{t}_{-i} \in [0,1]^{I-1}$.
 	%
 \end{theorem}
 
@@ -494,17 +519,16 @@ Furthermore, by payoff/revenue equivalence, agents' interim payoffs and revenue 
 In short, we can get dominant-strategy IC for free.
 
 
-We shall sketch a proof of the symmetric special case:
+We shall sketch a proof for the \emph{symmetric IPV model:}
+the case in which all agents' types are drawn from the same probability distribution.
 
 \begin{corollary}
 	%
 	\label{corollary:manellivincent}
 	%
-	Suppose that agents are symmetric,
-	with each agent's type drawn from the same space $\mathcal{T}$
-	according to the same distribution.
-	If $Q : \mathcal{T} \to [0,1]$ is increasing and is realised by some symmetric allocation,
-	then it is realised by a symmetric allocation $q$ such that $q_1(\cdot,\boldsymbol{t}_{-1})$ is increasing for every $\boldsymbol{t}_{-1} \in \mathcal{T}^{I-1}$.
+	In the symmetric IPV model,
+	if $Q : [0,1] \to [0,1]$ is increasing and is realised by some symmetric allocation,
+	then it is realised by a symmetric allocation $q$ such that $q_1(\cdot,\boldsymbol{t}_{-1})$ is increasing for every $\boldsymbol{t}_{-1} \in [0,1]^{I-1}$.
 	%
 \end{corollary}
 
@@ -512,7 +536,7 @@ We shall sketch a proof of the symmetric special case:
 \begin{proof}[Sketch proof of \Cref{corollary:manellivincent}]
 	%
 	By Border's theorem, the $Q$s of interest
-	are exactly the increasing maps $Q : \mathcal{T} \to [0,1]$ that satisfy the Border inequalities;
+	are exactly the increasing maps $Q : [0,1] \to [0,1]$ that satisfy the Border inequalities;
 	let's write $\mathcal{Q}$ for the set of all such $Q$s.
 	Observe that $\mathcal{Q}$ is convex.
 
@@ -521,12 +545,12 @@ We shall sketch a proof of the symmetric special case:
 		\label{claim:manellivincent_extr}
 		%
 		The extreme points of $\mathcal{Q}$
-		are $0$ and the interim allocations induced by increasing hierarchical allocations.%
+		are $0$ and the interim allocations induced by symmetric hierarchical allocations $q$ such that $q_1(\cdot,\boldsymbol{t}_{-1})$ is increasing for every $\boldsymbol{t}_{-1} \in [0,1]^{I-1}$.%
 			\footnote{Here we allow for hierarchical allocations with infinitely many sets $R_k$; the technical details of this might require some head-scratching.}
 		%
 	\end{claim}
 
-	Loosely, interim allocations induced by increasing hierarchical allocations are extreme because they make some Border inequalities (in fact, a maximal set of Border inequalities) hold with equality (\Cref{lemma:hier} above).
+	Loosely, interim allocations induced by increasing symmetric hierarchical allocations are extreme because they make some Border inequalities (in fact, a maximal set of Border inequalities) hold with equality (\Cref{lemma:hier} above).
 	Conversely, nothing else is extreme because only hierarchical allocations make a maximal set of Border inequalities bind.
 	This is just intuition, but the claim can be proved using the types of arguments found in e.g. \textcite{KleinerMoldovanuStrack2021}.
 
@@ -536,7 +560,7 @@ We shall sketch a proof of the symmetric special case:
 	we may for any $Q \in \mathcal{Q}$ find a probability measure $\mu$ defined on $\ext \mathcal{Q}$ such that $Q = \int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
 
 	So take any $Q \in \mathcal{Q}$;
-	by Choquet's theorem it may be written $\int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
+	by Choquet's theorem, $Q = \int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
 	Each $Q' \in \ext \mathcal{Q}$ is realised by a $q^{Q'}$
 	that is either $0$ or a symmetric hierarchical allocation with $q^{Q'}_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
 	Thus $Q$ is realised by the allocation
@@ -552,9 +576,268 @@ We shall sketch a proof of the symmetric special case:
 \paragraph{The literature.}
 The theorem is due to \textcite{ManelliVincent2010};
 their proof is more involved.%
-	\footnote{Rather than using Choquet's theorem, they rely on the weaker Krein--Milman theorem, which requires an additional limit argument.}
+	\footnote{Rather than using Choquet's theorem, they rely on the weaker Krein--Milman theorem; this necessitates an additional limit argument.}
 See \textcite{GershkovEtAl2013} for a generalisation using a different technique, and \textcite{KleinerMoldovanuStrack2021} for yet another generalisation, using yet another technique.
-Equivalence generally fails if agents' types are multi-dimensional \parencite{JehielMoldovanuStacchetti1999}.
+Equivalence generally fails if agents' types are multi-dimensional \parencite{JehielMoldovanuStacchetti1999}, as is the case when there are multiple goods (recall §\ref{sec:ch1:multi-d}).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Optimal auctions}
+\label{sec:ch2:optimal_auctions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We henceforth consider the \emph{smooth IPV model,}
+in which the CDF $F_i$ of each agent $i$'s random type $T_i$
+possesses a density $f_i$, which is continuous and strictly positive.
+
+We seek the optimal mechanism for a seller
+whose objective is expected revenue,
+who expects agents to play a Bayes--Nash equilibrium of whatever mechanism she adopts,
+and who recognises that each type of each agent has access to an outside option worth zero.%
+	\footnote{By \Cref{theorem:manellivincent}, nothing would change if the seller feels confident only that weakly dominated strategies will not be played. We shall see this explicitly at the end: the optimal mechanism will be dominant-strategy IC.}
+
+Applying the reasoning of \cref{ch1} agent-by-agent (in a similar way to how we reasoned agent-by-agent in the proof of \Cref{lemma:impl_mon} above)
+yields that any Bayesian IC mechanism $(q,p)$ must satisfy the envelope formula
+%
+\begin{equation*}
+	P_i(t_i) = -P_i(0) + t_i Q_i(t_i) - \int_0^{t_i} Q_i
+	\quad \text{for every $t_i \in [0,1]$ and $i$,}
+\end{equation*}
+%
+that (interim) IR requires exactly that $P_i(0) \leq 0$ for each $i$,
+and thus that revenue-maximising mechanisms have $P_i(0)=0$ for every $i$.
+This reduces the revenue-maximisation problem to choosing an allocation $q$ to maximise
+%
+\begin{equation*}
+	R(q) \coloneqq \sum_{i=1}^I R_i(Q_i) ,
+	\quad \text{where} \quad
+	R_i(Q_i)
+	\coloneqq \E\left( T_i Q_i(T_i) - \int_0^{T_i} Q_i \right) ,
+\end{equation*}
+%
+subject to the constraint that $Q_i$ be increasing for each agent $i$.
+
+To rewrite the second term in $R_i(Q_i)$,
+let $\phi_i(t_i) \coloneqq \int_0^{t_i} Q_i$;
+then integrating by parts yields
+%
+\begin{multline*}
+	\E\left( \int_0^{T_i} Q_i \right)
+	= \int_0^1 \phi_i f_i
+	= \left[ \phi_i F_i \right]_0^1
+	- \int_0^1 \phi_i' F_i
+	= \phi_i(1)
+	- \int_0^1 Q_i F_i
+	\\
+	= \int_0^1 Q_i (1-F_i) .
+\end{multline*}
+%
+Let $\boldsymbol{I} : [0,1] \to [0,1]$ denote the identity ($\boldsymbol{I}(t) \coloneqq t$ for every $t \in [0,1]$),
+and let $V_i \coloneqq \boldsymbol{I} - \frac{1-F_i}{f_i}$;
+this is called agent $i$'s \emph{virtual value.}
+We have
+%
+\begin{equation*}
+	R_i(Q_i)
+	= \int_0^1 \boldsymbol{I} Q_i f_i
+	- \int_0^1 \frac{1-F_i}{f_i} Q_i f_i 
+	= \E\left[ V_i(T_i) Q_i(T_i) \right] .
+\end{equation*}
+%
+The right-hand side is equal to
+%
+\begin{equation*}
+	\E\Bigl[ V_i(T_i)
+	\E\Bigl( q_i(t_i,\boldsymbol{T}_{-i})
+	\Bigm| T_i=t_i \Bigr)
+	\Bigr]
+	= \E\bigl[ V_i(T_i) q_i(T_i,\boldsymbol{T}_{-i}) \bigr] 
+\end{equation*}
+%
+by definition of $Q_i$ and the law of iterated expectations.
+(Recall that agents' types $(T_i)_{i=1}^I$ are independent.)
+Thus expected revenue reads
+%
+\begin{align*}
+	R(q)
+	&= \E\left[ \sum_{i=1}^I V_i(T_i) q_i(\boldsymbol{T}) \right] .
+\end{align*}
+
+The \emph{regular smooth IPV model} is the case in which each agent $i$'s virtual valuation $V_i$ is increasing. A sufficient condition is that the hazard rate $f_i / (1-F_i)$ be increasing.
+
+A \emph{second-price auction with reserve price $r \in [0,1]$}
+is just like a second-price auction,
+except that there is also a fictional bidder who always bids $r$;
+if the fictional bidder wins, then the seller keeps the good and no-one pays anything.
+It is well-known (and easily verified) that it is weakly dominant for every type of every agent to bid her valuation;
+thus the induced allocation and payment rule are
+%
+\begin{multline*}
+	\Bigl( q_i(t_1,\dots,t_I), p_i(t_1,\dots,t_I) \Bigr)
+	\\
+	= 
+	\begin{cases}
+		\left( 1, \max\left\{ r, \max_{j \neq i} t_j \right\} \right)
+		& \text{if $t_i > \max\left\{ r, \max_{j \neq i} t_j \right\}$}
+		\\
+		\left( 0, 0 \right)
+		& \text{otherwise.}
+	\end{cases}
+\end{multline*}
+%
+(We haven't specified what happens in case of a tie, but that doesn't matter since ties occur with probability zero in the smooth IPV model.)
+
+
+\begin{theorem}[\cite{Myerson1981}]
+	%
+	\label{theorem:MyersonAuction}
+	%
+	In the symmetric regular smooth IPV model,
+	there is a second-price auction with reserve price
+	that is optimal.
+	%
+\end{theorem}
+
+\begin{proof}
+	%
+	We have already reduced the seller's problem to choosing an allocation $q$ to maximise
+	%
+	\begin{equation*}
+		R(q) = \E\left[ \sum_{i=1}^I V_i(T_i) q_i(\boldsymbol{T}) \right]
+	\end{equation*}
+	%
+	subject to monotonicity of $Q_i$ for every agent $i$.
+	In the relaxed problem in which the monotonicity constraint is absent,
+	it is obviously optimal
+	to assign the good to whichever agent has the highest virtual valuation if any has positive virtual valuation, and to keep the good otherwise:
+	%
+	\begin{equation*}
+		q_i(t_i,\boldsymbol{t}_{-i})
+		= 
+		\begin{cases}
+			1
+			& \text{if $V_i(t_i) > \max\left\{ 0, \max_{j \neq i} V_j(t_j) \right\}$}
+			\\
+			0
+			& \text{otherwise.}
+		\end{cases}
+	\end{equation*}
+	%
+	And this allocation satisfies the monotonicity constraint
+	by regularity:
+	since $V_i$ is increasing,
+	$q_i(\cdot,\boldsymbol{t}_{-i})$ is increasing for any $\boldsymbol{t}_{-i} \in [0,1]^{I-1}$,
+	and so certainly $Q_i$ is increasing.
+
+	Under symmetry, $V_i = V_j$ for all $i \neq j$,
+	so $V_i(t_i) > V_j(t_j)$ holds iff $t_i > t_j$,
+	and $V_i(t_i) > 0$ holds iff $t_i > r$, where $r$ is some number in $[0,1]$.
+	Thus optimal mechanisms allocate the good to agent $i$ iff her valuation exceeds $r$ and all other agents' types $t_j$
+	(modulo ties, which we may neglect).
+	By inspection, this is the allocation implemented by the second-price auction with reserve price $r$.
+	%
+\end{proof}
+
+
+\begin{remark}
+	%
+	\label{remark:Myerson_general}
+	%
+	Absent symmetry, the first part of the proof still delivers a characterisation of the optimal allocation,
+	and the implementing payments may be backed out from the envelope formula.
+	If we also drop regularity, then the proof must be modified, because the monotonicity constraint can no longer be neglected without incident.
+	\textcite{Myerson1981} developed a technique called \emph{ironing} to deal with this case.
+	Ironing has recently been extended and applied in many ways
+	\parencite[e.g.][]{Toikka2011,Condorelli2012,Condorelli2013,KleinerMoldovanuStrack2021,DworczakKominersAkbarpour2021,LoertscherMuir2022,OnuchicRay2022iron,JewittQuigleyInprogress}.
+	%
+\end{remark}
+
+
+\paragraph{The literature.}
+Everything in this section is due to \textcite{Myerson1981}.
+The `Myersonian approach' to the regular case has proved fruitful also in richer models in which more than just a single good is up for sale,
+e.g. dynamic problems of selling goods over many periods \parencite{PavanSegalToikka2014}, problems of selling information \parencite{Yang2022}, and the problem of selling to a group \parencite{HaghpanahKuvalekarLipnowski2022}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Bulow--Klemperer theorem}
+\label{sec:ch2:bulow-klemperer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have shown that the choice of reserve price is important for revenue.
+Something else that obviously matters is \emph{competition:} the number of bidders. (`Bidder' is just another term for `agent'.)
+The following delineates their relative importance:
+
+\begin{namedthm}[The Bulow--Klemperer theorem.]
+	%
+	\label{theorem:BulowKlemperer}
+	%
+	In the symmetric regular smooth IPV model,
+	for any $I \in \N$,
+	the expected revenue of the revenue-maximising mechanism with $I$ bidders
+	is weakly lower than the expected revenue of the second-price auction with $I+1$ bidders.
+	%
+\end{namedthm}
+
+In short, competition matters far more for revenue than the details of the auction design:
+given the choice between setting an optimal reserve price
+and having just \emph{one} extra bidder,
+a revenue-maximising seller should always opt for the latter.
+Insofar as the model assumptions are valid in a given practical situation (e.g. there is just one good, and values are private), this result provides rather sharp advice to sellers.
+
+
+The proof relies on a lemma.
+Recall that a mechanism $(q,p)$ may keep the good:
+it may be that $\sum_{i=1}^I q_i(t_i) < 1$ for some type profiles $(t_1,\dots,t_I) \in [0,1]^I$.
+Indeed, the second-price auction with reserve price keeps the good whenever all agents' valuations are lower than the reserve price.
+%
+\begin{lemma}
+	%
+	\label{lemma:MyersonMustallocate}
+	%
+	In the symmetric regular smooth IPV model,
+	among mechanisms that never keep the good
+	($(q,p)$ such that $\sum_{i=1}^I q_i = 1$),
+	the second-price auction
+	is optimal.
+	%
+\end{lemma}
+
+\begin{proof}
+	%
+	Return to the proof of \Cref{theorem:MyersonAuction}.
+	Neglecting the monotonicity constraint, it is clearly optimal to allocate the good to the agent with the highest virtual valuation,
+	which by symmetry means the highest-valuation agent;
+	this allocation satisfies the monotonicity constraint by regularity,
+	and is (by inspection) implemented by the second-price auction.
+	%
+\end{proof}
+
+
+\begin{proof}[Proof of the {\hyperref[theorem:BulowKlemperer]{Bulow--Klemperer theorem}}]
+	%
+	Fix an $I \in \N$.
+	With $I$ agents, 
+	by \Cref{theorem:MyersonAuction}, 
+	the second-price auction with reserve price $r$
+	is optimal, for some $r \in [0,1]$;
+	write $R^\star$ for its expected revenue.
+	
+	Now suppose that there is one additional agent.
+	Consider the same second-price auction with reserve price $r$ and bidders $\{1,\dots,I\}$ (note that agent $I+1$ is not allowed to bid),
+	except that whenever all bids are below the reserve price $r$,
+	the good is awarded to agent $I+1$ instead of to nobody.
+	This mechanism obviously raises expected revenue $R^\star$, and never keeps the good.
+	Thus by \Cref{lemma:MyersonMustallocate}, the $(I+1)$-bidder second-price auction raises expected revenue at least $R^\star$.
+	%
+\end{proof}
+
+
+\paragraph{The literature.}
+The theorem is from \textcite{BulowKlemperer1996}.
+The proof given here is due to \textcite{Kirkegaard2006}.
 
 
 
@@ -1180,3 +1463,4 @@ for some lower precision $q \in (1/2,p]$.
 \paragraph{The literature.}
 \textcite{BlochDuttaDziubinski2021} study this model, and obtain a  `lexicographic' characterisation of optimal mechanisms.
 The broader insight here, first articulated by \textcite{Kattwinkel2019}, is that an agent can be screened by conditioning allocation decisions on an exogenous signal that is correlated with her type.
+This is analogous to (but less powerful than) screening using contingent monetary payments (recall §\ref{sec:ch1:CremerMclean}).
