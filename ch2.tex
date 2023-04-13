@@ -1,4 +1,4 @@
-% Copyright (c) 2022 Carl Martin Ludvig Sinander.
+% Copyright (c) 2023 Carl Martin Ludvig Sinander.
 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -566,7 +566,7 @@ the case in which all agents' types are drawn from the same probability distribu
 	Thus $Q$ is realised by the allocation
 	%
 	\begin{equation*}
-		q \coloneqq \int_{\ext \mathcal{Q}} q^{Q'} \dd \mu( \dd Q' ) ,
+		q \coloneqq \int_{\ext \mathcal{Q}} q^{Q'} \mu( \dd Q' ) ,
 	\end{equation*}
 	%
 	which is evidently symmetric and has $q_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
@@ -601,7 +601,7 @@ Applying the reasoning of \cref{ch1} agent-by-agent (in a similar way to how we 
 yields that any Bayesian IC mechanism $(q,p)$ must satisfy the envelope formula
 %
 \begin{equation*}
-	P_i(t_i) = -P_i(0) + t_i Q_i(t_i) - \int_0^{t_i} Q_i
+	P_i(t_i) = P_i(0) + t_i Q_i(t_i) - \int_0^{t_i} Q_i
 	\quad \text{for every $t_i \in [0,1]$ and $i$,}
 \end{equation*}
 %
