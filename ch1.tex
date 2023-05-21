@@ -1011,14 +1011,14 @@ Precisely:
 	the beliefs $\{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$
 	are said to satisfy \emph{convex independence}
 	iff no type's belief may be written as a convex combination of \emph{other} types' beliefs:
-	for each $t \in \mathcal{T}$, $\mu(t)$ lies outside the convex hull of $\{ \mu(t) : t \in \mathcal{T} \}$.
+	for each $t \in \mathcal{T}$, $\mu(t)$ lies outside the convex hull of $\{ \mu(r) : r \in \mathcal{T} \setminus \{t\} \}$.
 	%
 \end{definition}
 
 More explicitly, convex independence requires that
 for no $t \in \mathcal{T}$
-can we write $\mu(t) = \sum_{r \in \mathcal{T} \setminus \{t\}} \lambda(r) \mu(r)$
-for a collection $( \lambda_r )_{r \in \mathcal{T} \setminus \{t\}} \subseteq [0,1]$ of weights satisfying $\sum_{r \in \mathcal{T} \setminus \{t\}} \lambda(r) = 1$.
+can we write $\mu(t) = \sum_{r \in \mathcal{T} \setminus \{t\}} \lambda_r \mu(r)$
+for a collection $( \lambda_r )_{r \in \mathcal{T} \setminus \{t\}} \subseteq [0,1]$ of weights satisfying $\sum_{r \in \mathcal{T} \setminus \{t\}} \lambda_r = 1$.
 This is weaker than \emph{linear independence} of the vectors $\{ \mu(t) : t \in \mathcal{T} \}$ because only weights $( \lambda_r )_{r \in \mathcal{T} \setminus \{t\}}$ that sum to unity are contemplated.
 
 \begin{exercise}
