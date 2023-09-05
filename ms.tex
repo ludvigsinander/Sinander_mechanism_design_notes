@@ -67,7 +67,7 @@
 \author{Ludvig Sinander \\
 University of Oxford}
 
-\date{\small This version: 21 May 2023}
+\date{\small This version: 5 September 2023}
 
 % \date{\emph{version:} {\datestyle\today} at {\currenttime} \\ \hspace{0pt} \\ \hspace{0pt} \\ \bfseries please report typos!}
 
@@ -339,7 +339,7 @@ If $\mathcal{X}$ is a $\sigma$-algebra, we call $(X,\mathcal{X})$ a \emph{measur
 Often the $\sigma$-algebra $\mathcal{X}$ is left partly or entirely implicit, by the way.
 
 A \emph{measure} on a measurable space $(X,\mathcal{X})$ is a map $\mu : \mathcal{X} \to [0,\infty]$ that is countably additive:
-for any countable collection $A_1,A_2,\dots$ of measurable subsets of $X$,
+for any countable collection $A_1,A_2,\dots$ of pairwise disjoint measurable subsets of $X$,
 we have $\mu\left( \Union_{n \in \N} A_n \right) = \sum_{n \in \N} \mu(A_n)$.
 The triple $(X,\mathcal{X},\mu)$ is called a \emph{measure space.}
 
@@ -365,9 +365,8 @@ If $\mu$ has the further property that $\mu(X)=1$, then it is a \emph{probabilit
 and $(X,\mathcal{X},\mu)$ is a \emph{probability space.}
 In the probability context, `almost everywhere' is usually replaced with `almost sure(ly)' or `a.s.'.
 
-
 Now consider a function $f : X \to Y$, where both $X$ and $Y$ are measurable spaces. For any measurable set $B \subseteq Y$, a measure on $Y$ can tell us how `large' the set $B$ is.
-How large, then, is the set $A$ of points $x$ in $X$ that lead to a value $f(x)$ that lives in $B$?
+How large, then, is the set $A = \{ x \in X : f(x) \in B \}$ of points $x$ in $X$ that lead to a value $f(x)$ that lives in $B$?
 That question only has an answer if $A$ is a measurable set!
 We call a function \emph{measurable} if this question has an answer for every set $B$.
 Symbolically, $f$ is measurable iff for every measurable subset $B$ of $Y$, $\{ x \in X : f(x) \in B \}$ is a measurable subset of $X$.
