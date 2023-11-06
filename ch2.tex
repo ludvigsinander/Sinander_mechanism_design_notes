@@ -18,7 +18,7 @@
 
 
 `Who gets what?' is perhaps the most fundamental question in economics.
-This chapter concerns recent research on that question.
+This chapter concerns research on that question.
 
 The setting will be the same throughout: there are $I \geq 2$ agents, each of whom has a `type' $T_i$ that is randomly drawn from some set $\mathcal{T}_i$
 according to a probability measure $\mu_i$
@@ -58,9 +58,9 @@ We'll use the notation
 
 In many models, each agent $i$ privately knows her type $t_i$.
 We can imagine three stages:
-the (perhaps fictional) \emph{ex-ante} stage at which agents do not know anyone's type,
-the \emph{interim} stage at which agents know their own types but not those of others,
-and the \emph{ex-post} stage at which all agents' types are common knowledge.
+an \emph{ex-ante} stage at which agents do not know anyone's type,
+an \emph{interim} stage at which agents know their own types but not those of others,
+and an \emph{ex-post} stage at which all agents' types are common knowledge.
 
 At the interim stage, given allocation $q$, agent $i$ expects to receive the good with probability
 %
@@ -94,7 +94,7 @@ are legitimately the interim allocation induced by some allocation $q$.
 Suppose you give me a \emph{candidate interim allocation,}
 meaning a collection $(Q_i)_{i=1}^I$ of (measurable) functions, where $Q_i$ maps $\mathcal{T}_i$ into $[0,1]$.
 Can I always construct an allocation $q$ that realises this collection as its interim allocation?
-(No. Find a counter-example!)
+(No: consider $\mathcal{T}_i = [0,1]$, $\mu_i$ with full support, and $Q_i(t_i) = 0$ if $t_i<1/2$ and $Q_i(t_i)=1$ otherwise, for all agents $i$.)
 
 How, then, can I tell whether a given collection $(Q_i)_{i=1}^I$ is realisable by some $q$? Border's theorem answers this question.
 
@@ -138,7 +138,9 @@ Call the environment \emph{symmetric} iff all agents' types are drawn from the s
 according to the same distribution, call it $\mu$.
 A \emph{symmetric candidate interim allocation} is a (measurable) map $Q : \mathcal{T} \to [0,1]$;
 we interpret this as the candidate interim allocation $(Q_i)_{i=1}^I$ in which $Q_i = Q$ for every $i$.
-A symmetric allocation $q$ is one such that $q(\boldsymbol{t}) = q(\boldsymbol{t'})$ whenever $\boldsymbol{t'}$ is a permutation of $\boldsymbol{t}$.
+An allocation $q$ is \emph{symmetric} iff agents' treatment does not depend on their names/labels:
+for any type profiles $\boldsymbol{t}$ and $\boldsymbol{t'}$ that differ only in that $i$'s and $j$'s types are reversed, $q(\boldsymbol{t})$ and $q(\boldsymbol{t'})$ differ only in that $i$'s and $j$'s probabilities are reversed.%
+	\footnote{That is: for any $\boldsymbol{t} = (t_1,\dots,t_I)$ and $\boldsymbol{t'} = (t_1',\dots,t_I')$ such that $t_i = t_j'$, $t_j = t_i'$ and $t_k = t_k'$ for every $k \in \{1,\dots,I\} \setminus \{i,j\}$, we have $q_i(\boldsymbol{t}) = q_j(\boldsymbol{t'})$, $q_j(\boldsymbol{t}) = q_i(\boldsymbol{t'})$, and $q_k(\boldsymbol{t}) = q_k(\boldsymbol{t'})$ for every $k \in \{1,\dots,I\} \setminus \{i,j\}$.}
 
 \begin{namedthm}[Symmetric Border's theorem.]
 	%
@@ -269,8 +271,7 @@ we'll restrict our attention to the case of finitely many types.%
 	Assume that $\mathcal{T}$ is finite, and (wlog) that $\mu$ is strictly positive.
 	We shall prove the contra-positive:
 	fix a candidate interim allocation $Q$ that is not realisable;
-	we shall find a set $T \subseteq \mathcal{T}$
-	for which the relevant Border inequality fails.
+	we shall find a set $T \subseteq \mathcal{T}$ on which the relevant Border inequality fails.
 
 	The set of all realisable allocations is convex (why?),
 	and is easily seen (how?) to be closed.
@@ -354,32 +355,32 @@ and \textcite{Mierendorff2011} extended this to general type spaces.
 Some (not many) extensions to richer environments have been considered; for example, \textcite{CheKimMierendorff2013} allow for certain sorts of constraints.
 
 
-\begin{remark}
-	%
-	\label{remark:border_altproof}
-	%
-	Gregorio Curello proposes an alternative strategy for proving that \ref{bullet:border_sym:ineq} implies \ref{bullet:border_sym:real},
-	taking inspiration from \textcite{KleinerMoldovanuStrack2021}.
-	Write $\mathcal{B}$ for the set of symmetric candidate interim allocations that satisfy the Border inequalities; we must show that every $Q \in \mathcal{B}$ is realised by some symmetric allocation.
-	It suffices to show that every extreme point of $\mathcal{B}$ is realisable.%
-		\footnote{Suppose we know that every $Q' \in \ext \mathcal{B}$ is realised by some symmetric allocation, call it $q^{Q'}$.
-		Fix some $Q \in \mathcal{B}$.
-		By Choquet's theorem (see the next section), there is a probability measure $\mu$ defined on the extreme points $\ext \mathcal{B}$
-		such that
-		$\smash{Q = \int_{\ext \mathcal{B}} Q' \mu( \dd Q' )}$.
-		Then $Q$ is realised by the symmetric allocation
-		$\smash{q = \int_{\ext \mathcal{B}} q^{Q'} \mu( \dd Q' )}\vphantom{\int_{\ext \mathcal{B}}}$.}
-	It is possible to characterise the extreme points of $\mathcal{B}$ in a reasonably nice fashion.%
-		\footnote{\textcite{KleinerMoldovanuStrack2021} characterise the extreme points of a subset (viz. the set of those $Q \in \mathcal{B}$ that are also increasing),
-		and indicate that a characterisation of the extreme points of $\mathcal{B}$ itself exists (they cite \textcite{Ryff1967}).
-		\emph{Note:} these authors use different language; in particular, they show that membership of $\mathcal{B}$ may be interpreted as satisfaction of a majorisation constraint, and their result characterises the extreme points of any space of monotone functions satisfying a majorisation constraint.}
-	And Gregorio and I conjecture that one can use this characterisation to show that any extreme point of $\mathcal{B}$
-	is realisable;
-	specifically, by some hierarchical allocation.
-	(Small correction: 
-	whereas we defined hierarchical allocations to have finitely many sets $R_1,\dots,R_K$, I think that this claim is true only if infinitely many sets are permitted.)
-	%
-\end{remark}
+% \begin{remark}
+% 	%
+% 	\label{remark:border_altproof}
+% 	%
+% 	Gregorio Curello proposes an alternative strategy for proving that \ref{bullet:border_sym:ineq} implies \ref{bullet:border_sym:real},
+% 	taking inspiration from \textcite{KleinerMoldovanuStrack2021}.
+% 	Write $\mathcal{B}$ for the set of symmetric candidate interim allocations that satisfy the Border inequalities; we must show that every $Q \in \mathcal{B}$ is realised by some symmetric allocation.
+% 	It suffices to show that every extreme point of $\mathcal{B}$ is realisable.%
+% 		\footnote{Suppose we know that every $Q' \in \ext \mathcal{B}$ is realised by some symmetric allocation, call it $q^{Q'}$.
+% 		Fix some $Q \in \mathcal{B}$.
+% 		By Choquet's theorem (see the next section), there is a probability measure $\mu$ defined on the extreme points $\ext \mathcal{B}$
+% 		such that
+% 		$\smash{Q = \int_{\ext \mathcal{B}} Q' \mu( \dd Q' )}$.
+% 		Then $Q$ is realised by the symmetric allocation
+% 		$\smash{q = \int_{\ext \mathcal{B}} q^{Q'} \mu( \dd Q' )}\vphantom{\int_{\ext \mathcal{B}}}$.}
+% 	It is possible to characterise the extreme points of $\mathcal{B}$ in a reasonably nice fashion.%
+% 		\footnote{\textcite{KleinerMoldovanuStrack2021} characterise the extreme points of a subset (viz. the set of those $Q \in \mathcal{B}$ that are also increasing),
+% 		and indicate that a characterisation of the extreme points of $\mathcal{B}$ itself exists (they cite \textcite{Ryff1967}).
+% 		\emph{Note:} these authors use different language; in particular, they show that membership of $\mathcal{B}$ may be interpreted as satisfaction of a majorisation constraint, and their result characterises the extreme points of any space of monotone functions satisfying a majorisation constraint.}
+% 	And Gregorio and I conjecture that one can use this characterisation to show that any extreme point of $\mathcal{B}$
+% 	is realisable;
+% 	specifically, by some hierarchical allocation.
+% 	(Small correction: 
+% 	whereas we defined hierarchical allocations to have finitely many sets $R_1,\dots,R_K$, I think that this claim is true only if infinitely many sets are permitted.)
+% 	%
+% \end{remark}
 
 
 
@@ -579,6 +580,7 @@ their proof is more involved.%
 	\footnote{Rather than using Choquet's theorem, they rely on the weaker Krein--Milman theorem; this necessitates an additional limit argument.}
 See \textcite{GershkovEtAl2013} for a generalisation using a different technique, and \textcite{KleinerMoldovanuStrack2021} for yet another generalisation, using yet another technique.
 Equivalence generally fails if agents' types are multi-dimensional \parencite{JehielMoldovanuStacchetti1999}, as is the case when there are multiple goods (recall §\ref{sec:ch1:multi-d}).
+\textcite{JeongPycia2023} use reasoning similar to that of this section to show that every extreme point of the space of all symmetric IC mechanisms is induced by a (slightly generalised) first-price auction.
 
 
 
@@ -770,7 +772,7 @@ We have shown that the choice of reserve price is important for revenue.
 Something else that obviously matters is \emph{competition:} the number of bidders. (`Bidder' is just another term for `agent'.)
 The following delineates their relative importance:
 
-\begin{namedthm}[The Bulow--Klemperer theorem.]
+\begin{namedthm}[Bulow--Klemperer theorem.]
 	%
 	\label{theorem:BulowKlemperer}
 	%

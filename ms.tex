@@ -43,7 +43,7 @@
 
 % % watermark on every page (for version control)
 % \usepackage[anchor=ll,pos={0.1cm,0.5cm},fontsize=0.2cm,angle=0,alignment=l]{draftwatermark}
-% \SetWatermarkText{\normalfont \, version:\\\normalfont {\datestyle\today}\\\normalfont \, at {\currenttime}}
+% \SetWatermarkText{\normalfont\hspace{0.37em}version:\\\normalfont {\datestyle\today}\\\normalfont\hspace{0.37em}at {\currenttime}}
 
 
 %%% bibliography
@@ -67,7 +67,7 @@
 \author{Ludvig Sinander \\
 University of Oxford}
 
-\date{\small This version: 5 September 2023}
+\date{\small This version: 6 November 2023}
 
 % \date{\emph{version:} {\datestyle\today} at {\currenttime} \\ \hspace{0pt} \\ \hspace{0pt} \\ \bfseries please report typos!}
 
@@ -122,7 +122,7 @@ Visit \href{https://www.gnu.org/licenses/copyleft}{gnu.org/licenses/copyleft} to
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-These are the notes for a second-year graduate course that I taught at Oxford in the autumns of 2021 and 2022.
+These are the notes for a second-year graduate course that I taught at Oxford in the autumns of 2021, 2022 and 2023.
 Thanks to Gregorio Curello, Deniz Kattwinkel, Elliot Lipnowski, Qingmin Liu, Alex Teytelboym and to my students for comments, suggestions and insights,
 and to Catharina Behrens, Josh le Cornu, Tanxin Gao, Brooklyn Han, Simon Handreke, Sanjari Kalantri, Marie Kaul, Nils Lager, Arvo Munoz Moran, Filip Tokarski, Gautam Vyas and Yidan Xu for reporting errors.
 
@@ -192,7 +192,7 @@ There is also a large body of work asking how incentive design changes when comm
 
 This course will sample various aspects of modern mechanism design.
 I'll begin by teaching a classical topic from a modern perspective.
-The rest of the course will cover topics on the current research frontier, with a slant toward models in which monetary transfers are unavailable.
+The rest of the course will cover topics on (or close to) the current research frontier.
 Along the way, we'll encounter a number of perspectives, tools, tricks and insights; these are just as important as the details of the models and papers themselves.
 
 
@@ -208,14 +208,6 @@ Along the way, we'll encounter a number of perspectives, tools, tricks and insig
 
 \input{ch1}
 
-% \emph{Topics:}
-% the revelation principle;
-% the envelope theorem \parencite{MilgromSegal2002,Sinander2022};
-% Spence--Mirrlees characterisation of IC;
-% the optimality of posting a price \parencite{Myerson1981};
-% selling several goods \parencite[focus on examples from][]{HartReny2015};
-% incentives via side bets \parencite{CremerMclean1985,CremerMclean1988,McafeeReny1992}.
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -228,13 +220,6 @@ Along the way, we'll encounter a number of perspectives, tools, tricks and insig
 %%%%%%%%%%%%%%%%%%%%%%
 
 \input{ch2}
-
-% \emph{Topics:}
-% Border's theorem \parencite{Border1991};
-% equivalence of dominant-strategy and Bayes--Nash IC in auctions \parencite{ManelliVincent2010};
-% allocation with costly verification \parencite{BenporathDekelLipman2014};
-% allocation with evidence acquisition (work in progress by the last authors);
-% allocation with extra information \parencite{BlochDuttaDziubinski2021}.
 
 
 
@@ -250,11 +235,6 @@ Along the way, we'll encounter a number of perspectives, tools, tricks and insig
 
 \input{ch3}
 
-% \emph{Topics:}
-% approximate optimality of (discounted) quotas \parencite{JacksonSonnenschein2007,Frankel2016jet};
-% optimal mechanisms with commitment \parencite{GuoHorner2020};
-% optimal mechanisms without commitment \parencite{LipnowskiRamos2020}.
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -267,11 +247,6 @@ Along the way, we'll encounter a number of perspectives, tools, tricks and insig
 %%%%%%%%%%%%%%%%%%%%%%
 
 \input{ch4}
-
-% \emph{Potential topics:}
-% the original paper \parencite{ArmstrongVickers2010};
-% random mechanisms \parencite{GuoShmaya2022};
-% dynamic models \parencite{BirdFrug2019,sfb}.
 
 
 

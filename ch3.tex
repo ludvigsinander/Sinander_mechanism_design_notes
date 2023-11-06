@@ -32,7 +32,7 @@ If the agent gets the good, then the agent and principal earn payoffs of $t$ and
 Both parties are expected-utility-maximisers who discount their future payoffs with discount factor $\delta \in (0,1)$.
 Monetary transfers are unavailable.
 
-Since there are a lot of periods, let's simplify by having only two types $t \in \{\ell,h\}$.
+Let's simplify by having only two types $t \in \{\ell,h\}$.
 We assume that $0 < \ell < c < h$,
 so that the principal wishes to allocate only to high types,
 while all types of the agent want the good (though high types want it more).
@@ -71,7 +71,7 @@ We shall also assume that patience $\delta$ is `high enough' to make screening p
 This condition is easily interpreted in the IID case ($u=1-d=p$):
 it ensures that a low type is willing to forego consumption today if promised that she'll be allowed to consume tomorrow no matter what ($\ell < \delta \mu$).
 
-The analysis differs slightly depending on when the agent learns her type.
+The analysis differs depending on when the agent learns her type.
 In §\ref{sec:ch3:token}, we shall assume that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset (period $n=0$).
 In §\ref{sec:ch3:guohorner}--§\ref{sec:ch3:nocommitment}, we shall instead assume that the agent learns the realisation of $T_n$ only at the dawn of period $n$, for each $n \in \{0,1,\dots,\}$.
 
@@ -84,7 +84,8 @@ In §\ref{sec:ch3:guohorner}--§\ref{sec:ch3:nocommitment}, we shall instead ass
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Assume (mostly for simplicity) that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset.
+Assume that the agent learns the realisation of her entire type sequence $(T_n)_{n=0}^\infty$ at the outset.%
+	\footnote{My own intuition suggests that this assumption shouldn't matter much, but I may be wrong. There is no definitive answer in the literature, to my knowledge.}
 
 Here's a mechanism:
 the agent freely chooses
@@ -100,7 +101,7 @@ where $K \in [0,1]$ is a constant.
 We could call this a \emph{discounted quota:}
 it caps the discounted total quantity that the agent may consume.
 
-We could just as well replace this lifetime budget constraint with a dynamic budget constraint: the agent starts out with $M_0$ `tokens',
+We could just as well replace this lifetime budget constraint with a dynamic budget constraint: the agent starts out with $M_0 \coloneqq (1-\delta) \delta^{-1} K$ `tokens',
 which may be spent to obtain the good and which accrue interest at rate $\delta^{-1}-1$ if saved:
 %
 \begin{equation*}
@@ -142,8 +143,7 @@ or
 %
 \begin{equation*}
 	(1-\delta) \sum_{n=0}^\infty \delta^n q_n
-	\leq (1-\delta) \delta^{-1} M_0
-	\eqqcolon K.
+	\leq K.
 \end{equation*}
 
 The principal's first-best allocation
@@ -313,12 +313,13 @@ The IID assumption can be relaxed by using a fancier strong law of large numbers
 \paragraph{The literature.}
 \textcite{JacksonSonnenschein2007} showed that the principal's first-best can be approximated by `linking' the allocations across different periods via something like a discounted quota.
 (The theorem in this paper is true as stated, but the proof is wrong: see \textcite{BallJacksonKattwinkel2022} for the correction.)
-\textcite{MatsushimaMiyazakiYagi2010,Ishii2016} go further, characterising the full set of allocations that are (virtually) implementable via quota mechanisms.
-(The characterisation: virtual implementability via quotas is equivalent to implementability using monetary transfers.)
+\textcite{BallKattwinkel2023} go further, characterising the full set of allocations that are implementable via quota mechanisms,%
+	\footnote{The result: all and only those that could be implemented using monetary transfers! This result refines an earlier characterisation due to \textcite{MatsushimaMiyazakiYagi2010,Ishii2016}, which concerns \emph{virtual} implementability. (There is a mistake in the former paper; see \textcite{BallKattwinkel2023comment} for the correction.)}
+and proving a number of robustness results. (I highly recommend this paper.)
 \textcite{Frankel2016jet} is a clear-eyed and general formulation of the quotas idea, with good references references to related work.
 \textcite{Frankel2016aej} provides a similarly insightful and general treatment of the idea in \Cref{remark:het}.
 (None of these papers considers precisely the model above,
-and the mechanism in Jackson--Sonnenschein is not quite a discounted-quota mechanisms.)
+and the mechanisms in Jackson--Sonnenschein and Ball--Kattwinkel are not quite discounted-quota mechanisms in the sense of this chapter.)
 
 
 

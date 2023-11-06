@@ -347,8 +347,7 @@ In particular, she may consume an outside option worth zero to her (no good, no 
 It is without loss of generality to focus on mechanisms that induce every type of the agent to participate.
 This is because if type $t$ were not participating, then we could invite her to participate and award her the outcome $(q(t),p(t)) = (0,0)$ if she does, which is no better (or worse) than non-participation.
 
-We may thus focus on IC mechanisms that induce participation (or are `individually rational', aka `IR'),
-meaning that every type $t$'s payoff $t q(t) - p(t)$ is non-negative.
+We may thus focus on IC mechanisms $(q,p)$ that induce participation, i.e. those such that every type $t$'s payoff $t q(t) - p(t)$ is non-negative. Such mechanisms are called \emph{individually rational (IR).}
 
 \begin{corollary}
 	%
@@ -413,7 +412,7 @@ Agents of type $t > \pi$ will purchase the good, so $(q(t),p(t)) = (1,\pi)$ for 
 	%
 	(a) This allocation--payment pair (viewed as a direct mechanism) is IC; why?
 	(b) Verify that this mechanism satisfies the envelope formula.
-	(c) There are other mechanisms $(q,p')$, i.e. they have the same allocation but different payments. Describe them.
+	(c) There are other mechanisms $(q,p')$, i.e. mechanisms with the same allocation but different payments. Describe them.
 	%
 \end{exercise}
 
@@ -470,9 +469,7 @@ Note further that the objective $R$ is linear:
 \end{equation*}
 %
 $R$ is also continuous in a suitable sense.
-Finally, $\mathcal{Q}$ is (in fact) compact in a suitable sense.%
-	\footnote{It is compact in the product topology (=the topology of pointwise convergence).
-	Proof: it is a closed subset of the space of all functions $[0,1] \to [0,1]$, which is compact by Tychonoff's theorem.}
+Finally, $\mathcal{Q}$ is (in fact) compact in a suitable sense.
 
 Now let's do some convex geometry (see \cref{ch:convexity} for a little overview).
 An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that cannot be expressed as the convex combination of two \emph{distinct} elements of $\mathcal{Q}$.
@@ -691,7 +688,7 @@ at a price $p^\Delta$ that approaches $\inf S$ as $\Delta \to 0$.
 The classical intuition for this conjecture is that when the period length $\Delta$ is small, the monopolist in period $n$ engages in near-perfect competition with her period-$(n+1)$ self.
 
 This intuition is incomplete, it seems to me, at least when $\inf S > 0$, because `perfect competition' surely means selling at marginal cost (which we've normalised to zero), rather than at price $\inf S$!
-Here's a better intuition: (1) the seller always has enough bargaining power to extract the surplus $\inf S - 0 = \inf S$, because she (not the buyer) is the one who makes the offers, but (2) as $\Delta \to 0$, any \emph{additional} bargaining power that she has vanishes because she must compete against her next-period self.
+Here's a better intuition from Francesco Nava (who has several papers on this topic): the seller's lack of commitment constrains her eventually to sell the good whatever the buyer's value, and constrains her no further than that; thus she sells the good at the highest market-clearing price, which is $\inf S$.
 
 Is the conjecture true?
 If we restrict attention to stationary equilibria,
@@ -938,7 +935,7 @@ Alternatively, the signal could be a \emph{second} agent's type,
 provided (as will turn out to be the case) that this second agent can costlessly be prevailed upon truthfully to reveal her type.
 
 Each type $t \in \mathcal{T}$ of the agent has a belief $\mu(t)$ about how likely various signal realisations are.
-Formally, \emph{belief} (about the signal) is a vector $\mu \in [0,1]^{\abs*{\mathcal{X}}}$ whose entries sum to unity. We write $\Delta$ for the set of all beliefs.
+Formally, a \emph{belief} (about the signal) is a vector $\mu \in [0,1]^{\abs*{\mathcal{X}}}$ whose entries sum to unity. We write $\Delta$ for the set of all beliefs.
 
 \begin{remark}
 	%
@@ -1115,7 +1112,7 @@ A much-emphasised consequence of \Cref{theorem:CremerMclean} is the following:
 	%
 \end{proof}
 
-In the proof, `side bet' $b(t)$ is a monetary gamble on the signal; it has zero expected value for type $t$, but strictly positive expected value for all the other types.
+In the proof, the `side bet' $b(t)$ is a monetary gamble on the signal; it has zero expected value for type $t$, but strictly positive expected value for all the other types.
 By tacking a sufficiently blown-up version of this gamble onto the payment rule $p$,
 we ensure that the agent's incentive to choose the right \emph{gamble} overwhelms all other considerations:
 she reports truthfully regardless.
