@@ -67,7 +67,7 @@
 \author{Ludvig Sinander \\
 University of Oxford}
 
-\date{\small This version: 6 November 2023}
+\date{\small This version: 22 January 2024}
 
 % \date{\emph{version:} {\datestyle\today} at {\currenttime} \\ \hspace{0pt} \\ \hspace{0pt} \\ \bfseries please report typos!}
 
@@ -123,8 +123,8 @@ Visit \href{https://www.gnu.org/licenses/copyleft}{gnu.org/licenses/copyleft} to
 %%%%%%%%%%%%%%%%%%%%%%
 
 These are the notes for a second-year graduate course that I taught at Oxford in the autumns of 2021, 2022 and 2023.
-Thanks to Gregorio Curello, Deniz Kattwinkel, Elliot Lipnowski, Qingmin Liu, Alex Teytelboym and to my students for comments, suggestions and insights,
-and to Catharina Behrens, Josh le Cornu, Tanxin Gao, Brooklyn Han, Simon Handreke, Sanjari Kalantri, Marie Kaul, Nils Lager, Arvo Munoz Moran, Filip Tokarski, Gautam Vyas and Yidan Xu for reporting errors.
+Thanks to Gregorio Curello, Péter Es\H{o}, Deniz Kattwinkel, Elliot Lipnowski, Qingmin Liu, Alex Teytelboym and to my students for comments, suggestions and insights,
+and to Catharina Behrens, Josh le Cornu, Tanxin Gao, Justin Hadad, Brooklyn Han, Simon Handreke, Sanjari Kalantri, Marie Kaul, Nils Lager, Arvo Munoz Moran, Filip Tokarski, Gautam Vyas and Yidan Xu for reporting errors.
 
 
 
@@ -304,12 +304,13 @@ You do not need to know it to take this course.
 But to understand what I'm saying,
 it is necessary at least to know some of the basic \emph{language} of measure theory; that's what I'll cover here.
 
-(If you'd like to pursue research in economic theory, I would advise you to learn basic measure theory.
-I taught myself from \textcite{Rosenthal2006}; this book is very accessible, except that chapter 2 is harder than it needs to be, so don't get stuck there! I now prefer the first few chapters of \textcite{Folland1999}, a very beautiful book for first-year graduate students in maths. There are lots of other standard books. Efe Ok has a `measure and probability' manuscript on his website that is specifically aimed at economists, in case you find that appealing.)
+(If you'd like to pursue research in economic theory, then I would advise you to learn basic measure theory.
+I taught myself from \textcite{Rosenthal2006}; this book is very accessible, except that chapter 2 is harder than it needs to be, so don't get stuck there! I now prefer the first few chapters of \textcite{Folland1999}, a very beautiful book for first-year graduate students in maths. There are lots of other standard books. Efe Ok has a `measure and probability' manuscript on his website that is specifically aimed at economists.)
 
 
 Let $X$ be a non-empty set.
-A \emph{$\sigma$-algebra} on $X$ is a collection of subsets of $X$ satisfying certain properties.
+A \emph{$\sigma$-algebra} on $X$ is a collection of subsets of $X$ satisfying certain properties.%
+	\footnote{The properties are closedness under complement and closedness under countable union.}
 If $\mathcal{X}$ is a $\sigma$-algebra, we call $(X,\mathcal{X})$ a \emph{measurable space,} and call the elements of $\mathcal{X}$ the \emph{measurable subsets} of $X$.
 Often the $\sigma$-algebra $\mathcal{X}$ is left partly or entirely implicit, by the way.
 
@@ -318,7 +319,7 @@ for any countable collection $A_1,A_2,\dots$ of pairwise disjoint measurable sub
 we have $\mu\left( \Union_{n \in \N} A_n \right) = \sum_{n \in \N} \mu(A_n)$.
 The triple $(X,\mathcal{X},\mu)$ is called a \emph{measure space.}
 
-A measurable set $A \subseteq X$ is called \emph{$\mu$-null} iff $\mu(A)=0$. If a property is holds at every $x \in X$, except possibly for $x$ belonging to a null set $A$, then that property is said to hold \emph{($\mu$-)almost everywhere,} or `($\mu$-)a.e.'.
+A measurable set $A \subseteq X$ is called \emph{$\mu$-null} iff $\mu(A)=0$. If a property holds at every $x \in X$, except possibly for $x$ belonging to a null set $A$, then that property is said to hold \emph{($\mu$-)almost everywhere,} or `($\mu$-)a.e.'.
 
 \begin{example}
 	%
@@ -365,9 +366,11 @@ One writes
 	\E( f ) \coloneqq \int_X f \dd \mu .
 \end{equation*}
 
-The Riemann integral has the problem that the integral of many important functions simply fails to exist; for example, any step function.
+If you have taken introductory calculus, then you may be more familiar with the \emph{Riemann integral.}%
+	\footnote{The Riemann integral of a function $\R \to \R$ is defined as the limit of the areas of increasingly fine rectangles approximating the area under the graph of the function.}
+The Riemann integral has the problem that the integral of some functions simply fail to exist.
 The Lebesgue integral extends the Riemann integral:
-it allows many more functions (e.g. step functions) to be integrated,
+it allows more functions to be integrated,
 while still giving the same result as the Riemann integral whenever the latter exists.
 
 The Lebesgue integral is defined only for functions $f : X \to \R$ that are measurable.
