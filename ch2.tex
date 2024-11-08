@@ -73,7 +73,7 @@ This family $(Q_i)_{i=1}^I$ of (measurable) functions, where $Q_i : \mathcal{T}_
 is called the \emph{interim allocation} induced by the (ex-post) allocation $q$.
 
 In all models we consider, agents have expected-utility preferences, so that their payoffs are linear in $q$; then if agents know their types when they take decisions, it only is the interim allocation that matters for their incentives.
-Similarly, if the principal has an expected-utility objective that is additively separable across agents, then only the interim allocations matter to her.
+Similarly, if the principal has an expected-utility objective that is additively separable across agents, then only the interim allocation matters to her.
 
 
 
@@ -499,7 +499,7 @@ Implementability is standardly characterised as follows:
 \end{proof}
 
 Our question is thus under what circumstances an interim allocation $(Q_i)_{i=1}^I$ with $Q_i$ increasing for every agent $i$
-is realisable (in the sense of the previous section) by some allocation $q$ that has $q_i(\cdot,\boldsymbol{t}_{-i})$ increasing for every agent $i$ and profile $\boldsymbol{t}_{-i}$.
+is realised (in the sense of the previous section) by some allocation $q$ that has $q_i(\cdot,\boldsymbol{t}_{-i})$ increasing for every agent $i$ and profile $\boldsymbol{t}_{-i}$.
 The answer is in fact `always'!
 
 \begin{theorem}[\cite{ManelliVincent2010}]
@@ -539,7 +539,7 @@ the case in which all agents' types are drawn from the same probability distribu
 	By Border's theorem, the $Q$s of interest
 	are exactly the increasing maps $Q : [0,1] \to [0,1]$ that satisfy the Border inequalities;
 	let's write $\mathcal{Q}$ for the set of all such $Q$s.
-	Observe that $\mathcal{Q}$ is convex.
+	Observe that $\mathcal{Q}$ is convex; it is also (in fact) closed in a suitable sense.
 
 	\begin{claim}
 		%
@@ -558,16 +558,16 @@ the case in which all agents' types are drawn from the same probability distribu
 	It is intuitive, and in fact true, that any member of the convex set $\mathcal{Q}$ can be written as an (infinite) convex combination of the extreme points of $\mathcal{Q}$.
 	Results like this constitute a little field called Choquet theory;
 	and Choquet's theorem says that
-	we may for any $Q \in \mathcal{Q}$ find a probability measure $\mu$ defined on $\ext \mathcal{Q}$ such that $Q = \int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
+	we may for any $Q \in \mathcal{Q}$ find a probability measure $\nu$ defined on $\ext \mathcal{Q}$ such that $Q = \int_{\ext \mathcal{Q}} Q' \nu( \dd Q' )$.
 
 	So take any $Q \in \mathcal{Q}$;
-	by Choquet's theorem, $Q = \int_{\ext \mathcal{Q}} Q' \mu( \dd Q' )$.
+	by Choquet's theorem, $Q = \int_{\ext \mathcal{Q}} Q' \nu( \dd Q' )$ for some probability measure $\nu$ on the $\ext \mathcal{Q}$.
 	Each $Q' \in \ext \mathcal{Q}$ is realised by a $q^{Q'}$
 	that is either $0$ or a symmetric hierarchical allocation with $q^{Q'}_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
 	Thus $Q$ is realised by the allocation
 	%
 	\begin{equation*}
-		q \coloneqq \int_{\ext \mathcal{Q}} q^{Q'} \mu( \dd Q' ) ,
+		q \coloneqq \int_{\ext \mathcal{Q}} q^{Q'} \nu( \dd Q' ) ,
 	\end{equation*}
 	%
 	which is evidently symmetric and has $q_1(\cdot,\boldsymbol{t_{-1}})$ increasing.
@@ -709,7 +709,7 @@ thus the induced allocation and payment rule are
 		R(q) = \E\left[ \sum_{i=1}^I V_i(T_i) q_i(\boldsymbol{T}) \right]
 	\end{equation*}
 	%
-	subject to monotonicity of $Q_i$ for every agent $i$.
+	subject to monotonicity of $Q_i$ for every agent $i$ and $\sum_{i=1}^I q_i \leq 1$.
 	In the relaxed problem in which the monotonicity constraint is absent,
 	it is obviously optimal
 	to assign the good to whichever agent has the highest virtual valuation if any has positive virtual valuation, and to keep the good otherwise:
@@ -760,6 +760,7 @@ thus the induced allocation and payment rule are
 Everything in this section is due to \textcite{Myerson1981}.
 The `Myersonian approach' to the regular case has proved fruitful also in richer models in which more than just a single good is up for sale,
 e.g. dynamic problems of selling goods over many periods \parencite{PavanSegalToikka2014}, problems of selling information \parencite{Yang2022}, and the problem of selling to a group \parencite{HaghpanahKuvalekarLipnowski2022}.
+To understand what's really going on in the `Myersonian approach' (in particular, how to interpret the virtual valuations), I recommend \textcite[section~3.3]{Hartline2016}.
 
 
 

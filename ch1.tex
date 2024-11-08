@@ -205,6 +205,7 @@ Either way, we have learned:
 	(Why? Prove it!)
 	Thus any two such mechanisms provide the same payoff to every type of the agent,
 	and also the same payment (or `revenue' from the perspective of the principal/seller collecting the money).
+	This insight is usually attributed to \textcite{Myerson1981}, with a precedent in \textcite{Vickrey1961}.
 	%
 \end{remark}
 
@@ -243,7 +244,7 @@ Either way, we have learned:
 		V'(t) = f_2(t,t) .
 	\end{equation*}
 	%
-	Economically, the fact that we obtain an equality comes from the fact that we must deter $t$ from being mimicked by other types $r,r'$ that are \emph{arbitrarily} close to her. (Formally, because the set $[0,1]$ of types is a connected set.)
+	Economically, the fact that we obtain an equality comes from the fact that types $r,r'$ \emph{arbitrarily} close to $t$ must be deterred from mimicking $t$. (Formally, because the set $[0,1]$ of types is a connected set.)
 	If types were spaced out discretely, then we would obtain only the more permissive `inequality' envelope formula comprising \eqref{eq:env_ineq_above}--\eqref{eq:env_ineq_below}.
 	%
 \end{remark}
@@ -509,7 +510,7 @@ An \emph{extreme point} of $\mathcal{Q}$ is an element of $\mathcal{Q}$ that can
 
 
 \Cref{observation:bauer} permits us to conclude that the monopolist's problem $\max_{q \in \mathcal{Q}} R(q)$
-admits a solution that is an extreme point of the space $\mathcal{Q}$ of the space of increasing functions $[0,1] \to [0,1]$.
+admits a solution that is an extreme point of the space $\mathcal{Q}$ of increasing functions $[0,1] \to [0,1]$.
 I claim that the extreme points of $\mathcal{Q}$
 are exactly those functions
  $q : [0,1] \to [0,1]$
@@ -747,8 +748,7 @@ Here's an example from \textcite{HartReny2015}:
 	%
 	\label{proposition:hartreny}
 	%
-	Suppose that the agent's valuation can be either
-	$(t_1,t_2)$ can be either $(1,0)$, $(0,2)$ or $(3,3)$, each with equal probability.
+	Suppose that the agent's valuation $(t_1,t_2)$ equals either $(1,0)$, $(0,2)$ or $(3,3)$, each with equal probability.
 	The uniquely optimal direct mechanism is
 	%
 	\begin{equation*}
@@ -1006,7 +1006,7 @@ Precisely:
 	\label{definition:convex_indep}
 	%
 	When the set $\mathcal{T}$ of types is finite,
-	the beliefs $\{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$
+	the beliefs $\mu : \mathcal{T} \to \Delta$
 	are said to satisfy \emph{convex independence}
 	iff no type's belief may be written as a convex combination of \emph{other} types' beliefs:
 	for each $t \in \mathcal{T}$, $\mu(t)$ lies outside the convex hull of $\{ \mu(r) : r \in \mathcal{T} \setminus \{t\} \}$.
@@ -1039,12 +1039,12 @@ If $\abs*{\mathcal{X}} > \abs*{\mathcal{T}}$, then convex independence is `gener
 	\label{theorem:CremerMclean}
 	%
 	If the set $\mathcal{T}$ of types is finite
-	and the beliefs $\{ \mu(t) : t \in \mathcal{T} \} \subseteq \Delta$
+	and the beliefs $\mu : \mathcal{T} \to \Delta$
 	satisfy convex independence,
 	then for any mechanism $(q,p)$,
 	there is a contingent payment rule $p' : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$
 	such that $(q,p')$ is incentive-compatible
-	and $p(t) \cdot \mu(t) = p'(t) \cdot \mu(t)$.
+	and $p(t) \cdot \mu(t) = p'(t) \cdot \mu(t)$ for every type $t \in \mathcal{T}$.
 	%
 \end{theorem}
 
@@ -1075,7 +1075,7 @@ A much-emphasised consequence of \Cref{theorem:CremerMclean} is the following:
 	%
 	Start with the mechanism $(q,p)$ given by $(q(t),p(t)) \coloneqq (1,t)$ for every $t \in \mathcal{T}$.
 	\Cref{theorem:CremerMclean} delivers a payment rule $p'$
-	under which type $t$ (still) pays
+	under which each type $t$ (still) pays
 	$p'(t) \cdot \mu(t) = p(t) \cdot \mu(t) = t$ in expectation,
 	and such that $(q,p')$ is incentive-compatible.
 	Finally, since $(q,p)$ is individually rational by inspection,
@@ -1179,7 +1179,7 @@ $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
 for some (`utility index') $u : \{0,1\} \times \R \to \R$.
 (I have omitted the measure-theoretic details.)
 You will recall that $u$ is unique up to affine transformations:
-if $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
+if (and only if) $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
 and $V(\ell) = \int_{\{0,1\} \times \R} v \dd \ell$ represent the same EU preference over lotteries, then $u = \alpha + \beta v$ for some $\alpha \in \R$ and $\beta>0$.
 
 \emph{Risk attitude} is a property of preferences over \emph{monetary} lotteries, not over joint good--money lotteries $\ell$.
