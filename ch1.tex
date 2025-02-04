@@ -1,4 +1,4 @@
-% Copyright (c) 2024 Carl Martin Ludvig Sinander.
+% Copyright (c) 2025 Carl Martin Ludvig Sinander.
 
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -89,6 +89,50 @@ By the latter, I mean that fully understanding it is tantamount to considering i
 	thus $(q,p)$ is IC.
 	%
 \end{proof}
+
+\begin{exercise}
+	%
+	\label{exercise:first_price}
+	%
+	Consider the (single-agent) first-price auction with reserve price $\pi \in \R_+$: the agent submits a `bid' $b \in \R_+$, where in case $b \geq \pi$ she pays her bid $b$ and gets the good for sure, while if $b < \pi$ then she pays nothing and gets nothing. This is a mechanism.
+	%
+	\begin{enumerate}[label=(\alph*)]
+	
+		\item What are the allocation and payment rule $\left(q^1,p^1\right)$ induced by this mechanism?
+
+		\item Is the DRM $\left(q^1,p^1\right)$ incentive-compatible? Why or why not?
+	
+	\end{enumerate}
+	%
+\end{exercise}
+
+\begin{exercise}
+	%
+	\label{exercise:posted_price}
+	%
+	Consider the `posted-price' mechanism whereby the principal sets a price $\pi \in \R_+$ and gives the agent two options: purchase the good at price $\pi$ (pay $\pi$ and get the good for sure) or don't (pay nothing and get nothing). This is a mechanism. It can be viewed as a single-bidder second-price auction with reserve price $\pi$.%
+		\footnote{Let the agent submit a `bid' $b$; if $b \geq \pi$ she pays the reserve price $\pi$ and gets the good for sure, while if $b < \pi$ she pays nothing and gets nothing.}
+	Alternatively, it can be viewed as a direct revelation mechanism, namely $(q,p)$ given by
+	%
+	\begin{equation*}
+		(q(t),p(t)) \coloneqq
+		\begin{cases}
+			(0,0)	& \text{if $t<\pi$} \\
+			(1,\pi)	& \text{if $t \geq \pi$.}
+		\end{cases}
+	\end{equation*}
+	%
+	\begin{enumerate}[label=(\alph*)]
+	
+		\item What are the allocation and payment rule $\left(q^2,p^2\right)$ induced by this mechanism?
+
+		\item Is the DRM $\left(q^2,p^2\right)$ incentive-compatible? What about the DRM $(q,p)$?
+
+		\item What is the relationship between the DRM $(q,p)$ and the DRM $\left(q^1,p^1\right)$ from \Cref{exercise:first_price} above (the one induced by the first-price auction with reserve price $\pi$)?
+	
+	\end{enumerate}
+	%
+\end{exercise}
 
 The revelation principle allows us to restrict attention to incentive-compatible direct revelation mechanisms for analytical purposes, and that's what we'll do.
 (But once we've finished analysing and have found an optimal mechanism,
@@ -402,14 +446,14 @@ Here's a very simple (indirect) mechanism that the monopolist could adopt: post 
 More fully, the monopolist sets a price $\pi \in \R_+$
 and gives the agent two options:
 purchase the good at price $\pi$ (pay $\pi$ and get the good for sure)
-or don't (pay nothing and get nothing).
+or don't (pay nothing and get nothing). (We saw this mechanism in \Cref{exercise:posted_price} near the start of this chapter.)
 
 What allocation and payments does this induce?
 Agents of type $t > \pi$ will purchase the good, so $(q(t),p(t)) = (1,\pi)$ for them, while agents of type $t < \pi$ will not, so $(q(t),p(t)) = (0,0)$.
 
 \begin{exercise}
 	%
-	\label{exercise:posted_price}
+	\label{exercise:posted_price2}
 	%
 	(a) This allocation--payment pair (viewed as a direct mechanism) is IC; why?
 	(b) Verify that this mechanism satisfies the envelope formula.
