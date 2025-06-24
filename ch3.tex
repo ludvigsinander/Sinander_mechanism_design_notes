@@ -316,7 +316,7 @@ The IID assumption can be relaxed by using a fancier strong law of large numbers
 \textcite{BallKattwinkel2023} go further, characterising the full set of allocations that are implementable via quota mechanisms,%
 	\footnote{The result: all and only those that could be implemented using monetary transfers! This result refines an earlier characterisation due to \textcite{MatsushimaMiyazakiYagi2010,Ishii2016}, which concerns \emph{virtual} implementability. (There is a mistake in the former paper; see \textcite{BallKattwinkel2023comment} for the correction.)}
 and proving a number of robustness results. (I highly recommend this paper.)
-\textcite{Frankel2016jet} is a clear-eyed and general formulation of the quotas idea, with good references references to related work.
+\textcite{Frankel2016jet} is a clear-eyed and general formulation of the quotas idea, with good references to related work.
 \textcite{Frankel2016aej} provides a similarly insightful and general treatment of the idea in \Cref{remark:het}.
 (None of these papers considers precisely the model above,
 and the mechanisms in Jackson--Sonnenschein and Ball--Kattwinkel are not quite discounted-quota mechanisms in the sense of this chapter.)
@@ -378,8 +378,7 @@ By appropriately choosing the amount by which the agent's entitlement is augment
 In other words, allocation is exactly efficient until $E$ hits $0$ or $\infty$.
 (So inefficiencies are back-loaded.)
 
-The agent's entitlement will eventually hit either $0$ or $\infty$.%
-	\footnote{In finite time, almost surely; this follows from the Borel--Cantelli lemma.}
+The agent's entitlement may eventually hit either $0$ or $\infty$.
 We might call the former `termination'
 and the latter `tenure'.
 The discounted total quantity supplied is evidently not deterministic (by contrast with discounted-quota mechanisms).
@@ -408,7 +407,7 @@ We'll also add an extra `enough patience' assumption:
 %
 \begin{equation*}
 	(1-\delta) (c-\mu)
-	\leq \delta \left( 1 - \frac{c}{\ell} \right) \left( \mu - \ell \right) .
+	\leq \delta \left( 1 - \frac{c}{h} \right) \left( \mu - \ell \right) .
 \end{equation*}
 
 Suppose that the principal lacks the ability to commit over time.
