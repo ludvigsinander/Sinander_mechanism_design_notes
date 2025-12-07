@@ -506,7 +506,7 @@ The monopolist's problem is to maximise $R(q)$
 by choosing $q$ from the space $\mathcal{Q}$ of all increasing maps $q : [0,1] \to [0,1]$.
 
 Note that $\mathcal{Q}$ is a convex space: if $q$ and $q'$ are both increasing maps $[0,1] \to [0,1]$, then so is $\alpha q + (1-\alpha) q'$ for any scalar $\alpha \in [0,1]$.
-Note further that the objective $R$ is linear:
+Note further that the objective $R$ is affine:
 %
 \begin{equation*}
 	R( \alpha q + (1-\alpha) q' ) = \alpha R(q) + (1-\alpha) R(q') 
@@ -645,7 +645,7 @@ More generally, much of the structure of modern economic theory is simply convex
 		\end{equation*}
 		%
 		Prove that there is a posted-price mechanism that is optimal.
-		(Hint: $\mathcal{U}$ is not linear. But\dots?)
+		(Hint: $\mathcal{U}$ is not affine. But\dots?)
 
 		\item
 		Suppose instead that the monopolist has `maxmin' preferences:
@@ -733,7 +733,7 @@ at a price $p^\Delta$ that approaches $\inf S$ as $\Delta \to 0$.
 The classical intuition for this conjecture is that when the period length $\Delta$ is small, the monopolist in period $n$ engages in near-perfect competition with her period-$(n+1)$ self.
 
 This intuition is incomplete, it seems to me, at least when $\inf S > 0$, because `perfect competition' surely means selling at marginal cost (which we've normalised to zero), rather than at price $\inf S$!
-Here's a better intuition that I learned from Francesco Nava: the seller's lack of commitment constrains her eventually to sell the good whatever the buyer's value, and constrains her no further than that; thus she sells the good at the highest market-clearing price, which is $\inf S$.
+Here's a better intuition that I learned from Francesco Nava: the seller's lack of commitment constrains her eventually to sell the good whatever the buyer's valuation, and constrains her no further than that; thus she sells the good at the highest market-clearing price, which is $\inf S$.
 
 Is the conjecture true?
 If we restrict attention to stationary equilibria,
@@ -780,7 +780,7 @@ in particular, \emph{cyclically monotone.}%
 
 Let's write $\mathcal{Q}_2$ for all cyclically monotone allocations.
 $\mathcal{Q}_2$ is convex (and compact),
-and revenue is a linear function $R : \mathcal{Q}_2 \to \R$,
+and revenue is an affine function $R : \mathcal{Q}_2 \to \R$,
 so our previous analysis tells us that there must be an optimal mechanism that is an extreme point of $\mathcal{Q}_2$.
 But characterising these extreme points is hard, and there are many of them.
 More broadly: cyclic monotonicity is intractable.
@@ -905,7 +905,7 @@ It's a lot of algebra, \emph{but with `economic' remarks added in italics.}
 	\end{align*}
 	%
 	It is then clearly optimal to let $\alpha_3 = \beta_3 = 1$ and $\beta_1 = \alpha_2 = 0$.
-	\emph{(This is intuitive: the high-valuation type gets both goods, while each of the lower-valuation types get zero of the good that they do not value.)}
+		\emph{(This is intuitive: the high-valuation type gets both goods, while each of the lower-valuation types get zero of the good that they do not value.)}
 	Clearly $\pi_3$ should be set as high as possible subject to these two constraints:
 	%
 	\begin{equation*}
@@ -1218,13 +1218,13 @@ In discussions of the model of this chapter (and other models like it), there is
 In the model of this chapter, the payoff-relevant ex-post outcomes are $(g,p) \in \{0,1\} \times \R$, where $g=1$ iff the agent gets the good.
 A \emph{lottery} (over outcomes) is a probability measure on $\{0,1\} \times \R$.
 Each type of the agent has a preference over lotteries.
-\emph{Expected-utility (EU) preferences} over lotteries $\ell$ are those that admit a \emph{linear} representation:
+\emph{Expected-utility (EU) preferences} over lotteries $\ell$ are those that admit an \emph{affine} representation:
 $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
 for some (`utility index') $u : \{0,1\} \times \R \to \R$.
 (I have omitted the measure-theoretic details.)
-You will recall that $u$ is unique up to affine transformations:
+You will recall that $u$ is unique up to positive affine transformations:
 if (and only if) $U(\ell) = \int_{\{0,1\} \times \R} u \dd \ell$
-and $V(\ell) = \int_{\{0,1\} \times \R} v \dd \ell$ represent the same EU preference over lotteries, then $u = \alpha + \beta v$ for some $\alpha \in \R$ and $\beta>0$.
+and $V(\ell) = \int_{\{0,1\} \times \R} v \dd \ell$ represent the same EU preference over lotteries, then $u = \alpha v + \beta$ for some $\alpha > 0$ and $\beta \in \R$.
 
 \emph{Risk attitude} is a property of preferences over \emph{monetary} lotteries, not over joint good--money lotteries $\ell$.
 We may contemplate the `risk attitude' of the agent's \emph{marginal} preferences, however:

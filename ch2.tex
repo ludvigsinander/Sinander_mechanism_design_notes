@@ -17,10 +17,9 @@
 
 
 
-`Who gets what?' is perhaps the most fundamental question in economics.
-This chapter concerns research on that question.
+This chapter concerns problems of allocating a single indivisible good among several competing claimants.
 
-The setting will be the same throughout: there are $I \geq 2$ agents, each of whom has a `type' $T_i$ that is randomly drawn from some set $\mathcal{T}_i$
+The setting will be the same throughout: there are $I \geq 2$ agents, who each have a `type' $T_i$ that is randomly drawn from some set $\mathcal{T}_i$
 according to a probability measure $\mu_i$
 (defined on some $\sigma$-algebra).
 Draws are independent across agents.%
@@ -32,7 +31,7 @@ When convenient, we think of this allocation as performed by a `principal'.
 The good may be either assigned to an agent or kept by the principal.
 The agents' preferences and the principal's objective will vary from model to model.
 
-The standard IPV (independent private values) auction model fits this framework.
+The standard IPV (independent private valuations) auction model fits this framework.
 Here agent $i$'s type $t_i$ is her privately-known valuation of the good.
 In an \emph{auction,} the agents take some actions (often called `bids'),
 and as a function of these, the good is allocated and monetary payments are made by the agents.
@@ -72,7 +71,7 @@ At the interim stage, given allocation $q$, agent $i$ expects to receive the goo
 This family $(Q_i)_{i=1}^I$ of (measurable) functions, where $Q_i : \mathcal{T}_i \to [0,1]$,
 is called the \emph{interim allocation} induced by the (ex-post) allocation $q$.
 
-In all models we consider, agents have expected-utility preferences, so that their payoffs are linear in $q$; then if agents know their types when they take decisions, it only is the interim allocation that matters for their incentives.
+In all models we consider, agents have expected-utility preferences, so that their payoffs are affine in $q$; then if agents know their types when they take decisions, it only is the interim allocation that matters for their incentives.
 Similarly, if the principal has an expected-utility objective that is additively separable across agents, then only the interim allocation matters to her.
 
 
@@ -413,12 +412,12 @@ For example, the principal may be able perfectly to verify agents' types ex post
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
-\section{IPV auctions}
+\section{Money (IPV auctions)}
 \label{sec:ch2:ipv}
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-The \emph{IPV (independent private values) model} is the following.
+The \emph{IPV (independent private valuations) model} is the following.
 Agents' types are drawn from $\mathcal{T}_i = [0,1]$, and are called \emph{valuations.}
 (As before, they are statistically independent, and each agent learns only her own type.)
 Payoffs are as in \cref{ch1}: if agent $i$ has type $t_i \in [0,1]$ and pays $p_i \in \R$, then her payoff is $t_i - p_i$ in case she gets the good, and $-p_i$ otherwise.
@@ -431,7 +430,7 @@ it will turn out that all the mechanisms of interest can be implemented using va
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Equivalence of dominant-strategy and Bayes--Nash IC}
-\label{sec::}
+\label{sec:ch2:manellivincent}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 As before, an \emph{allocation} is a map $q : [0,1]^I \to [0,1]^I$ such that $\sum_{i=1}^I q_i \leq 1$.
@@ -450,7 +449,7 @@ can in fact be implemented as a \emph{dominant-strategy} equilibrium of some (ot
 
 For example, an \emph{efficient} allocation is one that allocates the good always to one of those agents whose valuation is highest.
 The first-price auction implements any efficient allocation as a Bayes--Nash equilibrium. (Convince/remind yourself.)
-But consider the second-price auction: it also has an equilibrium implementing any efficient allocation, and in this equilibrium (in which each agent always bids her true value), agents' strategies are in fact weakly dominant.
+But consider the second-price auction: it also has an equilibrium implementing any efficient allocation, and in this equilibrium (in which each agent always bids her true valuation), agents' strategies are in fact weakly dominant.
 
 This was until recently a somewhat baffling phenomenon, but no longer.
 A \emph{payment rule} is a map $p : [0,1]^I \to \R^I$.
@@ -462,7 +461,7 @@ induced by some Bayes--Nash equilibrium (by some profile of weakly dominant stra
 then $(q,p)$ (viewed as a DRM) is Bayes--Nash IC (dominant-strategy IC).
 
 An allocation $q$ is \emph{Bayes--Nash (dominant-strategy) implementable}
-iff there is a payment rule $p$ such that the direct mechanism $(q,p)$ is interim (dominant-strategy) IC.
+iff there is a payment rule $p$ such that the direct mechanism $(q,p)$ is Bayes--Nash (dominant-strategy) IC.
 Implementability is standardly characterised as follows:
 
 \begin{lemma}
@@ -600,7 +599,7 @@ and who recognises that each type of each agent has access to an outside option 
 	\footnote{By \Cref{theorem:manellivincent}, nothing would change if the seller feels confident only that weakly dominated strategies will not be played. We shall see this explicitly at the end: the optimal mechanism will be dominant-strategy IC.}
 
 Applying the reasoning of \cref{ch1} agent-by-agent (in a similar way to how we reasoned agent-by-agent in the proof of \Cref{lemma:impl_mon} above)
-yields that any Bayesian IC mechanism $(q,p)$ must satisfy the envelope formula
+yields that any Bayes--Nash IC mechanism $(q,p)$ must satisfy the envelope formula
 %
 \begin{equation*}
 	P_i(t_i) = P_i(0) + t_i Q_i(t_i) - \int_0^{t_i} Q_i
@@ -615,13 +614,13 @@ This reduces the revenue-maximisation problem to choosing an allocation $q$ to m
 	R(q) \coloneqq \sum_{i=1}^I R_i(Q_i) ,
 	\quad \text{where} \quad
 	R_i(Q_i)
-	\coloneqq \E\left( T_i Q_i(T_i) - \int_0^{T_i} Q_i \right) ,
+	\coloneqq \E\left( T_i Q_i(T_i) - \int_0^{T_i} Q_i \right) \quad \text{for each $i$,}
 \end{equation*}
 %
 subject to the constraint that $Q_i$ be increasing for each agent $i$.
 
 To rewrite the second term in $R_i(Q_i)$,
-let $\phi_i(t_i) \coloneqq \int_0^{t_i} Q_i$;
+let $\phi_i(t_i) \coloneqq \int_0^{t_i} Q_i$ for each $t_i \in [0,1]$;
 then integrating by parts yields
 %
 \begin{multline*}
@@ -637,7 +636,7 @@ then integrating by parts yields
 %
 Let $\boldsymbol{I} : [0,1] \to [0,1]$ denote the identity ($\boldsymbol{I}(t) \coloneqq t$ for every $t \in [0,1]$),
 and let $V_i \coloneqq \boldsymbol{I} - \frac{1-F_i}{f_i}$;
-this is called agent $i$'s \emph{virtual value.}
+this is called agent $i$'s \emph{virtual valuation.}
 We have
 %
 \begin{equation*}
@@ -660,10 +659,10 @@ The right-hand side is equal to
 by definition of $Q_i$ and the law of iterated expectations.
 Thus expected revenue reads
 %
-\begin{align*}
+\begin{equation*}
 	R(q)
-	&= \E\left[ \sum_{i=1}^I V_i(T_i) q_i(\boldsymbol{T}) \right] .
-\end{align*}
+	= \E\left[ \sum_{i=1}^I V_i(T_i) q_i(\boldsymbol{T}) \right] .
+\end{equation*}
 
 The \emph{regular smooth IPV model} is the case in which each agent $i$'s virtual valuation $V_i$ is increasing. A sufficient condition is that the hazard rate $f_i / (1-F_i)$ be increasing.
 
@@ -759,7 +758,7 @@ thus the induced allocation and payment rule are
 Everything in this section is due to \textcite{Myerson1981}.
 The `Myersonian approach' to the regular case has proved fruitful also in richer models in which more than just a single good is up for sale,
 e.g. dynamic problems of selling goods over many periods \parencite{PavanSegalToikka2014}, problems of selling information \parencite{Yang2022}, and the problem of selling to a group \parencite{HaghpanahKuvalekarLipnowski2022}.
-To understand what's really going on in the `Myersonian approach' (in particular, how to interpret the virtual valuations), I recommend \textcite[section~3.3]{Hartline2016}.
+To understand what's really going on in the `Myersonian approach' (in particular, how to interpret the virtual valuations), I recommend \textcite[section~3.3]{Hartline2016} (which is ultimately based on \cite{BulowRoberts1989}).
 
 
 
@@ -787,7 +786,7 @@ In short, competition matters far more for revenue than the details of the aucti
 given the choice between setting an optimal reserve price
 and having just \emph{one} extra bidder,
 a revenue-maximising seller should always opt for the latter.
-Insofar as the model assumptions are valid in a given practical situation (e.g. there is just one good, and values are private), this result provides rather sharp advice to sellers.
+Insofar as the model assumptions are valid in a given practical situation (e.g. there is just one good, and valuations are private), this result provides rather sharp advice to sellers.
 
 
 The proof relies on a lemma.
@@ -830,7 +829,7 @@ Indeed, the second-price auction with reserve price keeps the good whenever all 
 	Now suppose that there is one additional agent.
 	Consider the same second-price auction with reserve price $r$ and bidders $\{1,\dots,I\}$ (note that agent $I+1$ is not allowed to bid),
 	except that whenever all bids are below the reserve price $r$,
-	the good is awarded to agent $I+1$ instead of to nobody.
+	the good is awarded (for free) to agent $I+1$ instead of to nobody.
 	This mechanism obviously raises expected revenue $R^\star$, and never keeps the good.
 	Thus by \Cref{lemma:MyersonMustallocate}, the $(I+1)$-bidder second-price auction raises expected revenue at least $R^\star$.
 	%
@@ -843,15 +842,119 @@ The proof given here is due to \textcite{Kirkegaard2006}.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Wasteful effort}
+\label{sec:ch2:effort}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+Consider a principal who allocates an indivisible good among $I \geq 2$ agents. Monetary transfers are unavailable, but the principal has access to a money-like incentive instrument called \emph{effort.}
+
+Concretely, the model is exactly the smooth IPV model from the previous section, except that instead of making a payment $p_i \in \R$, each agent \emph{observably} exerts some effort $e_i \in \R_+$ at a cost $c_i(e_i) \in \R_+$, where $c_i : \R_+ \to \R_+$ is strictly increasing. We assume that $c_i$ is onto $\R_+$; equivalently, that it is continuous and unbounded above with $c_i(0)=0$. The agent's type $t_i \in [0,1]$ can still be interpreted as her willingness to pay for the good, but it is now denominated in units of cost rather than in dollars. (Cost could be denominated in dollars, but it need not be.)
+
+The principal's objective can no longer be revenue, since there is no money in this economy. We shall instead assume that the principal has the agents' best interests at heart, seeking to maximise utilitarian welfare, i.e. the sum of agents' payoffs. This entails an assumption that the principal does not benefit from effort, so that effort is socially wasteful.
+
+`Effort' in this model is precisely a costly signal à la \textcite{Spence1973}; his single-crossing property is (obviously) satisfied, as higher types are by definition exactly those who are more willing to exert effort to obtain the good. An important example of wasteful effort is queuing; many goods (e.g. social housing) are allocated in this way. Another example is when effort \emph{is} money (and $c_i(p_i)=p_i$ for each $p_i \in \R_+$); this is the case in which agents can `burn' money (i.e. waste it), giving the principal no benefit but signalling willingness to pay for the good.
+
+We also that each agent $i$'s cost function $c_i$ is known by the principal. This is potentially a strong assumption. We can accommodate a degree of private information about costs by assuming that $c_i = \theta_i C_i$, where $\theta_i \in \R_{++}$ is privately known by agent $i$ and $C_i : \R_+ \to \R_+$ is commonly known; then the agent's (renormalised) payoff is $(t_i/\theta_i) q_i - C_i(e_i)$, so it is as if the agent has commonly known cost function $C_i$ and private type $t_i/\theta_i$.
+
+A \emph{mechanism} is now a pair $(q,e)$, where $q$ is an allocation (i.e. a map $q : [0,1]^I \to [0,1]^I$ such that $\sum_{i=1}^I q_i \leq 1$) and $e$ is a map $[0,1]^I \to \R_+^I$. It is more convenient to work with a reparametrisation whereby a mechanism specifies the \emph{cost} of effort $p_i = c_i(e_i) \in \R_+$ rather than effort itself; this change of variables is permissible since $c_i$ is bijective (one-to-one and onto). Concretely, a mechanism is then a pair $(q,p)$, where $q$ is an allocation and $p$ is a \emph{non-negative} `payment' rule, i.e. a map $p : [0,1]^I \to \R^I$ satisfying the constraint $p \geq 0$. The principal's problem is to maximise
+%
+\begin{equation*}
+	\E\left( \sum_{i=1}^I \left[ T_i q(\boldsymbol{T}) - p(\boldsymbol{T}) \right] \right)
+\end{equation*}
+%
+among all Bayes--Nash IC mechanisms $(q,p)$. (We have neglected participation; this will not matter below.)
+
+Following the argument for \Cref{lemma:impl_mon} in \cref{sec:ch2:manellivincent} above, a mechanism $(q,p)$ that realises interim allocation $(Q_i)_{i=1}^I$ and interim `payment' rule $(P_i)_{i=1}^I$ is Bayes--Nash IC if and only if for each agent $i$, $Q_i$ is increasing and the envelope formula
+%
+\begin{equation*}
+	t_i Q_i(t_i) - P_i(t_i) 
+	= - P_i(0)
+	+ \int_0^{t_i} Q_i
+	\quad \text{for every $t_i \in [0,1]$}
+\end{equation*}
+%
+is satisfied. It is optimal to set $P_i(0)=0$ for every agent $i$ (why?). The principal's problem then reduces to choosing an allocation $q$ to maximise
+%
+\begin{equation*}
+	W(q) \coloneqq \sum_{i=1}^I W_i(Q_i) ,
+	\quad \text{where} \quad
+	W_i(Q_i)
+	\coloneqq \E\left( \int_0^{T_i} Q_i \right) \quad \text{for each $i$,}
+\end{equation*}
+%
+subject to the constraint that $Q_i$ be increasing for each agent $i$. A small variation on the integration-by-parts argument in \cref{sec:ch2:optimal_auctions} above shows that
+%
+\begin{equation*}
+	W(q)
+	= \E\left[ \sum_{i=1}^I S_i(T_i) Q_i(T_i) \right]
+	= \E\left[ \sum_{i=1}^I S_i(T_i) q_i(\boldsymbol{T}) \right] ,
+\end{equation*}
+%
+where $S_i \coloneqq (1-F_i)/f_i$ for each agent $i$.
+
+The object $f_i / (1-F_i) = 1/S_i$ is called the \emph{hazard rate} of the CDF $F_i$. In the IPV auctions context, it is frequently assumed that each agent $i$'s hazard rate is increasing; this is a sufficient condition for regularity, i.e. for the virtual valuation $V_i = \boldsymbol{I} - S_i$ to be increasing for each agent $i$.
+
+\begin{proposition}
+	%
+	\label{proposition:condorelli}
+	%
+	If the hazard rate $f_i/(1-F_i)$ is increasing for each agent $i$, then it is optimal give the good away, with no effort exerted.
+	%
+\end{proposition}
+
+In other words, there is an optimal mechanism $(q,p)$ such that $q$ is constant and $p=0$.
+
+The benefit of screening using effort is that it leads higher-type agents to tend to receive the good. The cost is that effort is socially wasteful. \Cref{proposition:condorelli} says that the cost always outweighs the benefit, whatever the type distributions $(F_i)_{i=1}^I$, so long as they have increasing hazard rates.
+
+\begin{proof}
+	%
+	Let $(q,p)$ be an arbitrary Bayes--Nash IC mechanism; we will find another Bayes--Nash IC mechanism which is weakly better. In particular, let $k_i \coloneqq \E(q_i(\boldsymbol{T}))$ for each agent $i$, define an allocation $q'$ by $q_i' \coloneqq k_i$ for each agent $i$, and consider the mechanism $(q',0)$. This mechanism simply randomly assigns the good, with the good going to agent $i$ with probability $k_i$, and with no effort being exerted. It is obviously Bayes--Nash (indeed, dominant-strategy) IC. And it is weakly better since for each agent $i$, $S_i$ is decreasing and $Q_i$ is increasing, so the random variables $X_i \coloneqq S_i(T_i)$ and $Y_i \coloneqq Q_i(T_i)$ satisfy $\Cov(X_i,Y_i) \leq 0$, and thus
+	%
+	\begin{equation*}
+		\E\left[ S_i(T_i) Q_i(T_i) \right]
+		\leq \E\left[ S_i(T_i) \right]
+		\E\left[ Q_i(T_i) \right]
+		= \E\left[ S_i(T_i) k_i \right]
+		= \E\left[ S_i(T_i) Q_i'(T_i) \right] ,
+	\end{equation*}
+	%
+	whence $W(q) \leq W(q')$.
+	%
+\end{proof}
+
+\begin{exercise}
+	%
+	\label{exercise:condorelli_foc}
+	%
+	In \Cref{proposition:condorelli}, \emph{which} agent optimally receives the good? Under what circumstances is it optimal to allocate the good by a fair lottery?
+	%
+\end{exercise}
+
+If the hazard rate $f_i/(1-F_i)$ is instead \emph{decreasing,} then the argument from \cref{sec:ch2:optimal_auctions} implies that it is optimal to assign the good to whichever agent $i$ has the lowest hazard rate $f_i(t_i)/(1-F_i(t_i))$. In the symmetric case, when $F_i=F$ for every agent $i$ (and $f/(1-F)$ is decreasing), this means that the agent with the highest type receives the good.
+
+This `highest type gets the good' allocation may be paired with any interim `payment' rule such that type $0$ expends no effort and the envelope formula is satisfied. Three different such `payment' rules are those arising from the first-price auction, the second-price auction, and the all-pay auction. Each of these can implemented in practice by first asking agents to make boasts (or `bids', i.e. cheap-talk reports) about how much effort they are willing to carry out, and then asking agents to actually exert effort in accordance with the auction format, awarding the good to the most boastful agent (assuming she exerted effort as promised---recall that this is observable by assumption). In particular, (only) the most boastful agent is asked to make good her boast in the first-price auction, all agents are asked to make good their boasts in the all-pay auction, while in the second-price auction, (only) the most boastful agent is asked to exert effort, but only enough to match the second-most boastful agent's boast.
+
+The all-pay auction can be implemented without communication (boasts), by simply asking all agents to exert effort, and then awarding the good to whoever exerted the most. When effort is time spent queuing, the first-price auction can be implemented as follows: announce a time, promise to give the good to whoever is at the front of the queue at that time, and let agents join he queue as early as they like (then the agent who shows up first will queue until the good is awarded, and no other agents will join the queue).%
+	\footnote{Thanks to James Lester for suggesting this implementation.}
+
+\paragraph{The literature.}
+The ideas and results in this section were independently discovered by \textcite{HartlineRoughgarden2008,Yoon2011,Condorelli2012,ChakravartyKaplan2013}, and have been getting popular following the success of \textcite{DworczakKominersAkbarpour2021}.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Allocation with costly verification}
+\section{Costly, noiseless monitoring}
 \label{sec:ch2:bdl14}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 A principal can allocate an indivisible good to one of $I \geq 2$ agents.
-Agents like the good and are expected-utility maximisers, so an agent's payoff is simply the probability with which she expects to receive the good.
+Agents like the good and are e
+xpected-utility maximisers, so an agent's payoff is simply the probability with which she expects to receive the good.
 
 The principal's payoff from allocating to agent $i$ is $t_i$,
 while her payoff from not assigning the good is zero.
@@ -891,7 +994,7 @@ When costs $(c_i)_{i=1}^I$ differ across agents, favoured-agent mechanisms are d
 Agents report their `net types' $t_i-c_i$,
 and there is a net-type threshold $\tau$.
 If at least one agent's reported net type exceeds $\tau$,
-then the agent with the highest-reported net type gets the good;
+then the agent with the highest-reported net type is checked, and provided her report was true, she gets the good;
 otherwise, the favoured agent gets the good.
 
 \textcite{BenporathDekelLipman2014} show that such a favoured-agent mechanism is optimal,
@@ -915,7 +1018,7 @@ It is clearly without loss to consider only mechanisms in which,
 if agent $i$ is checked and is found to have lied, then she certainly does not get the good.
 That's because
 if we take any mechanism in which truth-telling is a Bayes--Nash equilibrium
-and modify it to never give the good to a verified liar,
+and modify it to never give the good to a proven liar,
 then our new mechanism allocates the good just like the old one (since agents do not lie in equilibrium),
 and truth-telling remains a best response for every agent
 since lying is punished (even) more harshly in the new mechanism than in the old.
@@ -1028,12 +1131,12 @@ and the Border inequalities.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Equivalence of interim and ex-post IC}
+\subsection{Equivalence of Bayes--Nash and ex-post IC}
 \label{sec:ch2:bdl14:bic_epic}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Recall that an incentive-compatible mechanism $(q,e)$ is one in which truthful reporting is a Bayes--Nash equilibrium.
-In other words, $(q,e)$ is IC exactly if its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
+Recall that a Bayes--Nash incentive-compatible mechanism $(q,e)$ is one in which truthful reporting is a Bayes--Nash equilibrium.
+In other words, $(q,e)$ is Bayes--Nash IC exactly if its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
 %
 \begin{equation*}
 	Q_i(t_i) \geq Q_i(t_i') - E_i(t_i')
@@ -1068,7 +1171,7 @@ This is called \emph{ex-post IC.}
 		\quad \text{for every $i$ and all $\boldsymbol{t} \in \mathcal{T}_1 \times \cdots \times \mathcal{T}_I$,}
 	\end{equation*}
 	%
-	and is interim IC iff its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
+	and is Bayes--Nash IC iff its interim allocation and checking $(Q_i,E_i)_{i=1}^I$ satisfy
 	%
 	\begin{equation*}
 		E_i(t_i)
@@ -1100,17 +1203,17 @@ This is called \emph{ex-post IC.}
 		\geq q_i(\boldsymbol{t}) - e_i(\boldsymbol{t}) .
 	\end{equation*}
 	%
-	Similarly for interim IC.
+	Similarly for Bayes--Nash IC.
 	%
 \end{proof}
 
-Ex-post IC appears much stronger than interim IC. And yet:
+Ex-post IC appears much stronger than Bayes--Nash IC. And yet:
 
 \begin{theorem}
 	%
 	\label{theorem:bdl_epic}
 	%
-	For any (interim) IC mechanism $(q,e)$,
+	For any Bayes--Nash IC mechanism $(q,e)$,
 	there is an ex-post IC mechanism that realises the same interim allocation and checking.
 	%
 \end{theorem}
@@ -1119,7 +1222,7 @@ Ex-post IC appears much stronger than interim IC. And yet:
 
 \begin{proof}
 	%
-	Let $(q,e)$ be interim IC,
+	Let $(q,e)$ be Bayes--Nash IC,
 	and write $(Q_i,E_i)_{i=1}^I$ for its interim allocation and checking.
 	Wlog re-label each agent $i$'s types so that $Q_i$ is increasing.%
 		\footnote{More formally, consider the alternative type spaces $\mathcal{T}_i' \coloneqq \{ Q_i(t_i) \}_{t_i \in \mathcal{T}_i}$.}
@@ -1146,7 +1249,7 @@ Ex-post IC appears much stronger than interim IC. And yet:
 	This mechanism
 	satisfies the reformulated ex-post IC constraints in \Cref{lemma:bdl_epic}
 	with equality,
-	so it is IC.
+	so it is ex-post IC.
 	And its interim checking costs are lower than those of $(q,e)$:
 	for any $i$ and $t_i \in \mathcal{T}_i$, we have
 	%
@@ -1161,7 +1264,7 @@ Ex-post IC appears much stronger than interim IC. And yet:
 		\leq E_i(t_i) ,
 	\end{multline*}
 	%
-	where the last inequality holds by \Cref{lemma:bdl_epic} since $(q,e)$ is interim IC.
+	where the last inequality holds by \Cref{lemma:bdl_epic} since $(q,e)$ is Bayes--Nash IC.
 	By adding probability to the checking rule $e'$,
 	we may obtain a (clearly still ex-post IC) mechanism $(q',e')$
 	with the same interim checking as $(q,e)$.
@@ -1182,8 +1285,8 @@ and it is obviously optimal to choose $E_i$ to make this hold with equality.
 Then remainder of the principal's problem is to choose $(Q_i)_{i=1}^I$ to maximise
 %
 \begin{equation*}
-	\sum_{i=1}^I \E \left[ Q_i(T_i) [T_i-c_i]
-	+ c_i \inf_{\mathcal{T}_i} Q_i \right] ,
+	\sum_{i=1}^I \E \left( Q_i(T_i) [T_i-c_i]
+	+ c_i \inf_{\mathcal{T}_i} Q_i \right) ,
 \end{equation*}
 %
 subject to the Border inequalities.
@@ -1193,8 +1296,8 @@ But we can convert it into a parametrised linear programme:
 given weights $\varphi_1,\dots,\varphi_I \in [0,1]$ that sum to $\leq 1$, consider maximising
 %
 \begin{equation*}
-	\sum_{i=1}^I \E \left[ Q_i(T_i) [T_i-c_i]
-	+ c_i \varphi_i \right] 
+	\sum_{i=1}^I \E \left( Q_i(T_i) [T_i-c_i]
+	+ c_i \varphi_i \right) 
 \end{equation*}
 %
 subject to $Q_i \geq \varphi_i$ and the Border inequalities.
@@ -1218,7 +1321,7 @@ Call an interim allocation $(Q_i)_{i=1}^I$
 This is implemented by an allocation $q$
 such that if anyone reports a net type $t_i-c_i$ above $\tau$ then (one of) the highest reporters gets the good,
 while if no-one does then the good is allocated so that $i$ gets the good with probability $\varphi_i / \prod_{j \neq i} F_j(\tau-c_i+c_j)$.
-The cheapest checking rule $e$ that makes this ex-post IC (i.e. the one that makes the reformulated ex-post IC in \Cref{lemma:bdl_epic} hold with equality) is the one that checks the highest-reporting agent in the first case, and checks no-one in the second.
+The pointwise cheapest checking rule $e$ that makes this ex-post IC (i.e. the one that makes the reformulated ex-post IC in \Cref{lemma:bdl_epic} hold with equality) is the one that checks the highest-reporting agent in the first case, and checks no-one in the second.
 
 In our parametrised linear programme, among threshold interim allocations, the principal obviously prefers a lower threshold.
 But the constraints limit how low the threshold can be set.
@@ -1226,7 +1329,7 @@ The optimal mechanisms are those threshold mechanisms with the lowest feasible t
 
 To get to favoured-agent mechanisms, it remains to choose the values of $\varphi_1,\dots,\varphi_I$. It turns out that not all choices are feasible.
 \textcite{BenporathDekelLipman2014} show that the set of all feasible choices is convex, however.
-Since the principal's objective is linear, that means that extreme points are optimal choices.
+Since the principal's objective is affine, that means that extreme points are optimal choices.
 Some of the extreme points are, unsurprisingly, those with $\varphi_i=0$ for all but one `favoured' agent $i^\star$, whose $\varphi_{i^\star}$ is instead `as large as possible';
 these correspond to favoured-agent mechanisms.
 
@@ -1234,7 +1337,7 @@ these correspond to favoured-agent mechanisms.
 \paragraph{The literature.}
 The model and main result (the optimality of favoured-agent mechanisms) are due to \textcite{BenporathDekelLipman2014}.
 \textcite{ErlansonKleiner2019} used the interim perspective (§\ref{sec:ch2:bdl14:interim} above)
-to establish the equivalence of ex-post and interim IC (\Cref{theorem:bdl_epic} above)
+to establish the equivalence of ex-post and Bayes--Nash IC (\Cref{theorem:bdl_epic} above)
 and to obtain a simpler proof of the optimality of threshold mechanisms.%
 	\footnote{There are at least two other shortenings of the threshold-mechanisms argument, one by Bart Lipman (in an unpublished note), and another by Ricky Vohra (in a lecture on Border's theorem and its applications: \href{https://youtu.be/DbzOqBoTmm0}{youtu.be/DbzOqBoTmm0}).}
 There's been some subsequent work looking at variations of the original model \parencite[e.g.][]{KattwinkelKnoepfle2022,ErlansonKleiner2020,ErlansonKleiner2022}.
@@ -1246,7 +1349,7 @@ There's been some subsequent work looking at variations of the original model \p
 \label{sec:ch2:bdl14:ic_deriv}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In writing down the (interim) IC constraints in §\ref{sec:ch2:bdl14:bic_epic},
+In writing down the (Bayes--Nash) IC constraints in §\ref{sec:ch2:bdl14:bic_epic},
 we had to express the payoff of a type $t_i \neq t_i'$ from claiming to be $t_i'$, in a given mechanism $(q,e)$ with interim allocation and checking $(Q_i,E_i)_{i=1}^I$.
 The expression is $Q_i(t_i') - E_i(t_i')$, and I gave a simple explanation of why.
 
@@ -1331,7 +1434,7 @@ where the last equality holds by \eqref{eq:bdl_ic_ugly}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Allocation with evidence acquisition}
+\section{Evidence acquisition}
 \label{sec:ch2:bdl21}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1404,8 +1507,7 @@ With this characterisation of feasibility, one may go on to characterise optimal
 
 
 \paragraph{The literature.}
-The model and results are from work in progress by Elchanan Ben-Porath, Eddie Dekel and Bart Lipman titled `Sequential mechanisms for evidence acquisition'.
-You can find a video recording of Eddie presenting the paper at \href{http://youtu.be/B70fYGKc760}{youtu.be/B70fYGKc760}, and his slides are also online.%
+The model and results are from an early version of \textcite{BenporathDekelLipmanInprogress}. You can find a video recording of Eddie presenting the early version at \href{http://youtu.be/B70fYGKc760}{youtu.be/B70fYGKc760}, and his slides for that talk are also online.%
 	\footnote{\url{http://drive.google.com/file/d/1nzlo0NP5vlk_P1TVIRbUi4WtNvYNk8xk}}
 
 
@@ -1413,7 +1515,7 @@ You can find a video recording of Eddie presenting the paper at \href{http://you
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Allocation with extra information}
+\section{Costless, noisy monitoring}
 \label{sec:ch2:corr}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

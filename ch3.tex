@@ -418,7 +418,7 @@ This is analytically a very different sort of question. The reason is that the p
 
 A different way of thinking about limited commitment is that absent commitment, the agent and principal simply play a game: in particular, a repeated game of incomplete information, with the private information on one side only.
 Each equilibrium of this game induces some allocation,%
-	\footnote{Note that equilibria can differ off the path of play, but still induce the same allocation.}
+	\footnote{Note that two equilibria which induce the same allocation can still differ off the path of play.}
 and optimal incentive-provision from the principal's perspective
 amounts to playing a principal-preferred equilibrium.
 
@@ -427,7 +427,6 @@ We'll assume that she may commit to a within-period delegation mechanism:
 she either offers the good to the agent or not,
 and if she offers it then the agent may accept or refuse.
 This gives the principal the ability to commit not to allocate (within a given period), which is potentially valuable.
-
 
 The first thing to check is whether relaxing commitment matters:
 if the entitlement mechanism that was optimal under full commitment is an equilibrium outcome, then we'd be done!
@@ -447,7 +446,5 @@ And which is the principal's favourite?
 	Since $T_n$ has no statistical effect on $T_{n+1}$ (that's our IID assumption),
 	this just amounts to the agent randomising in period $n+1$ (when the principal did not offer the good in period $n$);
 	so we can replicate this behaviour by having the agent mix (i.e. she can use her own set of dice to randomise, instead of conditioning her behaviour on the `natural dice' $T_n$).}
-Their analysis relies on the `APS' technique \parencite{AbreuPearceStacchetti1990}, which provides a recursive formulation of repeated games with imperfect monitoring. This is a standard (indeed, essential!) tool for analysing repeated interactions without commitment.
-The original APS paper is rather beautiful,
-but you may prefer to learn it from the textbook treatment of \textcite{MailathSamuelson2006}, or from whatever lecture notes you can find around the internet.
+Their analysis relies on the `APS' technique \parencite{AbreuPearceStacchetti1990}, which provides a recursive formulation of repeated games with imperfect monitoring. This is a standard (indeed, essential!) tool for analysing repeated interactions without commitment. I have lecture notes on APS, as it happens \parencite[chapter~6 in][]{gt}.
 Another nice paper on dynamic allocation without commitment is \textcite{DeclippelEliazFershtmanRozen2021}, who study a model with \emph{two} agents.
