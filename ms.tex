@@ -67,7 +67,7 @@
 \author{Ludvig Sinander \\
 University of Oxford}
 
-\date{\small This version: 7 December 2025}
+\date{\small This version: 5 February 2026}
 
 % \date{\emph{version:} {\datestyle\today} at {\currenttime} \\ \hspace{0pt} \\ \hspace{0pt} \\ \bfseries please report typos!}
 
@@ -314,8 +314,7 @@ A \emph{$\sigma$-algebra} on $X$ is a collection of subsets of $X$ satisfying ce
 If $\mathcal{X}$ is a $\sigma$-algebra, we call $(X,\mathcal{X})$ a \emph{measurable space,} and call the elements of $\mathcal{X}$ the \emph{measurable subsets} of $X$.
 Often the $\sigma$-algebra $\mathcal{X}$ is left partly or entirely implicit, by the way.
 
-A \emph{measure} on a measurable space $(X,\mathcal{X})$ is a map $\mu : \mathcal{X} \to [0,\infty]$ that is countably additive:
-for any countable collection $A_1,A_2,\dots$ of pairwise disjoint measurable subsets of $X$,
+A \emph{measure} on a measurable space $(X,\mathcal{X})$ is a map $\mu : \mathcal{X} \to [0,\infty]$ that is normalised and countably additive: $\mu(\varnothing)=0$ and for any countable collection $A_1,A_2,\dots$ of pairwise disjoint measurable subsets of $X$,
 we have $\mu\left( \Union_{n \in \N} A_n \right) = \sum_{n \in \N} \mu(A_n)$.
 The triple $(X,\mathcal{X},\mu)$ is called a \emph{measure space.}
 
@@ -371,7 +370,7 @@ If you have taken introductory calculus, then you may be more familiar with the 
 The Riemann integral has the problem that the integral of some functions simply fail to exist.
 The Lebesgue integral extends the Riemann integral:
 it allows more functions to be integrated,
-while still giving the same result as the Riemann integral whenever the latter exists.
+while still giving the same result as the Riemann integral whenever the latter exists, provided we are integrating over a bounded interval.
 
 The Lebesgue integral is defined only for functions $f : X \to \R$ that are measurable.
 That is a necessary condition, but it is not sufficient:
@@ -471,14 +470,14 @@ a function $\phi : C \to \R$ is called \emph{convex} exactly if
 \end{equation*}
 %
 If the inequality is an equality (for all $x,y$ and $\alpha$)
-then $\phi$ is called \emph{linear.}
+then $\phi$ is called \emph{affine.}
 
 It is a fact that if $C$ is a convex set and is suitably compact,
 and if $\phi : C \to \R$ is a convex function and is suitably continuous,
 then there is a maximiser of $\phi$ on $C$ that is an extreme point of $C$.
 (Some economists call this `Bauer's maximum principle'.)
 This is easy to see in $\R^2$ (visualise it!).
-If $\phi$ is linear (not merely convex), then you don't have to worry about the `suitably continuous' bit, as linearity gives it to you for free.
+If $\phi$ is affine (not merely convex), then you don't have to worry about the `suitably continuous' bit, as affineness gives it to you for free.
 (You \emph{do} have to worry about the `suitably compact' bit. In principle.)
 
 

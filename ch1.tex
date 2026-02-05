@@ -1131,18 +1131,15 @@ A much-emphasised consequence of \Cref{theorem:CremerMclean} is the following:
 	%
 	Fix an arbitrary mechanism $(q,p)$.
 	For each type $t \in \mathcal{T}$,
-	by convex independence and the (strict) separating hyperplane theorem, there is a (`side bet') $b(t) \in \R^{\abs*{\mathcal{X}}}$ that satisfies $b(t) \cdot \mu(t) = 0 < b(t) \cdot \mu(r)$ for every $r \in \mathcal{T} \setminus \{t\}$.
-
-	Define a new contingent payment rule $p' : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$ by $p'(t) \coloneqq p(t) + \alpha b(t)$ for each $t \in \mathcal{T}$,
-	where $\alpha > 0$ is a constant large enough that
+	by convex independence and the (strict) separating hyperplane theorem, there is a (`side bet') $b(t) \in \R^{\abs*{\mathcal{X}}}$ that satisfies $b(t) \cdot \mu(t) = 0 < b(t) \cdot \mu(r)$ for every $r \in \mathcal{T} \setminus \{t\}$. Let $\alpha > 0$ is a constant large enough that
 	%
 	\begin{equation*}
 		\alpha
-		> \max_{\text{$r \neq t$ in $\mathcal{T}$}} \frac{ - [ q(t) - q(r) ] t + [p(t)-p(r)] \cdot \mu(t) }
+		> \max_{r,t \in \mathcal{T} : r \neq t} \frac{ - [ q(t) - q(r) ] t + [p(t)-p(r)] \cdot \mu(t) }
 		{ b(r) \cdot \mu(t) } .
 	\end{equation*}
-	%
-	Clearly $p'(t) \cdot \mu(t) = p(t) \cdot \mu(t)$ for every $t \in \mathcal{T}$.
+
+	Define a new contingent payment rule $p' : \mathcal{T} \to \R^{\abs*{\mathcal{X}}}$ by $p'(t) \coloneqq p(t) + \alpha b(t)$ for each $t \in \mathcal{T}$. Clearly $p'(t) \cdot \mu(t) = p(t) \cdot \mu(t)$ for every $t \in \mathcal{T}$.
 	And for all $r \neq t$ in $\mathcal{T}$, we have
 	%
 	\begin{align*}

@@ -129,8 +129,7 @@ How, then, can I tell whether a given collection $(Q_i)_{i=1}^I$ is realisable b
 \end{namedthm}
 
 
-Item \ref{bullet:border_asym:alpha} is valuable because it reduces the number of inequalities that must be checked to verify realisability (which could be very large if we rely on \ref{bullet:border_asym:ineq})
-to a finite-dimensional family of inequalities.
+Item \ref{bullet:border_asym:alpha} is valuable because it greatly reduces the number of inequalities that must be checked to verify realisability (which could be very large if we rely on \ref{bullet:border_asym:ineq}).
 
 We won't prove this; instead we'll introduce and prove a symmetric version.
 Call the environment \emph{symmetric} iff all agents' types are drawn from the same type space, call it $\mathcal{T}$,
@@ -791,7 +790,7 @@ Insofar as the model assumptions are valid in a given practical situation (e.g. 
 
 The proof relies on a lemma.
 Recall that a mechanism $(q,p)$ may keep the good:
-it may be that $\sum_{i=1}^I q_i(t_i) < 1$ for some type profiles $(t_1,\dots,t_I) \in [0,1]^I$.
+it may be that $\sum_{i=1}^I q_i(t_1,\dots,t_I) < 1$ for some type profiles $(t_1,\dots,t_I) \in [0,1]^I$.
 Indeed, the second-price auction with reserve price keeps the good whenever all agents' valuations are lower than the reserve price.
 %
 \begin{lemma}
@@ -1319,8 +1318,8 @@ Call an interim allocation $(Q_i)_{i=1}^I$
 \end{equation*}
 %
 This is implemented by an allocation $q$
-such that if anyone reports a net type $t_i-c_i$ above $\tau$ then (one of) the highest reporters gets the good,
-while if no-one does then the good is allocated so that $i$ gets the good with probability $\varphi_i / \prod_{j \neq i} F_j(\tau-c_i+c_j)$.
+such that if anyone reports a net type $t_i-c_i$ above $\tau$ then one of the highest reporters gets the good,
+while if no-one does then the good is randomly allocated, going to agent $i$ with probability $\varphi_i / \prod_{j \neq i} F_j(\tau+c_j)$.
 The pointwise cheapest checking rule $e$ that makes this ex-post IC (i.e. the one that makes the reformulated ex-post IC in \Cref{lemma:bdl_epic} hold with equality) is the one that checks the highest-reporting agent in the first case, and checks no-one in the second.
 
 In our parametrised linear programme, among threshold interim allocations, the principal obviously prefers a lower threshold.
